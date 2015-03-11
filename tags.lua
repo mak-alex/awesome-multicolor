@@ -3,9 +3,10 @@ local tyrannical = require("tyrannical")
 tyrannical.tags = {
     {
       name = "term",
-      init = false,
-      exclusive = true,
+      init        = true,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen = {1,2},
+      selected    = true,
       layout      = awful.layout.suit.fair,
       class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
         "xterm" , "urxvt" , "aterm","URxvt","XTerm","konsole","terminator","gnome-terminal"
@@ -13,8 +14,8 @@ tyrannical.tags = {
     },
     {
       name = "net",
-      init = false,
-      exclusive = true,
+      init        = true,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen = screen.count() > 1 and 2 or 1,
       layout = awful.layout.suit.max,
       class = {
@@ -22,9 +23,19 @@ tyrannical.tags = {
       }
     },
     {
+      name = "dev",
+      init        = true,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
+      screen = screen.count()>2 and 3 or 1,
+      layout = awful.layout.suit.max,
+      class = {
+        "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", 
+      }
+    },
+    {
       name = "im",
-      init = false,
-      exclusive = true,
+      init        = false,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen = 1,
       layout = awful.layout.suit.max,
       class = {
@@ -32,9 +43,9 @@ tyrannical.tags = {
       }
     },
     {
-      name = "mus",
-      init = false,
-      exclusive = true,
+      name = "music",
+      init        = false,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen = screen.count()>2 and 3 or 1,
       layout = awful.layout.suit.max,
       class = {
@@ -43,22 +54,12 @@ tyrannical.tags = {
     },
     {
       name = "vm",
-      init = false,
-      exclusive = true,
+      init        = false,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen = screen.count()>2 and 3 or 1,
       layout = awful.layout.suit.max,
       class = {
         "VirtualBox", "Qemu"
-      }
-    },
-    {
-      name = "dev",
-      init = false,
-      exclusive = true,
-      screen = screen.count()>2 and 3 or 1,
-      layout = awful.layout.suit.max,
-      class = {
-        "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", 
       }
     },
     {

@@ -1,5 +1,28 @@
+#!/bin/sh
+##
+## xephyr.sh
+##
+## Author(s):
+##  - Mikhailenko Alexandr Konstantinovich (a.k.a) Alex M.A.K
+##  - <flashhacker1988@gmail.com>
+##
+## Copyright (C) 2015 Alex M.A.K
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, write to the Free Software
+## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+##
 # If example.rc.lua is missing, make a default one.
-rc_lua=$PWD/example.rc.lua
+rc_lua=$PWD/rc.lua
 test -f $rc_lua || /bin/cp /etc/xdg/awesome/rc.lua $rc_lua
 
 # Just in case we're not running from /usr/bin
@@ -13,7 +36,7 @@ test -x $xephyr || { echo "Xephyr executable not found. Please install Xephyr"; 
 function usage()
 {
   cat <<USAGE
-awesome_test start|stop|restart|run
+xephyr start|stop|restart|run
 
   start    Start nested Awesome in Xephyr
   stop     Stop Xephyr

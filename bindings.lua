@@ -48,19 +48,19 @@ local MULTICOLOR = {
 
     HOTKEYS: 
     (If you want to change old bindings, open please bindings.lua file and edit...):
-                     --------------------------------------
+           
     Operations with MPD servers:
       mpc|ncmpc|pms next:     alt_shift_(arrow_right)
       mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
       mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
       mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
-                     --------------------------------------
+           
     Operations with audio:
       volume up:              alt_(arrow_up)
       volume down:            alt_(arrow_down)
       volume mute:            alt_m
       volumn 100%:            alt_ctrl_m
-                     --------------------------------------
+           
     Dynamic tags:
       delete_tag:             win_d
       new tag:                win_n
@@ -75,27 +75,27 @@ local MULTICOLOR = {
       tag view prev:          win_(arrow_left)
       tag view next:          win_(arrow_right)
       tag history restore:    win_Escape
-                     --------------------------------------
+           
     Terminal:
       new terminal:           win_enter
       dropdown terminal:      win_z
-                     --------------------------------------
+           
     Window:
       open window fullscreen: win_f
       maximized hor and vert: win_m
       kill window:            win_shift_c
       floating window:        win_ctrl_space
-                     --------------------------------------
+           
     Panel:
       hide panels:            win_b
-                     --------------------------------------
+           
     Menu:
       open dynamic menu:      win_w
-                     --------------------------------------
+           
     Awesome:
       restart wm:             win_ctrl_enter
       quit wm:                win_shift_q
-                     --------------------------------------
+           
     And more...
       If you're here, read the code ;-)
   ]]
@@ -168,6 +168,66 @@ local function rename_tag()
     )
 end
 
+local function hotKeys()
+  naughty.notify({ 
+    title = "HOTKEYS:", 
+    text = [[
+    MPD (MUSIC SERVER):
+      mpc|ncmpc|pms next:     alt_shift_(arrow_right)
+      mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
+      mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
+      mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
+
+    ALSA:
+      volume up:              alt_(arrow_up)
+      volume down:            alt_(arrow_down)
+      volume mute|unmute:     alt_m
+      volumn 100%:            alt_ctrl_m
+            
+    DYNAMIC TAGS:
+      delete_tag:             win_d
+      new tag:                win_n
+      new tag with focussed:  win_shift_n
+      move to new tag:        win_alt_n
+      rename tag to focussed: win_alt_r
+      rename tag:             win_shift_r
+      term in current  tag:   win_alt_enter
+      new tag with term:      win_ctrl_enter
+      fork tag:               win_ctrl_f
+      aero tag:               win_a
+      tag view prev:          win_(arrow_left)
+      tag view next:          win_(arrow_right)
+      tag history restore:    win_Escape
+            
+    TERMINAL:
+      new terminal:           win_enter
+      dropdown terminal:      win_z
+            
+    WINDOW:
+      open window fullscreen: win_f
+      maximized hor and vert: win_m
+      kill window:            win_shift_c
+      floating window:        win_ctrl_space
+          
+    PANEL:
+      hide panels:            win_b
+
+    MENU:
+      open dynamic menu:      win_w
+
+    AWESOME:
+      restart wm:             win_ctrl_enter
+      quit wm:                win_shift_q
+
+  Please click with the mouse to exit or wait 20 seconds
+    ]], 
+    timeout = 20,
+    width = 350,
+    ontop = true,
+    border_width = 1,
+    border_color = '#535d6c' })
+end
+
 local function term_in_current_tag()
     aw_util.spawn(terminal,{intrusive=true,slave=true})
 end
@@ -210,6 +270,8 @@ local function register_keys()
         {{ modkey, "Control" }, "Return", new_tag_with_term     },
         {{ modkey, "Control" }, "f"     , fork_tag              },
         {{ modkey            }, "a"     , aero_tag              },
+        {{ modkey            }, "h"     , hotKeys               },
+        {{                   }, "F1"     , hotKeys               },
     } do
         keys[#keys+1] = aw_key(data[1], data[2], data[3])
     end
@@ -350,39 +412,37 @@ local globalkeys = awful.util.table.join(
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
-  globalkeys = awful.util.table.join(globalkeys,
-    awful.key({ modkey }, "#" .. i + 9,
-      function ()
-        local screen = mouse.screen
-        local tag = awful.tag.gettags(screen)[i]
-        if tag then
-          awful.tag.viewonly(tag)
-        end
-      end),
-    awful.key({ modkey, "Control" }, "#" .. i + 9,
-      function ()
-        local screen = mouse.screen
-        local tag = awful.tag.gettags(screen)[i]
-        if tag then
-          awful.tag.viewtoggle(tag)
-        end
-      end),
-    awful.key({ modkey, "Shift" }, "#" .. i + 9,
-      function ()
-        local tag = awful.tag.gettags(client.focus.screen)[i]
-        if client.focus and tag then
-          awful.client.movetotag(tag)
-        end
-      end),
-    awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
-      function ()
-        local tag = awful.tag.gettags(client.focus.screen)[i]
-        if client.focus and tag then
-          awful.client.toggletag(tag)
-        end
-      end
-    )
-  )
+    globalkeys = awful.util.table.join(globalkeys,
+        awful.key({ modkey }, "#" .. i + 9,
+                  function ()
+                        local screen = mouse.screen
+                        local tag = awful.tag.gettags(screen)[i]
+                        if tag then
+                           awful.tag.viewonly(tag)
+                        end
+                  end),
+        awful.key({ modkey, "Control" }, "#" .. i + 9,
+                  function ()
+                      local screen = mouse.screen
+                      local tag = awful.tag.gettags(screen)[i]
+                      if tag then
+                         awful.tag.viewtoggle(tag)
+                      end
+                  end),
+        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+                  function ()
+                      local tag = awful.tag.gettags(client.focus.screen)[i]
+                      if client.focus and tag then
+                          awful.client.movetotag(tag)
+                     end
+                  end),
+        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+                  function ()
+                      local tag = awful.tag.gettags(client.focus.screen)[i]
+                      if client.focus and tag then
+                          awful.client.toggletag(tag)
+                      end
+                  end))
 end
 
 local clientkeys = awful.util.table.join(
