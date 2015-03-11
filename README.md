@@ -23,41 +23,41 @@ It is presumed that you configure your autostart in `~/.xinitrc`.
 ##HOTKEYS:
 * (If you want to change old bindings, open please bindings.lua file and edit...):
 * Operations with MPD servers:
-	** mpc|ncmpc|pms next:     alt_shift_(arrow_right)
-	** mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
-	** mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
-	** mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
+	* mpc|ncmpc|pms next:     alt_shift_(arrow_right)
+	* mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
+	* mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
+	* mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
 * Operations with audio:
-	** volume up:              alt_(arrow_up)
-	** volume down:            alt_(arrow_down)
-	** volume mute:            alt_m
-	** volumn 100%:            alt_ctrl_m
+	* volume up:              alt_(arrow_up)
+	* volume down:            alt_(arrow_down)
+	* volume mute:            alt_m
+	* volumn 100%:            alt_ctrl_m
 * Dynamic tags:
-	** delete_tag:             win_d
-	** new tag:                win_n
-	** new tag with focussed:  win_shift_n
-	** move to new tag:        win_alt_n
-	** rename tag to focussed: win_alt_r
-	** rename tag:             win_shift_r
-	** term in current  tag:   win_alt_enter
-	** new tag with term:      win_ctrl_enter
-	** fork tag:               win_ctrl_f
-	** aero tag:               win_a
-	** tag view prev:          win_(arrow_left)
-	** tag view next:          win_(arrow_right)
-	** tag history restore:    win_Escape
+	* delete_tag:             win_d
+	* new tag:                win_n
+	* new tag with focussed:  win_shift_n
+	* move to new tag:        win_alt_n
+	* rename tag to focussed: win_alt_r
+	* rename tag:             win_shift_r
+	* term in current  tag:   win_alt_enter
+	* new tag with term:      win_ctrl_enter
+	* fork tag:               win_ctrl_f
+	* aero tag:               win_a
+	* tag view prev:          win_(arrow_left)
+	* tag view next:          win_(arrow_right)
+	* tag history restore:    win_Escape
 * Terminal:
-	** new terminal:           win_enter
-	** dropdown terminal:      win_z
+	* new terminal:           win_enter
+	* dropdown terminal:      win_z
 * Window:
-	** open window fullscreen: win_f
-	** maximized hor and vert: win_m
-	** kill window:            win_shift_c
-	** floating window:        win_ctrl_space
+	* open window fullscreen: win_f
+	* maximized hor and vert: win_m
+	* kill window:            win_shift_c
+	* floating window:        win_ctrl_space
 * Panel:
-	** hide panels:            win_b
+	* hide panels:            win_b
 * Menu:
-	** open dynamic menu:      win_w
+	* open dynamic menu:      win_w
 * Awesome:
-	** restart wm:             win_ctrl_enter
-	** quit wm:                win_shift_q
+	* restart wm:             win_ctrl_enter
+	* quit wm:                win_shift_q
