@@ -62,13 +62,13 @@ tyrannical.tags = {
       }
     },
     {
-        name        = "doc",
-        init        = false, -- This tag wont be created at startup, but will be when one of the
+      name        = "doc",
+      init        = false, -- This tag wont be created at startup, but will be when one of the
                              -- client in the "class" section will start. It will be created on
                              -- the client startup screen
-        exclusive   = true,
-        layout      = awful.layout.suit.max,
-        class       = {
+      exclusive   = true,
+      layout      = awful.layout.suit.max,
+      class       = {
             "Assistant"     , "Okular"         , "Evince"    , "EPDFviewer"   , "xpdf",
             "Xpdf"          ,                                        }
     } ,
