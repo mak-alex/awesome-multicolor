@@ -21,7 +21,7 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ##
-
+clear
 # If example.rc.lua is missing, make a default one.
 rc_lua=$PWD/rc.lua
 test -f $rc_lua || /bin/cp /etc/xdg/awesome/rc.lua $rc_lua
@@ -34,9 +34,8 @@ pidof=`which pidof`
 test -x $awesome || { echo "Awesome executable not found. Please install Awesome"; exit 1; }
 test -x $xephyr || { echo "Xephyr executable not found. Please install Xephyr"; exit 1; }
 
-function usage()
-{
-  cat <<USAGE
+function usage() {
+cat <<USAGE
 test.sh start|stop|restart|run
 
   start    Start nested Awesome in Xephyr
@@ -45,20 +44,17 @@ test.sh start|stop|restart|run
   run      Run command in nested Awesome
 
 USAGE
-  exit 0
+exit 0
 }
 
 # WARNING: the following two functions expect that you only run one instance
 # of Xephyr and the last launched Awesome runs in it
 
-function awesome_pid()
-{
+function awesome_pid() {
   $pidof awesome | cut -d\  -f1
 }
 
-function xephyr_pid()
-
-{
+function xephyr_pid() {
   $pidof Xephyr | cut -d\  -f1
 }
 
