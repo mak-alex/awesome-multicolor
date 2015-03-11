@@ -24,6 +24,3 @@
 
 Xephyr -ac -br -noreset -screen 640x480 :1 &
 sleep 1 && DISPLAY=:1.0 awesome -c ~/.config/awesome/rc.lua > ~/.xephyr_awesome.log
-if [ $? == 1 ]; then
-  echo 'error start DISPLAY=:1.0' >> ~/.test_awesome.log
-fi1
