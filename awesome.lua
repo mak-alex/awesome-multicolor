@@ -46,6 +46,22 @@ local MULTICOLOR = {
       * Dynamic generate menu (via Alex M.A.K)
       * Dropdown terminal (via Alex M.A.K)
 
+    ##Widgets
+      * alsawidget
+      * datewidget
+      * menulauncher
+      * weather
+      * filesystem
+      * imap
+      * gmail
+      * cpu
+      * coretemp
+      * battery
+      * network
+      * mem
+      * mpd
+      * dyna
+
     HOTKEYS: 
     (If you want to change old bindings, open please bindings.lua file and edit...):
                      --------------------------------------
@@ -118,29 +134,22 @@ Global key
 ]]--
 modkey,altkey = "Mod4","Mod1" 
 
---[[
-  Directory to dynamic images
-Please change if something is not the same ...
-]]--
-local dynamic_wallpaper_dir = '~/Images/Wall'
-
 --[[ 
 Status dynamic tags
   true - on dynamic tags
   false - off dynamic tags
 ]]--
-local dynamic_wallpaper = true
 local dynamic_tagging = true
 
 -- Standard awesome library
 local awful            = require('awful')
-local wibox            = require("wibox")
-local gears            = require('gears')
+wibox                  = require("wibox")
+gears                  = require('gears')
 -- Theme handling library
-local beautiful        = require("beautiful")
+beautiful              = require("beautiful")
 -- Notification library
 local naughty          = require("naughty")
-local lain             = require("lain")
+lain                   = require("lain")
 -- Dynamic tagging
 if dynamic_tagging then
   require("tags") --dynamic tags config
@@ -160,7 +169,19 @@ beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/multicolor/theme.lu
 --- Widgets
 local alsawidget       = require('widgets/volume')
 local datewidget       = require('widgets/date')
-local menulauncher     = require("widgets/menu")
+local menulauncher     = require('widgets/menu')
+local weather          = require('widgets/weather')
+require('widgets/filesystem')
+--local imap             = require('widgets/imap')
+local gmail            = require('widgets/gmail')
+local cpu              = require('widgets/cpu')
+local coretemp         = require('widgets/coretemp')
+local battery          = require('widgets/battery')
+local network          = require('widgets/network')
+local mem              = require('widgets/mem')
+local mpd              = require('widgets/mpd')
+local dyna             = require("dynawall")
+
 -- {{{ Freedesktop Menu
 mymainmenu = awful.menu.new({ items = menugen.build_menu(),
                               theme = { height = 16, width = 130 }})
@@ -170,148 +191,6 @@ markup      = lain.util.markup
 clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
 
-
--- Weather
-weathericon = wibox.widget.imagebox(beautiful.widget_weather)
-yawn = lain.widgets.yawn(1234567, {
-    settings = function()
-        widget:set_markup(markup("#eca4c4", forecast:lower() .. " @ " .. units .. "°C "))
-    end
-})
-
--- / fs
-fsicon = wibox.widget.imagebox(beautiful.widget_fs)
-fswidget = lain.widgets.fs({
-    settings  = function()
-        widget:set_markup(markup("#80d9d8", fs_now.used .. "% "))
-    end
-})
-
---[[ Mail IMAP check
--- commented because it needs to be set before use
-mailicon = wibox.widget.imagebox()
-mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(mail) end)))
-mailwidget = lain.widgets.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        if mailcount > 0 then
-            mailicon:set_image(beautiful.widget_mail)
-            widget:set_markup(markup("#cccccc", mailcount .. " "))
-        else
-            widget:set_text("")
-            mailicon:set_image(nil)
-        end
-    end
-})
-]]
-
--- {{ GMail Widget }} --
-mailicon = wibox.widget.imagebox()
-vicious.register(mailicon, vicious.widgets.gmail, function(widget, args)
-local newMail = tonumber(args["{count}"])
-   if newMail > 0 then
-     mailicon:set_image(beautiful.mail)
-   else
-     mailicon:set_image(beautiful.mailopen)
-   end
-end, 15)
-
--- CPU
-cpuicon = wibox.widget.imagebox()
-cpuicon:set_image(beautiful.widget_cpu)
-cpuwidget = lain.widgets.cpu({
-    settings = function()
-        widget:set_markup(markup("#e33a6e", cpu_now.usage .. "% "))
-    end
-})
-
--- Coretemp
-tempicon = wibox.widget.imagebox(beautiful.widget_temp)
-tempwidget = lain.widgets.temp({
-    settings = function()
-        widget:set_markup(markup("#f1af5f", coretemp_now .. "°C "))
-    end
-})
-
--- Battery
-baticon = wibox.widget.imagebox(beautiful.widget_batt)
-batwidget = lain.widgets.bat({
-    battery="BAT1",
-    settings = function()
-        if bat_now.perc == "N/A" then
-            bat_now.perc = "AC "
-        else
-            bat_now.perc = bat_now.perc .. "% "
-        end
-        widget:set_text(bat_now.perc)
-    end
-})
-
--- ALSA volume
-volicon = wibox.widget.imagebox(beautiful.widget_vol)
-volumewidget = lain.widgets.alsa({
-    settings = function()
-        if volume_now.status == "off" then
-            volume_now.level = volume_now.level .. "M"
-        end
-
-        widget:set_markup(markup("#7493d2", volume_now.level .. "% "))
-    end
-})
-
--- Net
-netdownicon = wibox.widget.imagebox(beautiful.widget_netdown)
---netdownicon.align = "middle"
-netdowninfo = wibox.widget.textbox()
-netupicon = wibox.widget.imagebox(beautiful.widget_netup)
---netupicon.align = "middle"
-netupinfo = lain.widgets.net({
-    settings = function()
-        if iface ~= "network off" and
-           string.match(yawn.widget._layout.text, "N/A")
-        then
-            yawn.fetch_weather()
-        end
-        widget:set_markup(markup("#e54c62", net_now.sent .. " "))
-        netdowninfo:set_markup(markup("#87af5f", net_now.received .. " "))
-    end
-})
-
--- MEM
-memicon = wibox.widget.imagebox(beautiful.widget_mem)
-memwidget = lain.widgets.mem({
-    settings = function()
-        widget:set_markup(markup("#e0da37", mem_now.used .. "M "))
-    end
-})
-
--- MPD
-mpdicon = wibox.widget.imagebox()
-mpdwidget = lain.widgets.mpd({
-    settings = function()
-        mpd_notification_preset = {
-            text = string.format("%s [%s] - %s\n%s", mpd_now.artist,
-                   mpd_now.album, mpd_now.date, mpd_now.title)
-        }
-
-        if mpd_now.state == "play" then
-            artist = mpd_now.artist .. " > "
-            title  = mpd_now.title .. " "
-            mpdicon:set_image(beautiful.widget_note_on)
-        elseif mpd_now.state == "pause" then
-            artist = "mpd "
-            title  = "paused "
-        else
-            artist = ""
-            title  = ""
-            mpdicon:set_image(nil)
-        end
-        widget:set_markup(markup("#e54c62", artist) .. markup("#b2b2b2", title))
-    end
-})
 
 -- Handle runtime errors after startup
 do
@@ -347,40 +226,41 @@ awful.layout.layouts = {
 -- Task list
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() then
-                                                      awful.tag.viewonly(c:tags()[1])
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({
-                                                      theme = { width = 250 }
-                                                  })
-                                              end
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
-                                          end))
+   awful.button({ }, 1, function (c)
+    if c == client.focus then
+        c.minimized = true
+    else
+        -- Without this, the following
+        -- :isvisible() makes no sense
+        c.minimized = false
+        if not c:isvisible() then
+            awful.tag.viewonly(c:tags()[1])
+        end
+        -- This will also un-minimize
+        -- the client, if needed
+        client.focus = c
+        c:raise()
+    end
+   end),
+   awful.button({ }, 3, function ()
+    if instance then
+        instance:hide()
+        instance = nil
+    else
+        instance = awful.menu.clients({
+            theme = { width = 250 }
+        })
+    end
+   end),
+   awful.button({ }, 4, function ()
+    awful.client.focus.byidx(1)
+    if client.focus then client.focus:raise() end
+   end),
+   awful.button({ }, 5, function ()
+    awful.client.focus.byidx(-1)
+    if client.focus then client.focus:raise() end
+   end)
+)
 
 -- Small widgets and widget boxes
 spacer    = wibox.widget.textbox()
@@ -513,35 +393,12 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
---dynamic wallpaper
-
+-- Default static wallpapers
 if beautiful.wallpaper then
 	for s = 1,screen.count() do
   	gears.wallpaper.maximized(beautiful.wallpaper, s, true)
 	end
 end
-
-if dynamic_wallpaper then
-	x = 0
-	mytimer = timer { timeout = x }
-	mytimer:connect_signal("timeout", function()
-		local command_for_select = 'find '.. dynamic_wallpaper_dir ..' -type f -name "*.jpg" -o -name "*.png" | shuf -n 1'
-		local f = assert(io.popen(command_for_select, 'r'))
-	  local filename = assert(f:read('*a'))
-	  f:close()
-		filename = string.gsub(filename, '[\n\r]+', '')
-		for s = 1,screen.count() do
-  		gears.wallpaper.maximized(filename, s, true)
-		end
-  	-- stop the timer (we don't need multiple instances running at the same time)
-	  mytimer:stop()
-  	-- define the interval in which the next wallpaper change should occur in seconds
-	  -- (in this case anytime between 40 and 80 minutes)
-  	x = math.random( 2400, 4800)
-	  --restart the timer
-  	mytimer.timeout = x
-	  mytimer:start()
-	end)
-	-- initial start when rc.lua is first run
-	mytimer:start()
-end
+-- if you need dynamic wallpapers
+-- uncomment this function
+dyna.wall(true,"~/Images/Wall")

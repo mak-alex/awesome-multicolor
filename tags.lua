@@ -3,7 +3,7 @@ local tyrannical = require("tyrannical")
 tyrannical.tags = {
     {
       name = "term",
-      init        = true,                   -- Load the tag on startup
+      init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen = {1,2},
       selected    = true,
@@ -14,7 +14,7 @@ tyrannical.tags = {
     },
     {
       name = "net",
-      init        = true,                   -- Load the tag on startup
+      init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen = screen.count() > 1 and 2 or 1,
       layout = awful.layout.suit.max,
@@ -24,7 +24,7 @@ tyrannical.tags = {
     },
     {
       name = "dev",
-      init        = true,                   -- Load the tag on startup
+      init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen = screen.count()>2 and 3 or 1,
       layout = awful.layout.suit.max,
