@@ -208,6 +208,10 @@ local function hotKeys()
       maximized hor and vert: win_m
       kill window:            win_shift_c
       floating window:        win_ctrl_space
+      move left:              win_h 
+      move right:             win_l
+      move up:                win_k 
+      move down:              win_j
           
     PANEL:
       hide panels:            win_b
@@ -270,8 +274,7 @@ local function register_keys()
         {{ modkey, "Control" }, "Return", new_tag_with_term     },
         {{ modkey, "Control" }, "f"     , fork_tag              },
         {{ modkey            }, "a"     , aero_tag              },
-        {{ modkey            }, "h"     , hotKeys               },
-        {{                   }, "F1"     , hotKeys               },
+        {{                   }, "F1"    , hotKeys               },
     } do
         keys[#keys+1] = aw_key(data[1], data[2], data[3])
     end
@@ -298,10 +301,6 @@ local globalkeys = awful.util.table.join(
       awful.client.focus.byidx( 1)
       if client.focus then client.focus:raise() end
     end),
-    awful.key({ modkey,           }, "k",      function ()
-      awful.client.focus.byidx(-1)
-      if client.focus then client.focus:raise() end
-    end),
     awful.key({ modkey }, "b",                 function ()
       widgetbox[mouse.screen].visible = not widgetbox[mouse.screen].visible
       mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
@@ -312,16 +311,27 @@ local globalkeys = awful.util.table.join(
         client.focus:raise()
       end
     end),
-    awful.key({ modkey,           }, "j",
-      function ()
-        awful.client.focus.byidx( 1)
-        if client.focus then client.focus:raise() end
-    end),
-    awful.key({ modkey,           }, "k",
-    function ()
-      awful.client.focus.byidx(-1)
-      if client.focus then client.focus:raise() end
-    end),
+    -- By direction client focus
+    awful.key({ modkey }, "j",
+        function()
+            awful.client.focus.bydirection("down")
+            if client.focus then client.focus:raise() end
+        end),
+    awful.key({ modkey }, "k",
+        function()
+            awful.client.focus.bydirection("up")
+            if client.focus then client.focus:raise() end
+        end),
+    awful.key({ modkey }, "h",
+        function()
+            awful.client.focus.bydirection("left")
+            if client.focus then client.focus:raise() end
+        end),
+    awful.key({ modkey }, "l",
+        function()
+            awful.client.focus.bydirection("right")
+            if client.focus then client.focus:raise() end
+        end),
     -- Dropdown terminal
     awful.key({ modkey,           }, "z",      function () drop(terminal,250,nil,700,250) end),
      -- Show Menu
@@ -379,8 +389,8 @@ local globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
     -- Layout manipulation
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
+    --awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
+    --awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
