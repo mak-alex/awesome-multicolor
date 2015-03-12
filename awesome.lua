@@ -154,14 +154,16 @@ beautiful              = require("beautiful")
 -- Notification library
 local naughty          = require("naughty")
 lain                   = require("lain")
+vicious                = require("vicious")
+
 -- Dynamic tagging
 if dynamic_tagging then
-  require("tags") --dynamic tags config
+  require("config/tags") --dynamic tags config
 else
-  require("tags_fallback")
+  require("config/tags_fallback")
 end
 
-require("bindings")
+require("config/bindings")
 
 function defined(var)
   return var ~= nil
@@ -191,6 +193,7 @@ mymainmenu = awful.menu.new({ items = menugen.build_menu(),
                               theme = { height = 16, width = 130 }})
 -- }}}
 markup      = lain.util.markup
+
 -- Textclock
 clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
@@ -397,7 +400,7 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
--- Default static wallpapers
+-- Default static wall
 if beautiful.wallpaper then
 	for s = 1,screen.count() do
   	gears.wallpaper.maximized(beautiful.wallpaper, s, true)

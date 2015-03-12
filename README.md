@@ -54,6 +54,10 @@ It is presumed that you configure your autostart in `~/.xinitrc`.
 	* maximized hor and vert: win_m
 	* kill window:            win_shift_c
 	* floating window:        win_ctrl_space
+	* move left:              win_h 
+    * move right:             win_l
+    * move up:                win_k 
+    * move down:              win_j
 * Panel:
 	* hide panels:            win_b
 * Menu:
