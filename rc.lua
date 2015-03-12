@@ -31,7 +31,7 @@ local MULTICOLOR = {
 awful = require('awful')
 naughty = require('naughty')
 confdir = awful.util.getdir("config")
-local rc, err = loadfile(confdir .. "/awesome.lua");
+local rc, err = loadfile(confdir .. "/config/awesome.lua");
 if rc then rc, err = pcall(rc); if rc then return; end end
 dofile("/etc/xdg/awesome/rc.lua");
 for s = 1,screen.count() do mypromptbox[s].text = awful.util.escape(err:match("[^\n]*")); end
