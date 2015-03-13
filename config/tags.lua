@@ -29,7 +29,7 @@ tyrannical.tags = {
       screen = screen.count()>2 and 3 or 1,
       layout = awful.layout.suit.max,
       class = {
-        "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", 
+        "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Subl" 
       }
     },
     {

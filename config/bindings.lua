@@ -50,51 +50,51 @@ local MULTICOLOR = {
     (If you want to change old bindings, open please bindings.lua file and edit...):
            
     Operations with MPD servers:
-      mpc|ncmpc|pms next:     alt_shift_(arrow_right)
-      mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
-      mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
-      mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
+      mpc|ncmpc|pms next:     Alt+Shift+(arrow_right)
+      mpc|ncmpc|pms prev:     Alt+Shift+(arrow_left)
+      mpc|ncmpc|pms toggle:   Alt+Shift+(arrow_up)
+      mpc|ncmpc|pms stop:     Alt+Shift+(arrow_down)
            
     Operations with audio:
-      volume up:              alt_(arrow_up)
-      volume down:            alt_(arrow_down)
-      volume mute:            alt_m
-      volumn 100%:            alt_ctrl_m
+      volume up:              Alt+(arrow_up)
+      volume down:            Alt+(arrow_down)
+      volume mute:            Alt+m
+      volumn 100%:            Alt+Ctrl+m
            
     Dynamic tags:
-      delete_tag:             win_d
-      new tag:                win_n
-      new tag with focussed:  win_shift_n
-      move to new tag:        win_alt_n
-      rename tag to focussed: win_alt_r
-      rename tag:             win_shift_r
-      term in current  tag:   win_alt_enter
-      new tag with term:      win_ctrl_enter
-      fork tag:               win_ctrl_f
-      aero tag:               win_a
-      tag view prev:          win_(arrow_left)
-      tag view next:          win_(arrow_right)
-      tag history restore:    win_Escape
+      delete_tag:             Win+d
+      new tag:                Win+n
+      new tag with focussed:  Win+Shift+n
+      move to new tag:        Win+Alt+n
+      rename tag to focussed: Win+Alt+r
+      rename tag:             Win+Shift+r
+      term in current  tag:   Win+Alt+enter
+      new tag with term:      Win+Ctrl+enter
+      fork tag:               Win+Ctrl+f
+      aero tag:               Win+a
+      tag view prev:          Win+(arrow_left)
+      tag view next:          Win+(arrow_right)
+      tag history restore:    Win+Escape
            
     Terminal:
-      new terminal:           win_enter
-      dropdown terminal:      win_z
+      new terminal:           Win+enter
+      dropdown terminal:      Win+z
            
     Window:
-      open window fullscreen: win_f
-      maximized hor and vert: win_m
-      kill window:            win_shift_c
-      floating window:        win_ctrl_space
+      open window fullscreen: Win+f
+      maximized hor and vert: Win+m
+      kill window:            Win+Shift+c
+      floating window:        Win+Ctrl+space
            
     Panel:
-      hide panels:            win_b
+      hide panels:            Win+b
            
     Menu:
-      open dynamic menu:      win_w
+      open dynamic menu:      Win+w
            
     Awesome:
-      restart wm:             win_ctrl_enter
-      quit wm:                win_shift_q
+      restart wm:             Win+Ctrl+enter
+      quit wm:                Win+Shift+q
            
     And more...
       If you're here, read the code ;-)
@@ -170,63 +170,61 @@ end
 
 local function hotKeys()
   naughty.notify({ 
-    title = "HOTKEYS:", 
     text = [[
-    MPD (MUSIC SERVER):
-      mpc|ncmpc|pms next:     alt_shift_(arrow_right)
-      mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
-      mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
-      mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
+    <span font="ohsnap 13" color='#87af5f'><b>MPD (MUSIC SERVER):</b></span>
+      <span font="" color='#e33a6e'>mpc|ncmpc|pms next:</span>     <span font="" color='#87af5f'>Alt+Shift+(arrow_right)</span>
+      <span font="" color='#e33a6e'>mpc|ncmpc|pms prev:</span>     <span font="" color='#87af5f'>Alt+Shift+(arrow_left)</span>
+      <span font="" color='#e33a6e'>mpc|ncmpc|pms toggle:</span>   <span font="" color='#87af5f'>Alt+Shift+(arrow_up)</span>
+      <span font="" color='#e33a6e'>mpc|ncmpc|pms stop:</span>     <span font="" color='#87af5f'>Alt+Shift+(arrow_down)</span>
 
-    ALSA:
-      volume up:              alt_(arrow_up)
-      volume down:            alt_(arrow_down)
-      volume mute|unmute:     alt_m
-      volumn 100%:            alt_ctrl_m
+    <span font="ohsnap 13" color='#e54c62'><b>ALSA:</b></span>
+      <span font="" color='#f1af5f'>volume up:</span>              <span font="" color='#e54c62'>Alt+(arrow_up)</span>
+      <span font="" color='#f1af5f'>volume down:</span>            <span font="" color='#e54c62'>Alt+(arrow_down)</span>
+      <span font="" color='#f1af5f'>volume mute|unmute:</span>     <span font="" color='#e54c62'>Alt+m</span>
+      <span font="" color='#f1af5f'>volumn 100%:</span>            <span font="" color='#e54c62'>Alt+Ctrl+m</span>
             
-    DYNAMIC TAGS:
-      delete_tag:             win_d
-      new tag:                win_n
-      new tag with focussed:  win_shift_n
-      move to new tag:        win_alt_n
-      rename tag to focussed: win_alt_r
-      rename tag:             win_shift_r
-      term in current  tag:   win_alt_enter
-      new tag with term:      win_ctrl_enter
-      fork tag:               win_ctrl_f
-      aero tag:               win_a
-      tag view prev:          win_(arrow_left)
-      tag view next:          win_(arrow_right)
-      tag history restore:    win_Escape
+    <span font="ohsnap 13" color='#7493d2'><b>DYNAMIC TAGS:</b></span>
+      <span font="" color='#80d9d8'>delete_tag:</span>             <span font="" color='#7493d2'>Win+d</span>
+      <span font="" color='#80d9d8'>new tag:</span>                <span font="" color='#7493d2'>Win+n</span>
+      <span font="" color='#80d9d8'>move to new tag:</span>        <span font="" color='#7493d2'>Win+Alt+n</span>
+      <span font="" color='#80d9d8'>rename tag to focussed:</span> <span font="" color='#7493d2'>Win+Alt+r</span>
+      <span font="" color='#80d9d8'>rename tag:</span>             <span font="" color='#7493d2'>Win+Shift+r</span>
+      <span font="" color='#80d9d8'>term in current  tag:</span>   <span font="" color='#7493d2'>Win+Alt+enter</span>
+      <span font="" color='#80d9d8'>new tag with term:</span>      <span font="" color='#7493d2'>Win+Ctrl+enter</span>
+      <span font="" color='#80d9d8'>fork tag:</span>               <span font="" color='#7493d2'>Win+Ctrl+f</span>
+      <span font="" color='#80d9d8'>aero tag:</span>               <span font="" color='#7493d2'>Win+a</span>
+      <span font="" color='#80d9d8'>tag view prev:</span>          <span font="" color='#7493d2'>Win+(arrow_left)</span>
+      <span font="" color='#80d9d8'>tag view next:</span>          <span font="" color='#7493d2'>Win+(arrow_right)</span>
+      <span font="" color='#80d9d8'>tag history restore:</span>    <span font="" color='#7493d2'>Win+Escape</span>
             
-    TERMINAL:
-      new terminal:           win_enter
-      dropdown terminal:      win_z
+    <span font="ohsnap 13" color='#e0da37'><b>TERMINAL:</b></span>
+      <span font="" color='#eca4c4'>new terminal:</span>           <span font="" color='#e0da37'>Win+enter</span>
+      <span font="" color='#eca4c4'>dropdown terminal:</span>      <span font="" color='#e0da37'>Win+z</span>
             
-    WINDOW:
-      open window fullscreen: win_f
-      maximized hor and vert: win_m
-      kill window:            win_shift_c
-      floating window:        win_ctrl_space
-      move left:              win_h 
-      move right:             win_l
-      move up:                win_k 
-      move down:              win_j
+    <span font="ohsnap 13" color='#e33a6e'><b>WINDOW:</b></span>
+      <span font="" color='#e0da37'>open window fullscreen:</span> <span font="" color='#e33a6e'>Win+f</span>
+      <span font="" color='#e0da37'>maximized hor and vert:</span> <span font="" color='#e33a6e'>Win+m</span>
+      <span font="" color='#e0da37'>kill window:</span>            <span font="" color='#e33a6e'>Win+Shift+c</span>
+      <span font="" color='#e0da37'>floating window:</span>        <span font="" color='#e33a6e'>Win+Ctrl+space</span>
+      <span font="" color='#e0da37'>move left:</span>              <span font="" color='#e33a6e'>Win+h</span> 
+      <span font="" color='#e0da37'>move right:</span>             <span font="" color='#e33a6e'>Win+l</span>
+      <span font="" color='#e0da37'>move up:</span>                <span font="" color='#e33a6e'>Win+k</span> 
+      <span font="" color='#e0da37'>move down:</span>              <span font="" color='#e33a6e'>Win+j</span>
           
-    PANEL:
-      hide panels:            win_b
+    <span font="ohsnap 13" color='#f1af5f'><b>PANEL:</b></span>
+      <span font="" color='#7493d2'>hide panels:</span>            <span font="" color='#f1af5f'>Win+b</span>
 
-    MENU:
-      open dynamic menu:      win_w
+    <span font="ohsnap 13" color='#80d9d8'><b>MENU:</b></span>
+      <span font="" color='#e54c62'>open dynamic menu:</span>      <span font="" color='#80d9d8'>Win+w</span>
 
-    AWESOME:
-      restart wm:             win_ctrl_enter
-      quit wm:                win_shift_q
+    <span font="ohsnap 13" color='#eca4c4'><b>AWESOME:</b></span>
+      <span font="" color='#87af5f'>restart wm:</span>             <span font="" color='#eca4c4'>Win+Ctrl+enter</span>
+      <span font="" color='#87af5f'>quit wm:</span>                <span font="" color='#eca4c4'>Win+Shift+q</span>
 
-  Please click with the mouse to exit or wait 20 seconds
+  <span font="ohsnap 12" color='#de5e1e'>Please click with the mouse to exit or wait 20 seconds</span>
     ]], 
     timeout = 20,
-    width = 350,
+    width = 450,
     ontop = true,
     border_width = 1,
     border_color = '#535d6c' })
@@ -266,7 +264,7 @@ local function register_keys()
     for _,data in  ipairs {
         {{ modkey            }, "d"     , delete_tag            },
         {{ modkey            }, "n"     , new_tag               },
-        {{ modkey, "Shift"   }, "n"     , new_tag_with_focussed },
+        --{{ modkey, "Shift"   }, "n"     , new_tag_with_focussed },
         {{ modkey, "Mod1"    }, "n"     , move_to_new_tag       },
         {{ modkey, "Mod1"    }, "r"     , rename_tag_to_focussed},
         {{ modkey, "Shift"   }, "r"     , rename_tag            },
