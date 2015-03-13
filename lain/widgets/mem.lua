@@ -1,12 +1,3 @@
-
---[[
-                                                  
-     Licensed under GNU General Public License v2 
-      * (c) 2013,      Luke Bonham                
-      * (c) 2010-2012, Peter Hofmann              
-                                                  
---]]
-
 local newtimer        = require("lain.helpers").newtimer
 
 local wibox           = require("wibox")
@@ -22,6 +13,31 @@ local setmetatable    = setmetatable
 -- Memory usage (ignoring caches)
 -- lain.widgets.mem
 local mem = {}
+local notification  = nil
+mem_notification_preset = { fg = beautiful.fg_normal }
+
+function mem:hide()
+    if notification ~= nil then
+        naughty.destroy(notification)
+        notification = nil
+    end
+end
+
+function mem:show(t_out)
+    mem:hide()
+    ws = [[
+  <span font="" color='#87af5f'>_NAME CONFIG</span>    <span font="" color='#e33a6e'>"FH-MultiColor"</span>
+  <span font="" color='#87af5f'>_VERSION</span>        <span font="" color='#e33a6e'>'MULTICOLOR v0.1.0-rc1'</span>
+  <span font="" color='#87af5f'>_URL</span>            <span font="" color='#e33a6e'>'https://bitbucket.org/enlab/multicolor'</span>
+  <span font="" color='#87af5f'>_MAIL</span>           <span font="" color='#e33a6e'>'flashhacker1988@gmail.com'</span>
+    ]]
+
+    notification = naughty.notify({
+        preset = mem_notification_preset,
+        text = ws,
+        timeout = t_out,
+    })
+end
 
 local function worker(args)
     local args     = args or {}
@@ -54,6 +70,9 @@ local function worker(args)
     end
 
     newtimer("mem", timeout, update)
+
+    widget:connect_signal('mouse::enter', function () mem:show(0) end)
+    widget:connect_signal('mouse::leave', function () mem:hide() end)
 
     return mem.widget
 end

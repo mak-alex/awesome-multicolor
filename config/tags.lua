@@ -9,7 +9,7 @@ tyrannical.tags = {
       selected    = true,
       layout      = awful.layout.suit.fair,
       class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
-        "xterm" , "urxvt" , "aterm","URxvt","XTerm","konsole","terminator","gnome-terminal"
+        "xterm" , "urxvt" , "aterm","XTerm","XTerm","konsole","terminator","gnome-terminal"
       }
     },
     {
@@ -29,7 +29,7 @@ tyrannical.tags = {
       screen = screen.count()>2 and 3 or 1,
       layout = awful.layout.suit.max,
       class = {
-        "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Subl" 
+        "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Subl`1" 
       }
     },
     {
@@ -76,23 +76,60 @@ tyrannical.tags = {
 }
 -- todo: video for vlc and virtualbox for VBox
 
--- Ignore the tiled layout for the matching clients
+tyrannical.properties.intrusive = {
+    "ksnapshot"     , "pinentry"       , "gtksu"     , "kcalc"        , "xcalc"           ,
+    "feh"           , "Gradient editor", "About KDE" , "Paste Special", "Background color",
+    "kcolorchooser" , "plasmoidviewer" , "plasmaengineexplorer" , "Xephyr" , "kruler"     ,
+    "yakuake"       ,
+    "sflphone-client-kde", "sflphone-client-gnome", "xev",
+}
 tyrannical.properties.floating = {
-  "MPlayer"      , "pinentry"        , "ksnapshot"  , "pinentry"     , "gtksu"          ,
-  "xine"         , "feh"             , "kmix"       , "kcalc"        , "xcalc"          ,
-  "yakuake"      , "Select Color$"   , "kruler"     , "kcolorchooser", "Paste Special"  ,
-  "New Form"     , "Insert Picture"  , "kcharselect", "Xephyr" , "plasmoidviewer" 
+    "MPlayer"      , "pinentry"        , "ksnapshot"  , "pinentry"     , "gtksu"          ,
+    "xine"         , "feh"             , "kmix"       , "kcalc"        , "xcalc"          ,
+    "yakuake"      , "Select Color$"   , "kruler"     , "kcolorchooser", "Paste Special"  ,
+    "New Form"     , "Insert Picture"  , "kcharselect", "mythfrontend" , "plasmoidviewer" ,
+    "sflphone-client-kde", "sflphone-client-gnome", "xev",
+    amarok = false , "yakuake", "Conky"
 }
 
--- Make the matching clients (by classes) on top of the default layout
 tyrannical.properties.ontop = {
-  "Xephyr"       , "ksnapshot"       , "kruler"
+    "Xephyr"       , "ksnapshot"       , "kruler"
 }
 
--- Force the matching clients (by classes) to be centered on the screen on init
-tyrannical.properties.centered = {
-      "kcalc"
+tyrannical.properties.focusable = {
+    conky=false
 }
 
-tyrannical.settings.block_children_focus_stealing = true --Block popups ()
-tyrannical.settings.group_children = true --Force popups/dialogs to have the same tags as the parent client
+
+tyrannical.properties.no_autofocus = {
+    "Conky"
+}
+
+tyrannical.properties.below = {
+    "Conky"
+}
+
+tyrannical.properties.maximize = {
+    amarok = false,
+}
+
+-- tyrannical.properties.border_width = {
+--     XTerm = 0
+-- }
+
+tyrannical.properties.border_color = {
+    XTerm = "#0A1535"
+}
+
+tyrannical.properties.intrusive_popup = {
+    "qbittorrent"
+}
+
+tyrannical.properties.centered = { "kcalc" }
+
+tyrannical.properties.skip_taskbar = {"yakuake"}
+tyrannical.properties.hidden = {"yakuake"}
+
+-- tyrannical.properties.no_autofocus = {"umbrello"}
+
+tyrannical.properties.size_hints_honor = { xterm = false, XTerm = false, aterm = false, sauer_client = false, mythfrontend  = false}
