@@ -1,7 +1,8 @@
-Multicolor Configuration for the awesome window manager (3.5)
-If you're disappointed by fonts, check your `~/.fonts.conf`. 
-It is presumed that you configure your autostart in `~/.xinitrc`.
-
+##Multicolor Configuration for the awesome window manager (3.5)
+* If you're disappointed by fonts, check your `~/.fonts.conf`. 
+* It is presumed that you configure your autostart in `~/.xinitrc`.
+* Help with hotkeys <F1>
+ 
 ##Capabilities
 * Themes
 * Dynamic wallpaper
