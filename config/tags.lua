@@ -14,13 +14,13 @@ local tyrannical = require("tyrannical")
 tyrannical.tags = {
     {
       name        = "term",
-      init        = false,                   -- Load the tag on startup
+      init        = true,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen      = {1,2},
       selected    = true,
       layout      = awful.layout.suit.fair,
       class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
-        "xterm" , "urxvt" , "aterm","XTerm","XTerm","konsole","terminator","gnome-terminal"
+        "xterm" , "urxvt" , "aterm","XTerm","XTerm","konsole","terminator","gnome-terminal", "emacs",
       }
     },
     {
@@ -28,9 +28,9 @@ tyrannical.tags = {
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen      = screen.count() > 1 and 2 or 1,
-      layout      = awful.layout.suit.max,
+      layout      = awful.layout.suit.fair,
       class = {
-        "Firefox", "Chromium", "nightly", "uzbl", "surf"
+        "Chromium", "nightly", "uzbl", "surf", "Firefox",
       }
     },
     {
@@ -40,7 +40,7 @@ tyrannical.tags = {
       screen      = screen.count()>2 and 3 or 1,
       layout      = awful.layout.suit.max,
       class = {
-        "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Subl`1" 
+        "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Emacs" 
       }
     },
     {
@@ -70,7 +70,7 @@ tyrannical.tags = {
       screen      = screen.count()>2 and 3 or 1,
       layout      = awful.layout.suit.max,
       class = {
-        "VirtualBox", "Qemu"
+        "VirtualBox", "Qemu", "Virt-manager",
       }
     },
     {

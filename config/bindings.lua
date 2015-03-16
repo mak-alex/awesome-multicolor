@@ -314,6 +314,7 @@ local globalkeys = awful.util.table.join(
     -- By direction client focus
     awful.key({ modkey }, "j",
         function()
+      	    awful.client.focus.history.previous()
             awful.client.focus.bydirection("down")
             if client.focus then client.focus:raise() end
         end),

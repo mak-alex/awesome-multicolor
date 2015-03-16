@@ -167,7 +167,7 @@ local dyna             = require("dynawall")
 local kbdcfg           = require("widgets/keyboardIndicator")
 
 naughty.notify {
-  text="<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. "\n\n\<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
+  text="<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. "\n\n<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
   ontop = true, border_color = "#80d9d8", border_width = 1, timeout = 10
 }
 -- Autogen Menu
@@ -313,4 +313,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 if beautiful.wallpaper then for s = 1,screen.count() do gears.wallpaper.maximized(beautiful.wallpaper, s, true) end end
 -- if you need dynamic wallpapers
 -- uncomment this function
-dyna.wall(true,"~/Images/Wall")
+dyna.wall(false,"~/Images/Wall")
