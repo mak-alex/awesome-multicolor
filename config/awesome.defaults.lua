@@ -226,9 +226,10 @@ do
         -- Make sure we don't go into an endless error loop
         if in_error then return end
         in_error = true
-        naughty.notify{
-          text="Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
-          Please send an error report to <span color='#7788af'>flashhacker1988@gmail.com</span>",
+        naughty.notify ={
+          text="<span color='#2788af'>Running backup configuration...\n\
+          Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
+          Please send an error report to</span> <span color='#7788af'>flashhacker1988@gmail.com</span>",
           timeout = 0
         }
         in_error = false
@@ -243,7 +244,7 @@ awful.layout.layouts = {
   awful.layout.suit.tile.bottom,
   awful.layout.suit.tile.top,
   awful.layout.suit.fair,
-  awful.layoxut.suit.fair.horizontal,
+  awful.layout.suit.fair.horizontal,
   awful.layout.suit.spiral,
   awful.layout.suit.spiral.dwindle,
   awful.layout.suit.max,
