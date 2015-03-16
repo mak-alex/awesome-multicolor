@@ -35,8 +35,10 @@ local rc, err = loadfile(confdir .. "/config/awesome.lua");
 if rc then rc, err = pcall(rc); if rc then return; end end
 dofile("/etc/xdg/awesome/rc.lua");
 for s = 1,screen.count() do mypromptbox[s].text = awful.util.escape(err:match("[^\n]*")); end
-print ("Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n")
+print ("Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
+  Please send an error report to <span color='#7788af'>flashhacker1988@gmail.com</span>")
 naughty.notify{
-  text="Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n",
+  text="Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
+  Please send an error report to <span color='#7788af'>flashhacker1988@gmail.com</span>",
   timeout = 0
 }

@@ -295,6 +295,8 @@ local globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
     awful.key({ modkey,           }, "u",      awful.client.urgent.jumpto),
+    -- Alt + Right Shift switches the current keyboard layout
+    awful.key({ alkey,            }, "Shift",  function () kbdcfg.switch() end),
     awful.key({ modkey,           }, "n",      function ()
       awful.client.focus.byidx( 1)
       if client.focus then client.focus:raise() end

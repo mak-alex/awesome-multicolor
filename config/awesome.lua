@@ -169,6 +169,26 @@ function defined(var)
   return var ~= nil
 end
 
+-- Keyboard map indicator and chansager
+kbdcfg = {}
+kbdcfg.cmd = "setxkbmap"
+kbdcfg.layout = { { "us", "" , "ENG" }, { "ru", "" , "RUS" } } 
+kbdcfg.current = 1  -- us is our default layout
+kbdcfg.widget = wibox.widget.textbox()
+kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][3] .. " ")
+kbdcfg.switch = function ()
+  kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+  local t = kbdcfg.layout[kbdcfg.current]
+  kbdcfg.widget:set_text(" " .. t[3] .. " ")
+  os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+end
+
+ -- Mouse bindings
+kbdcfg.widget:buttons(
+ awful.util.table.join(awful.button({ "z" }, 1, function () kbdcfg.switch() end))
+)
+
+
 -- Theme: defines colours, icons, and wallpapers
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/multicolor/theme.lua")
 
@@ -206,28 +226,29 @@ do
         -- Make sure we don't go into an endless error loop
         if in_error then return end
         in_error = true
-
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = err })
+        naughty.notify{
+          text="Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
+          Please send an error report to <span color='#7788af'>flashhacker1988@gmail.com</span>",
+          timeout = 0
+        }
         in_error = false
     end)
 end
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+  awful.layout.suit.floating,
+  awful.layout.suit.tile,
+  awful.layout.suit.tile.left,
+  awful.layout.suit.tile.bottom,
+  awful.layout.suit.tile.top,
+  awful.layout.suit.fair,
+  awful.layout.suit.fair.horizontal,
+  awful.layout.suit.spiral,
+  awful.layout.suit.spiral.dwindle,
+  awful.layout.suit.max,
+  awful.layout.suit.max.fullscreen,
+  awful.layout.suit.magnifier
 }
 
 -- Task list
@@ -240,9 +261,7 @@ mytasklist.buttons = awful.util.table.join(
         -- Without this, the following
         -- :isvisible() makes no sense
         c.minimized = false
-        if not c:isvisible() then
-            awful.tag.viewonly(c:tags()[1])
-        end
+        if not c:isvisible() then awful.tag.viewonly(c:tags()[1]) end
         -- This will also un-minimize
         -- the client, if needed
         client.focus = c
@@ -259,14 +278,8 @@ mytasklist.buttons = awful.util.table.join(
         })
     end
    end),
-   awful.button({ }, 4, function ()
-    awful.client.focus.byidx(1)
-    if client.focus then client.focus:raise() end
-   end),
-   awful.button({ }, 5, function ()
-    awful.client.focus.byidx(-1)
-    if client.focus then client.focus:raise() end
-   end)
+   awful.button({ }, 4, function () awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
+   awful.button({ }, 5, function () awful.client.focus.byidx(-1) if client.focus then client.focus:raise() end end)
 )
 
 -- Small widgets and widget boxes
@@ -335,12 +348,13 @@ for s = 1, screen.count() do
   right_layout:add(tempwidget)
   right_layout:add(fsicon)
   right_layout:add(fswidget)
-  right_layout:add(weathericon)
-  right_layout:add(yawn.widget)
+  --right_layout:add(weathericon)
+  --right_layout:add(yawn.widget)
   right_layout:add(baticon)
   right_layout:add(batwidget)
   right_layout:add(clockicon)
   right_layout:add(mytextclock)
+  right_layout:add(kbdcfg.widget)
 
   -- Now bring it all together (with the tasklist in the middle)
   local layout = wibox.layout.align.horizontal()
