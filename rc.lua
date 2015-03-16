@@ -25,20 +25,21 @@ local MULTICOLOR = {
     ]],
   _DESCRIPTION = [[
   	Failsafe mode
-	If the current config fail, load the default rc.lua
+	If the current config fail, load the default awesome.defaults.lua
   	]]
 }
-awful = require('awful')
-naughty = require('naughty')
-confdir = awful.util.getdir("config")
-local rc, err = loadfile(confdir .. "/config/awesome.lua");
-if rc then rc, err = pcall(rc); if rc then return; end end
-dofile("/etc/xdg/awesome/rc.lua");
-for s = 1,screen.count() do mypromptbox[s].text = awful.util.escape(err:match("[^\n]*")); end
+awful           = require('awful')
+naughty         = require('naughty')
+confdir         = awful.util.getdir("config")
+local file      = require('file')
+local rc, err   = loadfile(confdir .. "/config/awesome.lua");
+if rc then rc, err = pcall(rc); if rc then file.copy(confdir.."/config/awesome.lua",confdir.."/config/.awesome.defaults.lua") return end end
+dofile(confdir .. "/config/.awesome.defaults.lua")
 print ("Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
-  Please send an error report to <span color='#7788af'>flashhacker1988@gmail.com</span>")
+  Please send an error report to flashhacker1988@gmail.com")
 naughty.notify{
-  text="Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
-  Please send an error report to <span color='#7788af'>flashhacker1988@gmail.com</span>",
-  timeout = 0
+  text="<span color='#87af5f'>RESERVE MODE::Awesome crashed during startup on</span> <span color='#e54c62'>" .. os.date("%d/%m/%Y %T</span>:\n\n<span color='#87af5f'>NAME CONF</span>: ")  
+  ..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. '\n<span color="#87af5f">ERROR</span>: ' .. err .. "\n\n\
+  <span color='#80d9d8'>Please send an error report to</span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
+  timeout = 0, border_color = "#fdd9d8", border_width = 1,
 }

@@ -2,10 +2,10 @@ local awful = require('awful')
 local tyrannical = require("tyrannical")
 tyrannical.tags = {
     {
-      name = "term",
+      name        = "term",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
-      screen = {1,2},
+      screen      = {1,2},
       selected    = true,
       layout      = awful.layout.suit.fair,
       class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
@@ -13,51 +13,51 @@ tyrannical.tags = {
       }
     },
     {
-      name = "net",
+      name        = "net",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
-      screen = screen.count() > 1 and 2 or 1,
-      layout = awful.layout.suit.max,
+      screen      = screen.count() > 1 and 2 or 1,
+      layout      = awful.layout.suit.max,
       class = {
         "Firefox", "Chromium", "nightly", "uzbl", "surf"
       }
     },
     {
-      name = "dev",
+      name        = "dev",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
-      screen = screen.count()>2 and 3 or 1,
-      layout = awful.layout.suit.max,
+      screen      = screen.count()>2 and 3 or 1,
+      layout      = awful.layout.suit.max,
       class = {
         "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Subl`1" 
       }
     },
     {
-      name = "im",
+      name        = "im",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
-      screen = 1,
-      layout = awful.layout.suit.max,
+      screen      = 1,
+      layout      = awful.layout.suit.max,
       class = {
         "Psi", "psi", "skype", "xchat", "choqok", "hotot", "qwit"
       }
     },
     {
-      name = "music",
+      name        = "music",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
-      screen = screen.count()>2 and 3 or 1,
-      layout = awful.layout.suit.max,
+      screen      = screen.count()>2 and 3 or 1,
+      layout      = awful.layout.suit.max,
       class = {
         "gmusicbrowser", "mpd", "mpc", "rhythmbox", "amarok"
       }
     },
     {
-      name = "vm",
+      name        = "vm",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
-      screen = screen.count()>2 and 3 or 1,
-      layout = awful.layout.suit.max,
+      screen      = screen.count()>2 and 3 or 1,
+      layout      = awful.layout.suit.max,
       class = {
         "VirtualBox", "Qemu"
       }
@@ -76,7 +76,7 @@ tyrannical.tags = {
 }
 -- todo: video for vlc and virtualbox for VBox
 
-tyrannical.properties.intrusive = {
+tyrannical.properties.intrusive        = {
     "ksnapshot"     , "pinentry"       , "gtksu"     , "kcalc"        , "xcalc"           ,
     "feh"           , "Gradient editor", "About KDE" , "Paste Special", "Background color",
     "kcolorchooser" , "plasmoidviewer" , "plasmaengineexplorer" , "Xephyr" , "kruler"     ,
@@ -96,7 +96,7 @@ tyrannical.properties.ontop = {
     "Xephyr"       , "ksnapshot"       , "kruler"
 }
 
-tyrannical.properties.focusable = {
+tyrannical.properties.focusable        = {
     conky=false
 }
 
@@ -109,7 +109,7 @@ tyrannical.properties.below = {
     "Conky"
 }
 
-tyrannical.properties.maximize = {
+tyrannical.properties.maximize        = {
     amarok = false,
 }
 
@@ -128,7 +128,7 @@ tyrannical.properties.intrusive_popup = {
 tyrannical.properties.centered = { "kcalc" }
 
 tyrannical.properties.skip_taskbar = {"yakuake"}
-tyrannical.properties.hidden = {"yakuake"}
+tyrannical.properties.hidden      = {"yakuake"}
 
 -- tyrannical.properties.no_autofocus = {"umbrello"}
 

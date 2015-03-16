@@ -2,6 +2,16 @@
 * If you're disappointed by fonts, check your `~/.fonts.conf`. 
 * It is presumed that you configure your autostart in `~/.xinitrc`.
 * Help with hotkeys <F1>
+
+##What do we have?
+* Dynamic tags
+* Terms tags for dynamic tags
+* The drop-down terminal
+* Running the backup configuration
+* Widgets
+* Generated applications menu
+* Dynamic desktop background
+* And many other amenities ...
  
 ##Capabilities
 * Themes

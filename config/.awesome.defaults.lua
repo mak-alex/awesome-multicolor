@@ -157,18 +157,8 @@ lain                   = require("lain")
 vicious                = require("vicious")
 
 -- Dynamic tagging
-if dynamic_tagging then
-  require("config/tags") --dynamic tags config
-else
-  require("config/tags_fallback")
-end
-
-require("config/bindings")
-
-function defined(var)
-  return var ~= nil
-end
-
+if dynamic_tagging then  require("config/tags") else require("config/tags_fallback") end
+                         require("config/bindings")
 -- Keyboard map indicator and chansager
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
@@ -182,23 +172,19 @@ kbdcfg.switch = function ()
   kbdcfg.widget:set_text(" " .. t[3] .. " ")
   os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
 end
-
  -- Mouse bindings
 kbdcfg.widget:buttons(
- awful.util.table.join(awful.button({ "z" }, 1, function () kbdcfg.switch() end))
+ awful.util.table.join(awful.button({ " " }, 1, function () kbdcfg.switch() end))
 )
-
 
 -- Theme: defines colours, icons, and wallpapers
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/multicolor/theme.lua")
-
 --- Widgets
 local alsawidget       = require('widgets/volume')
 local datewidget       = require('widgets/date')
 local menulauncher     = require('widgets/menu')
 local weather          = require('widgets/weather')
-require('widgets/filesystem')
---local imap             = require('widgets/imap')
+                         require('widgets/filesystem')
 local gmail            = require('widgets/gmail')
 local cpu              = require('widgets/cpu')
 local coretemp         = require('widgets/coretemp')
@@ -208,14 +194,17 @@ local mem              = require('widgets/mem')
 local mpd              = require('widgets/mpd')
 local dyna             = require("dynawall")
 
--- {{{ Freedesktop Menu
-mymainmenu = awful.menu.new({ items = menugen.build_menu(),
-                              theme = { height = 16, width = 130 }})
+naughty.notify {
+          text="<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. "\n\n\<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
+          ontop = true, border_color = "#80d9d8", border_width = 1, timeout = 10
+}
+-- {{{ Gen Menu
+mymainmenu  = awful.menu.new({ items = menugen.build_menu(), theme = { height = 16, width = 130 }})
 -- }}}
 markup      = lain.util.markup
 
 -- Textclock
-clockicon = wibox.widget.imagebox(beautiful.widget_clock)
+clockicon   = wibox.widget.imagebox(beautiful.widget_clock)
 mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
 
 
@@ -226,10 +215,10 @@ do
         -- Make sure we don't go into an endless error loop
         if in_error then return end
         in_error = true
-        naughty.notify ={
-          text="<span color='#2788af'>Running backup configuration...\n\
-          Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
-          Please send an error report to</span> <span color='#7788af'>flashhacker1988@gmail.com</span>",
+        naughty.notify{
+          text="<span color='#87af5f'>Awesome crashed during startup on</span> <span color='#e54c62'>" .. os.date("%d/%m/%Y %T</span>:\n\n<span color='#87af5f'>NAME CONF</span>: ")  
+          ..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. '\n<span color="#87af5f">ERROR</span>: ' .. err .. "\n\n\
+          <span color='#80d9d8'>Please send an error report to</span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
           timeout = 0
         }
         in_error = false
@@ -238,18 +227,9 @@ end
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-  awful.layout.suit.floating,
-  awful.layout.suit.tile,
-  awful.layout.suit.tile.left,
-  awful.layout.suit.tile.bottom,
-  awful.layout.suit.tile.top,
-  awful.layout.suit.fair,
-  awful.layout.suit.fair.horizontal,
-  awful.layout.suit.spiral,
-  awful.layout.suit.spiral.dwindle,
-  awful.layout.suit.max,
-  awful.layout.suit.max.fullscreen,
-  awful.layout.suit.magnifier
+  awful.layout.suit.floating, awful.layout.suit.tile, awful.layout.suit.tile.left, awful.layout.suit.tile.bottom,
+  awful.layout.suit.tile.top, awful.layout.suit.fair, awful.layout.suit.fair.horizontal, awful.layout.suit.spiral,
+  awful.layout.suit.spiral.dwindle, awful.layout.suit.max, awful.layout.suit.max.fullscreen, awful.layout.suit.magnifier
 }
 
 -- Task list
@@ -290,11 +270,7 @@ spacer:set_text(" ")
 separator:set_image(beautiful.widget_sep)
 
 -- Wibox initialisation
-widgetbox = {}
-mybottomwibox = {}
-promptbox = {}
-layoutbox = {}
-taglist   = {}
+widgetbox,mybottomwibox,promptbox,layoutbox,taglist = {},{},{},{},{}
 taglist.buttons = awful.util.table.join(
 	awful.button({ }, 1, awful.tag.viewonly),
 	awful.button({ modkey }, 1, awful.client.movetotag),
@@ -317,18 +293,10 @@ for s = 1, screen.count() do
  
   taglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist.buttons)
   mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-  widgetbox[s] = awful.wibox({
-		position = "top",
-		screen = s,
-		fg = beautiful.fg_normal,
-		bg = beautiful.bg_normal,
-  	border_color = 0,
-		border_width = 0
-	})
+  widgetbox[s] = awful.wibox({ position = "top", screen = s, fg = beautiful.fg_normal, bg = beautiful.bg_normal, border_color = 0, border_width = 0 })
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
-  --left_layout:add(menulauncher)
   left_layout:add(taglist[s])
   left_layout:add(promptbox[s])
 
@@ -362,23 +330,15 @@ for s = 1, screen.count() do
   layout:set_left(left_layout)
   --layout:set_middle(mytasklist[s])
   layout:set_right(right_layout)
-
   widgetbox[s]:set_widget(layout)
   -- Create the bottom wibox
-  mybottomwibox[s] = awful.wibox({ 
-    position = "bottom", 
-    screen = s, 
-    border_width = 0, 
-    height = 20 
-  })
+  mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = 0, height = 20 })
   -- Widgets that are aligned to the bottom left
   bottom_left_layout = wibox.layout.fixed.horizontal()
-
   -- Widgets that are aligned to the bottom right
   bottom_right_layout = wibox.layout.fixed.horizontal()
   bottom_right_layout:add(mpdicon)
   bottom_right_layout:add(mpdwidget)
-
   -- Now bring it all together (with the tasklist in the middle)
   bottom_layout = wibox.layout.align.horizontal()
   bottom_layout:set_left(bottom_left_layout)
