@@ -123,28 +123,16 @@ local MULTICOLOR = {
 Please change if something is not the same ...
 ]]--
 local app={
-  ["browser"]="firefox",
-  ["terminal"]="xterm",
-  ["graphic"]="gimp",
-  ["develop"]="gvim",
+  ["browser"]="firefox", ["terminal"]="xterm",
+  ["graphic"]="gimp",    ["develop"]="gvim",
 }
 
-home   = os.getenv("HOME")
+home                   = os.getenv("HOME")
 terminal,editor,browser,editor_cmd = app.terminal,app.develop,app.browser,app.develop
---[[ 
-Global key 
-  Mod4 - Win
-  Mod1 - Alt
-]]--
-modkey,altkey = "Mod4","Mod1" 
-
---[[ 
-Status dynamic tags
-  true - on dynamic tags
-  false - off dynamic tags
-]]--
-local dynamic_tagging = true
-
+-- Global key: Mod4 - Win / Mod1 - Alt
+modkey,altkey          = "Mod4","Mod1" 
+-- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
+local dynamic_tagging  = true
 -- Standard awesome library
 local awful            = require('awful')
 wibox                  = require("wibox")
@@ -159,23 +147,6 @@ vicious                = require("vicious")
 -- Dynamic tagging
 if dynamic_tagging then  require("config/tags") else require("config/tags_fallback") end
                          require("config/bindings")
--- Keyboard map indicator and chansager
-kbdcfg = {}
-kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = { { "us", "" , "ENG" }, { "ru", "" , "RUS" } } 
-kbdcfg.current = 1  -- us is our default layout
-kbdcfg.widget = wibox.widget.textbox()
-kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][3] .. " ")
-kbdcfg.switch = function ()
-  kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
-  local t = kbdcfg.layout[kbdcfg.current]
-  kbdcfg.widget:set_text(" " .. t[3] .. " ")
-  os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
-end
- -- Mouse bindings
-kbdcfg.widget:buttons(
- awful.util.table.join(awful.button({ " " }, 1, function () kbdcfg.switch() end))
-)
 
 -- Theme: defines colours, icons, and wallpapers
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/multicolor/theme.lua")
@@ -193,49 +164,39 @@ local network          = require('widgets/network')
 local mem              = require('widgets/mem')
 local mpd              = require('widgets/mpd')
 local dyna             = require("dynawall")
+local kbdcfg           = require("widgets/keyboardIndicator")
 
 naughty.notify {
-          text="<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. "\n\n\<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
-          ontop = true, border_color = "#80d9d8", border_width = 1, timeout = 10
+  text="<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. "\n\n\<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
+  ontop = true, border_color = "#80d9d8", border_width = 1, timeout = 10
 }
--- {{{ Gen Menu
+-- Autogen Menu
 mymainmenu  = awful.menu.new({ items = menugen.build_menu(), theme = { height = 16, width = 130 }})
--- }}}
 markup      = lain.util.markup
-
 -- Textclock
 clockicon   = wibox.widget.imagebox(beautiful.widget_clock)
 mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
 
-
 -- Handle runtime errors after startup
-do
-    local in_error = false
-    awesome.connect_signal("debug::error", function (err)
-        -- Make sure we don't go into an endless error loop
-        if in_error then return end
-        in_error = true
-        naughty.notify{
-          text="<span color='#87af5f'>Awesome crashed during startup on</span> <span color='#e54c62'>" .. os.date("%d/%m/%Y %T</span>:\n\n<span color='#87af5f'>NAME CONF</span>: ")  
-          ..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. '\n<span color="#87af5f">ERROR</span>: ' .. err .. "\n\n\
-          <span color='#80d9d8'>Please send an error report to</span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
-          timeout = 0
-        }
-        in_error = false
-    end)
+do local in_error = false
+  awesome.connect_signal("debug::error", function (err)
+    -- Make sure we don't go into an endless error loop
+    if in_error then return end
+    in_error = true
+    naughty.notify{
+      text="<span color='#87af5f'>Awesome crashed during startup on</span> <span color='#e54c62'>" .. os.date("%d/%m/%Y %T</span>:\n\n<span color='#87af5f'>NAME CONF</span>: ")  
+      ..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. '\n<span color="#87af5f">ERROR</span>: ' .. err .. "\n\n\
+      <span color='#80d9d8'>Please send an error report to</span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
+      timeout = 0
+    }
+    in_error = false
+  end)
 end
-
--- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
-  awful.layout.suit.floating, awful.layout.suit.tile, awful.layout.suit.tile.left, awful.layout.suit.tile.bottom,
-  awful.layout.suit.tile.top, awful.layout.suit.fair, awful.layout.suit.fair.horizontal, awful.layout.suit.spiral,
-  awful.layout.suit.spiral.dwindle, awful.layout.suit.max, awful.layout.suit.max.fullscreen, awful.layout.suit.magnifier
-}
 
 -- Task list
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
-   awful.button({ }, 1, function (c)
+  awful.button({ }, 1, function (c)
     if c == client.focus then
         c.minimized = true
     else
@@ -248,24 +209,15 @@ mytasklist.buttons = awful.util.table.join(
         client.focus = c
         c:raise()
     end
-   end),
-   awful.button({ }, 3, function ()
-    if instance then
-        instance:hide()
-        instance = nil
-    else
-        instance = awful.menu.clients({
-            theme = { width = 250 }
-        })
-    end
-   end),
-   awful.button({ }, 4, function () awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
-   awful.button({ }, 5, function () awful.client.focus.byidx(-1) if client.focus then client.focus:raise() end end)
+  end),
+  awful.button({ }, 3, function () if instance then instance:hide() instance = nil else instance = awful.menu.clients({theme = { width = 250 } }) end end),
+  awful.button({ }, 4, function () awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
+  awful.button({ }, 5, function () awful.client.focus.byidx(-1) if client.focus then client.focus:raise() end end)
 )
 
 -- Small widgets and widget boxes
-spacer    = wibox.widget.textbox()
-separator = wibox.widget.imagebox()
+spacer          = wibox.widget.textbox()
+separator       = wibox.widget.imagebox()
 spacer:set_text(" ")
 separator:set_image(beautiful.widget_sep)
 
@@ -303,44 +255,33 @@ for s = 1, screen.count() do
   -- Widgets that are aligned to the right
   local right_layout = wibox.layout.fixed.horizontal()
   if s == 1 then right_layout:add(wibox.widget.systray()) end
-  right_layout:add(netdownicon)
-  right_layout:add(netdowninfo)
-  right_layout:add(netupicon)
-  right_layout:add(netupinfo)
-  right_layout:add(volicon)
-  right_layout:add(volumewidget)
-  right_layout:add(memicon)
-  right_layout:add(memwidget)
-  right_layout:add(cpuicon)
-  right_layout:add(cpuwidget)
-  right_layout:add(tempicon)
-  right_layout:add(tempwidget)
-  right_layout:add(fsicon)
-  right_layout:add(fswidget)
-  --right_layout:add(weathericon)
-  --right_layout:add(yawn.widget)
-  right_layout:add(baticon)
-  right_layout:add(batwidget)
-  right_layout:add(clockicon)
-  right_layout:add(mytextclock)
-  right_layout:add(kbdcfg.widget)
+  right_layout:add(netdownicon) right_layout:add(netdowninfo)
+  right_layout:add(netupicon)   right_layout:add(netupinfo)
+  right_layout:add(volicon)     right_layout:add(volumewidget)
+  right_layout:add(memicon)     right_layout:add(memwidget)
+  right_layout:add(cpuicon)     right_layout:add(cpuwidget)
+  right_layout:add(tempicon)    right_layout:add(tempwidget)
+  right_layout:add(fsicon)      right_layout:add(fswidget)
+  --right_layout:add(weathericon) right_layout:add(yawn.widget)
+  right_layout:add(baticon)     right_layout:add(batwidget)
+  right_layout:add(clockicon)   right_layout:add(mytextclock)
+                                right_layout:add(kbdcfg.widget)
 
   -- Now bring it all together (with the tasklist in the middle)
-  local layout = wibox.layout.align.horizontal()
+  local layout        = wibox.layout.align.horizontal()
   layout:set_left(left_layout)
   --layout:set_middle(mytasklist[s])
   layout:set_right(right_layout)
   widgetbox[s]:set_widget(layout)
   -- Create the bottom wibox
-  mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = 0, height = 20 })
+  mybottomwibox[s]    = awful.wibox({ position = "bottom", screen = s, border_width = 0, height = 20 })
   -- Widgets that are aligned to the bottom left
-  bottom_left_layout = wibox.layout.fixed.horizontal()
+  bottom_left_layout  = wibox.layout.fixed.horizontal()
   -- Widgets that are aligned to the bottom right
   bottom_right_layout = wibox.layout.fixed.horizontal()
-  bottom_right_layout:add(mpdicon)
-  bottom_right_layout:add(mpdwidget)
+  bottom_right_layout:add(mpdicon) bottom_right_layout:add(mpdwidget)
   -- Now bring it all together (with the tasklist in the middle)
-  bottom_layout = wibox.layout.align.horizontal()
+  bottom_layout       = wibox.layout.align.horizontal()
   bottom_layout:set_left(bottom_left_layout)
   bottom_right_layout:add(layoutbox[s])
   bottom_layout:set_middle(mytasklist[s])
@@ -351,36 +292,25 @@ end
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
-    if not awesome.startup then
-        -- Set the windows at the slave,
-        -- i.e. put it at the end of others instead of setting it master.
-        -- awful.client.setslave(c)
-        -- Put windows in a smart way, only if they does not set an initial position.
-        if not c.size_hints.user_position and not c.size_hints.program_position then
-            awful.placement.no_overlap(c)
-            awful.placement.no_offscreen(c)
-        end
+  if not awesome.startup then
+    -- Set the windows at the slave,
+    -- i.e. put it at the end of others instead of setting it master.
+    -- awful.client.setslave(c)
+    -- Put windows in a smart way, only if they does not set an initial position.
+    if not c.size_hints.user_position and not c.size_hints.program_position then
+      awful.placement.no_overlap(c)
+      awful.placement.no_offscreen(c)
     end
+  end
 end)
 
 -- Enable sloppy focus
-client.connect_signal("mouse::enter", function(c)
-    if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-        and awful.client.focus.filter(c) then
-        client.focus = c
-    end
-end)
-
+client.connect_signal("mouse::enter", function(c) if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier and awful.client.focus.filter(c) then client.focus = c end end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
 -- Default static wall
-if beautiful.wallpaper then
-	for s = 1,screen.count() do
-  	gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-	end
-end
+if beautiful.wallpaper then for s = 1,screen.count() do gears.wallpaper.maximized(beautiful.wallpaper, s, true) end end
 -- if you need dynamic wallpapers
 -- uncomment this function
 dyna.wall(true,"~/Images/Wall")
