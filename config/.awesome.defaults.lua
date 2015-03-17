@@ -165,6 +165,10 @@ local mem              = require('widgets/mem')
 local mpd              = require('widgets/mpd')
 local dyna             = require("dynawall")
 local kbdcfg           = require("widgets/keyboardIndicator")
+local mak              = require('widgets/mak')
+
+--{{---| Java GUI's fix |---------------------------------------------------------------------------
+awful.util.spawn_with_shell("wmname LG3D")
 
 naughty.notify {
   text="<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. "\n\n<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
@@ -286,6 +290,7 @@ for s = 1, screen.count() do
   -- Now bring it all together (with the tasklist in the middle)
   bottom_layout       = wibox.layout.align.horizontal()
   bottom_layout:set_left(bottom_left_layout)
+  bottom_right_layout:add(makwidget)
   bottom_right_layout:add(layoutbox[s])
   bottom_layout:set_middle(mytasklist[s])
   bottom_layout:set_right(bottom_right_layout)

@@ -1,5 +1,5 @@
 local newtimer        = require("lain.helpers").newtimer
-
+regologo              = wibox.widget.textbox()
 local wibox           = require("wibox")
 
 local io              = { lines  = io.lines }
@@ -9,7 +9,7 @@ local string          = { format = string.format,
                           len    = string.len }
 
 local setmetatable    = setmetatable
-
+regologo:set_markup( '<span color="#e54c62">M.A.K.</span> ')
 -- Memory usage (ignoring caches)
 -- lain.widgets.mem
 local mem = {}

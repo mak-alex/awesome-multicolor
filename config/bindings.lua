@@ -210,6 +210,8 @@ local function hotKeys()
       <span font="" color='#e0da37'>move right:</span>             <span font="" color='#e33a6e'>Win+l</span>
       <span font="" color='#e0da37'>move up:</span>                <span font="" color='#e33a6e'>Win+k</span> 
       <span font="" color='#e0da37'>move down:</span>              <span font="" color='#e33a6e'>Win+j</span>
+      <span font="" color='#e0da37'>byid +1:</span>                <span font="" color='#e33a6e'>Alt+j</span>
+      <span font="" color='#e0da37'>byid -1:</span>                <span font="" color='#e33a6e'>Alt+k</span>
           
     <span font="ohsnap 13" color='#f1af5f'><b>PANEL:</b></span>
       <span font="" color='#7493d2'>hide panels:</span>            <span font="" color='#f1af5f'>Win+b</span>
@@ -311,6 +313,17 @@ local globalkeys = awful.util.table.join(
         client.focus:raise()
       end
     end),
+    -- Default client focus
+    awful.key({ altkey }, "k",
+        function ()
+            awful.client.focus.byidx( 1)
+            if client.focus then client.focus:raise() end
+        end),
+    awful.key({ altkey }, "j",
+        function ()
+            awful.client.focus.byidx(-1)
+            if client.focus then client.focus:raise() end
+        end),
     -- By direction client focus
     awful.key({ modkey }, "j",
         function()
