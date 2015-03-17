@@ -335,6 +335,9 @@ local globalkeys = awful.util.table.join(
         end),
     -- Dropdown terminal
     awful.key({ modkey,           }, "z",      function () drop(terminal,250,nil,700,250) end),
+    -- Widgets popups
+    awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
+    awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
      -- Show Menu
     awful.key({ modkey }, "w",
         function ()

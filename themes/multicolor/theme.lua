@@ -59,6 +59,14 @@ theme.widget_batt                   = theme.confdir .. "/icons/bat.png"
 theme.widget_clock                  = theme.confdir .. "/icons/clock.png"
 theme.widget_vol                    = theme.confdir .. "/icons/spkr.png"
 
+theme.mpd                           = theme.confdir .. "/icons/mpd.png"
+theme.mpd_on                        = theme.confdir .. "/icons/mpd_on.png"
+theme.prev                          = theme.confdir .. "/icons/prev.png"
+theme.nex                           = theme.confdir .. "/icons/next.png"
+theme.stop                          = theme.confdir .. "/icons/stop.png"
+theme.pause                         = theme.confdir .. "/icons/pause.png"
+theme.play                          = theme.confdir .. "/icons/play.png"
+
 theme.taglist_squares_sel           = theme.confdir .. "/icons/square_a.png"
 theme.taglist_squares_unsel         = theme.confdir .. "/icons/square_b.png"
 

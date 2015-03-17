@@ -264,8 +264,11 @@ for s = 1, screen.count() do
   right_layout:add(fsicon)      right_layout:add(fswidget)
   --right_layout:add(weathericon) right_layout:add(yawn.widget)
   right_layout:add(baticon)     right_layout:add(batwidget)
-  right_layout:add(clockicon)   right_layout:add(mytextclock)
                                 right_layout:add(kbdcfg.widget)
+  right_layout:add(calendar_icon)
+  right_layout:add(calendarwidget)
+  right_layout:add(clock_icon)
+  right_layout:add(clockwidget)
 
   -- Now bring it all together (with the tasklist in the middle)
   local layout        = wibox.layout.align.horizontal()
