@@ -123,7 +123,7 @@ local MULTICOLOR = {
 Please change if something is not the same ...
 ]]--
 local app={
-  ["browser"]="firefox", ["terminal"]="xterm",
+  ["browser"]="firefox", ["terminal"]="urxvt",
   ["graphic"]="gimp",    ["develop"]="gvim",
 }
 
@@ -131,7 +131,7 @@ local app={
   Autostart applications
 ]]
 local autostart={
-  ["browser"]="firefox", ["terminal"]="xterm",
+  ["browser"]="firefox", ["terminal"]="urxvt",
   ["vm"]="/opt/VirtualBox/VirtualBox",    ["develop"]="subl3",
 }
 
