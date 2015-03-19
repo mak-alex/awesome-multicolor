@@ -127,6 +127,14 @@ local app={
   ["graphic"]="gimp",    ["develop"]="gvim",
 }
 
+--[[
+  Autostart applications
+]]
+local autostart={
+  ["browser"]="firefox", ["terminal"]="xterm",
+  ["vm"]="/opt/VirtualBox/VirtualBox",    ["develop"]="subl3",
+}
+
 home                   = os.getenv("HOME")
 terminal,editor,browser,editor_cmd = app.terminal,app.develop,app.browser,app.develop
 -- Global key: Mod4 - Win / Mod1 - Alt
@@ -143,6 +151,7 @@ beautiful              = require("beautiful")
 local naughty          = require("naughty")
 lain                   = require("lain")
 vicious                = require("vicious")
+local r                = require("runonce")
 
 -- Dynamic tagging
 if dynamic_tagging then  require("config/tags") else require("config/tags_fallback") end
@@ -317,8 +326,11 @@ client.connect_signal("mouse::enter", function(c) if awful.layout.get(c.screen) 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
 -- Default static wall
 if beautiful.wallpaper then for s = 1,screen.count() do gears.wallpaper.maximized(beautiful.wallpaper, s, true) end end
 -- if you need dynamic wallpapers
 -- uncomment this function
 dyna.wall(false,"~/Images/Wall")
+r.run("xterm")
+r.run("gvim")

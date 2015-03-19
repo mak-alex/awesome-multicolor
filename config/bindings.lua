@@ -100,24 +100,25 @@ local MULTICOLOR = {
       If you're here, read the code ;-)
   ]]
 }
-local awful = require('awful')
-awful.rules = require("awful.rules")
-awful.autofocus = require("awful.autofocus")
-local beautiful = require("beautiful")
-drop      = require("scratchdrop")
-menugen = require("menugen")
-tyrannical = require("tyrannical")
-local capi      = {root=root,client=client,tag=tag,mouse=mouse}
-local ipairs    = ipairs
-local unpack    = unpack
-local aw_util   = require( "awful.util"   )
-local aw_tag    = require( "awful.tag"    )
-local aw_client = require( "awful.client" )
-local aw_layout = require( "awful.layout" )
-local aw_key    = require( "awful.key"    )
-local aw_prompt = require( "awful.prompt" )
-local glib      = require( "lgi"          ).GLib
-
+local awful             = require('awful')
+awful.rules             = require("awful.rules")
+awful.autofocus         = require("awful.autofocus")
+local beautiful         = require("beautiful")
+drop                    = require("scratchdrop")
+menugen                 = require("menugen")
+tyrannical              = require("tyrannical")
+hotkeys = require("widgets/hotkeys")
+local capi              = {root=root,client=client,tag=tag,mouse=mouse}
+local ipairs            = ipairs
+local unpack            = unpack
+local aw_util           = require( "awful.util"   )
+local aw_tag            = require( "awful.tag"    )
+local aw_client         = require( "awful.client" )
+local aw_layout         = require( "awful.layout" )
+local aw_key            = require( "awful.key"    )
+local aw_prompt         = require( "awful.prompt" )
+local glib              = require( "lgi"          ).GLib
+local kbdcfg            = require("widgets/keyboardIndicator")
 -- Delete a tag as of 3.5.5, this have a few issue. Patches are on their way
 local function delete_tag()
     aw_tag.delete(capi.client.focus and aw_tag.selected(capi.client.focus.screen) or aw_tag.selected(capi.mouse.screen) )
@@ -168,70 +169,6 @@ local function rename_tag()
     )
 end
 
-local function hotKeys()
-  naughty.notify({ 
-    text = [[
-    <span font="ohsnap 13" color='#87af5f'><b>MPD (MUSIC SERVER):</b></span>
-      <span font="" color='#e33a6e'>mpc|ncmpc|pms next:</span>     <span font="" color='#87af5f'>Alt+Shift+(arrow_right)</span>
-      <span font="" color='#e33a6e'>mpc|ncmpc|pms prev:</span>     <span font="" color='#87af5f'>Alt+Shift+(arrow_left)</span>
-      <span font="" color='#e33a6e'>mpc|ncmpc|pms toggle:</span>   <span font="" color='#87af5f'>Alt+Shift+(arrow_up)</span>
-      <span font="" color='#e33a6e'>mpc|ncmpc|pms stop:</span>     <span font="" color='#87af5f'>Alt+Shift+(arrow_down)</span>
-
-    <span font="ohsnap 13" color='#e54c62'><b>ALSA:</b></span>
-      <span font="" color='#f1af5f'>volume up:</span>              <span font="" color='#e54c62'>Alt+(arrow_up)</span>
-      <span font="" color='#f1af5f'>volume down:</span>            <span font="" color='#e54c62'>Alt+(arrow_down)</span>
-      <span font="" color='#f1af5f'>volume mute|unmute:</span>     <span font="" color='#e54c62'>Alt+m</span>
-      <span font="" color='#f1af5f'>volumn 100%:</span>            <span font="" color='#e54c62'>Alt+Ctrl+m</span>
-            
-    <span font="ohsnap 13" color='#7493d2'><b>DYNAMIC TAGS:</b></span>
-      <span font="" color='#80d9d8'>delete_tag:</span>             <span font="" color='#7493d2'>Win+d</span>
-      <span font="" color='#80d9d8'>new tag:</span>                <span font="" color='#7493d2'>Win+n</span>
-      <span font="" color='#80d9d8'>move to new tag:</span>        <span font="" color='#7493d2'>Win+Alt+n</span>
-      <span font="" color='#80d9d8'>rename tag to focussed:</span> <span font="" color='#7493d2'>Win+Alt+r</span>
-      <span font="" color='#80d9d8'>rename tag:</span>             <span font="" color='#7493d2'>Win+Shift+r</span>
-      <span font="" color='#80d9d8'>term in current  tag:</span>   <span font="" color='#7493d2'>Win+Alt+enter</span>
-      <span font="" color='#80d9d8'>new tag with term:</span>      <span font="" color='#7493d2'>Win+Ctrl+enter</span>
-      <span font="" color='#80d9d8'>fork tag:</span>               <span font="" color='#7493d2'>Win+Ctrl+f</span>
-      <span font="" color='#80d9d8'>aero tag:</span>               <span font="" color='#7493d2'>Win+a</span>
-      <span font="" color='#80d9d8'>tag view prev:</span>          <span font="" color='#7493d2'>Win+(arrow_left)</span>
-      <span font="" color='#80d9d8'>tag view next:</span>          <span font="" color='#7493d2'>Win+(arrow_right)</span>
-      <span font="" color='#80d9d8'>tag history restore:</span>    <span font="" color='#7493d2'>Win+Escape</span>
-            
-    <span font="ohsnap 13" color='#e0da37'><b>TERMINAL:</b></span>
-      <span font="" color='#eca4c4'>new terminal:</span>           <span font="" color='#e0da37'>Win+enter</span>
-      <span font="" color='#eca4c4'>dropdown terminal:</span>      <span font="" color='#e0da37'>Win+z</span>
-            
-    <span font="ohsnap 13" color='#e33a6e'><b>WINDOW:</b></span>
-      <span font="" color='#e0da37'>open window fullscreen:</span> <span font="" color='#e33a6e'>Win+f</span>
-      <span font="" color='#e0da37'>maximized hor and vert:</span> <span font="" color='#e33a6e'>Win+m</span>
-      <span font="" color='#e0da37'>kill window:</span>            <span font="" color='#e33a6e'>Win+Shift+c</span>
-      <span font="" color='#e0da37'>floating window:</span>        <span font="" color='#e33a6e'>Win+Ctrl+space</span>
-      <span font="" color='#e0da37'>move left:</span>              <span font="" color='#e33a6e'>Win+h</span> 
-      <span font="" color='#e0da37'>move right:</span>             <span font="" color='#e33a6e'>Win+l</span>
-      <span font="" color='#e0da37'>move up:</span>                <span font="" color='#e33a6e'>Win+k</span> 
-      <span font="" color='#e0da37'>move down:</span>              <span font="" color='#e33a6e'>Win+j</span>
-      <span font="" color='#e0da37'>byid +1:</span>                <span font="" color='#e33a6e'>Alt+j</span>
-      <span font="" color='#e0da37'>byid -1:</span>                <span font="" color='#e33a6e'>Alt+k</span>
-          
-    <span font="ohsnap 13" color='#f1af5f'><b>PANEL:</b></span>
-      <span font="" color='#7493d2'>hide panels:</span>            <span font="" color='#f1af5f'>Win+b</span>
-
-    <span font="ohsnap 13" color='#80d9d8'><b>MENU:</b></span>
-      <span font="" color='#e54c62'>open dynamic menu:</span>      <span font="" color='#80d9d8'>Win+w</span>
-
-    <span font="ohsnap 13" color='#eca4c4'><b>AWESOME:</b></span>
-      <span font="" color='#87af5f'>restart wm:</span>             <span font="" color='#eca4c4'>Win+Ctrl+enter</span>
-      <span font="" color='#87af5f'>quit wm:</span>                <span font="" color='#eca4c4'>Win+Shift+q</span>
-
-  <span font="ohsnap 12" color='#de5e1e'>Please click with the mouse to exit or wait 20 seconds</span>
-    ]], 
-    timeout = 20,
-    width = 450,
-    ontop = true,
-    border_width = 1,
-    border_color = '#535d6c' })
-end
-
 local function term_in_current_tag()
     aw_util.spawn(terminal,{intrusive=true,slave=true})
 end
@@ -274,7 +211,6 @@ local function register_keys()
         {{ modkey, "Control" }, "Return", new_tag_with_term     },
         {{ modkey, "Control" }, "f"     , fork_tag              },
         {{ modkey            }, "a"     , aero_tag              },
-        {{                   }, "F1"    , hotKeys               },
     } do
         keys[#keys+1] = aw_key(data[1], data[2], data[3])
     end
@@ -298,7 +234,8 @@ local globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
     awful.key({ modkey,           }, "u",      awful.client.urgent.jumpto),
     -- Alt + Right Shift switches the current keyboard layout
-    awful.key({ alkey,            }, "Shift",  function () kbdcfg.switch() end),
+    awful.key({ "Mod1",           }, "Shift",  function () kbdcfg.switch() end),
+    awful.key({                   }, "F1",     function() hotkeys.wibox.visible = not hotkeys.wibox.visible end),
     awful.key({ modkey,           }, "n",      function ()
       awful.client.focus.byidx( 1)
       if client.focus then client.focus:raise() end
