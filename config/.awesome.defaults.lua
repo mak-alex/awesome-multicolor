@@ -156,7 +156,6 @@ local r                = require("runonce")
 -- Dynamic tagging
 if dynamic_tagging then  require("config/tags") else require("config/tags_fallback") end
                          require("config/bindings")
-
 -- Theme: defines colours, icons, and wallpapers
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/multicolor/theme.lua")
 --- Widgets
@@ -302,6 +301,9 @@ for s = 1, screen.count() do
   bottom_layout:set_right(bottom_right_layout)
   mybottomwibox[s]:set_widget(bottom_layout)
 end
+
+-- Add keyboard shortcuts
+--dofile(os.getenv("HOME") .. "/.config/awesome/shortcuts.lua")
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.

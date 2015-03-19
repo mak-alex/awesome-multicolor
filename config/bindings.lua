@@ -429,6 +429,7 @@ local clientbuttons = awful.util.table.join(clientbuttons,
     awful.button({ modkey }, 3, awful.mouse.client.resize)
 )
 
+
 -- Register keys
 root.keys(globalkeys)
 

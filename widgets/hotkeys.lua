@@ -93,7 +93,7 @@ hotkeys.height    = 660
 -------------------------------------------------------------------------------
 --
 -------------------------------------------------------------------------------
-hotkeys_wbox = wibox({bg = "#2a2a2a", width = hotkeys.width, height = hotkeys.height})
+hotkeys_wbox = wibox({bg = "#2a2a2a", width = hotkeys.width, height = hotkeys.height, border_width=1, border_color="#e0da37"})
 hotkeys_wbox.visible = false
 hotkeys_wbox.ontop = true
 hotkeys_wbox:geometry({ x = ((scrn.width)/2)-200, y = ((scrn.height)/2)-330})
