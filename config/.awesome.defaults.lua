@@ -150,7 +150,7 @@ beautiful              = require("beautiful")
 -- Notification library
 local naughty          = require("naughty")
 lain                   = require("lain")
-vicious                = require("vicious")
+--vicious                = require("vicious")
 local r                = require("runonce")
 
 -- Dynamic tagging
@@ -164,7 +164,7 @@ local datewidget       = require('widgets/date')
 local menulauncher     = require('widgets/menu')
 local weather          = require('widgets/weather')
                          require('widgets/filesystem')
-local gmail            = require('widgets/gmail')
+--local gmail            = require('widgets/gmail')
 local cpu              = require('widgets/cpu')
 local coretemp         = require('widgets/coretemp')
 local battery          = require('widgets/battery')
