@@ -230,7 +230,7 @@ mytasklist.buttons = awful.util.table.join(
 -- Small widgets and widget boxes
 spacer          = wibox.widget.textbox()
 separator       = wibox.widget.imagebox()
-spacer:set_text(" ")
+spacer:set_text("|")
 separator:set_image(beautiful.widget_sep)
 
 -- Wibox initialisation

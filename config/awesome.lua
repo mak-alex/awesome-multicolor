@@ -39,9 +39,6 @@ local MULTICOLOR = {
       * Beautiful notifications (via naughty)
 
     ##Dependencies
-      * beautiful
-      * vicious
-      * naughty
       * tyrannical (optional)
       * Dynamic generate menu (via Alex M.A.K)
       * Dropdown terminal (via Alex M.A.K)
