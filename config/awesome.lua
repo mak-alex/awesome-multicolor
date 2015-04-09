@@ -206,7 +206,16 @@ do local in_error = false
 end
 
 -- Task list
+mytaglist         = {}
 mytasklist = {}
+mytaglist.buttons = awful.util.table.join(
+                    awful.button({ }, 1, awful.tag.viewonly),
+                    awful.button({ modkey }, 1, awful.client.movetotag),
+                    awful.button({ }, 3, awful.tag.viewtoggle),
+                    awful.button({ modkey }, 3, awful.client.toggletag),
+                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
+                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
+                    )
 mytasklist.buttons = awful.util.table.join(
   awful.button({ }, 1, function (c)
     if c == client.focus then
@@ -248,6 +257,7 @@ for s = 1, screen.count() do
   promptbox[s] = awful.widget.prompt()
   -- icon indicating which layout we're using
   layoutbox[s] = awful.widget.layoutbox(s)
+  mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
   layoutbox[s]:buttons(awful.util.table.join(
   	awful.button({ }, 1, function () awful.layout.inc(awful.layout.layouts, 1) end),
     awful.button({ }, 3, function () awful.layout.inc(awful.layout.layouts, -1) end),
@@ -261,7 +271,7 @@ for s = 1, screen.count() do
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
-  left_layout:add(taglist[s])
+  left_layout:add(mytaglist[s])
   left_layout:add(promptbox[s])
 
   -- Widgets that are aligned to the right
@@ -308,6 +318,19 @@ end
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
+   c:connect_signal("mouse::enter", function(c)
+        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            and awful.client.focus.filter(c) then
+            client.focus = c
+        end
+    end)
+
+    if not startup then
+        if not c.size_hints.user_position and not c.size_hints.program_position then
+            awful.placement.no_overlap(c)
+            awful.placement.no_offscreen(c)
+        end
+    end
   if not awesome.startup then
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
