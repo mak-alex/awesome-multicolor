@@ -206,16 +206,7 @@ do local in_error = false
 end
 
 -- Task list
-mytaglist         = {}
 mytasklist = {}
-mytaglist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ modkey }, 1, awful.client.movetotag),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
-                    )
 mytasklist.buttons = awful.util.table.join(
   awful.button({ }, 1, function (c)
     if c == client.focus then
@@ -245,19 +236,18 @@ separator:set_image(beautiful.widget_sep)
 -- Wibox initialisation
 widgetbox,mybottomwibox,promptbox,layoutbox,taglist = {},{},{},{},{}
 taglist.buttons = awful.util.table.join(
-	awful.button({ }, 1, awful.tag.viewonly),
-	awful.button({ modkey }, 1, awful.client.movetotag),
-	awful.button({ }, 3, awful.tag.viewtoggle),
-	awful.button({ modkey }, 3, awful.client.toggletag),
-	awful.button({ }, 4, awful.tag.viewnext),
-	awful.button({ }, 5, awful.tag.viewprev)
-)
+                    awful.button({ }, 1, awful.tag.viewonly),
+                    awful.button({ modkey }, 1, awful.client.movetotag),
+                    awful.button({ }, 3, awful.tag.viewtoggle),
+                    awful.button({ modkey }, 3, awful.client.toggletag),
+                    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
+                    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
+                    )
 
 for s = 1, screen.count() do
   promptbox[s] = awful.widget.prompt()
   -- icon indicating which layout we're using
   layoutbox[s] = awful.widget.layoutbox(s)
-  mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
   layoutbox[s]:buttons(awful.util.table.join(
   	awful.button({ }, 1, function () awful.layout.inc(awful.layout.layouts, 1) end),
     awful.button({ }, 3, function () awful.layout.inc(awful.layout.layouts, -1) end),
@@ -271,7 +261,7 @@ for s = 1, screen.count() do
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
-  left_layout:add(mytaglist[s])
+  left_layout:add(taglist[s])
   left_layout:add(promptbox[s])
 
   -- Widgets that are aligned to the right
