@@ -169,7 +169,7 @@ local network          = require('widgets/network')
 local mem              = require('widgets/mem')
 local mpd              = require('widgets/mpd')
 local dyna             = require("dynawall")
-local kbdcfg           = require("widgets/keyboardIndicator")
+--local kbdcfg           = require("widgets/keyboardIndicator")
 local mak              = require('widgets/mak')
 
 --{{---| Java GUI's fix |---------------------------------------------------------------------------
@@ -273,7 +273,7 @@ for s = 1, screen.count() do
   right_layout:add(fsicon)            right_layout:add(fswidget)
   --right_layout:add(weathericon)       right_layout:add(yawn.widget)
   right_layout:add(baticon)           right_layout:add(batwidget)
-                                      right_layout:add(kbdcfg.widget)
+  --                                    right_layout:add(kbdcfg.widget)
   right_layout:add(calendar_icon)     right_layout:add(calendarwidget)
   right_layout:add(clock_icon)        right_layout:add(clockwidget)
 
@@ -343,3 +343,4 @@ if beautiful.wallpaper then for s = 1,screen.count() do gears.wallpaper.maximize
 dyna.wall(false,"~/Images/Wall")
 r.run("xterm")
 r.run("gvim")
+r.run("setxkbmap -layout us,ru -option grp:alt_shift_toggle")
