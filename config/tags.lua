@@ -30,7 +30,7 @@ tyrannical.tags = {
       screen      = screen.count() > 1 and 2 or 1,
       layout      = awful.layout.suit.fair,
       class = {
-        "Chromium", "nightly", "uzbl", "surf", "Firefox",
+        "Iceweasel", "Chromium", "nightly", "uzbl", "surf", "Firefox",
       }
     },
     {

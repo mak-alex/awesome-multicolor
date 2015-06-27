@@ -51,7 +51,7 @@ function yawn.fetch_weather()
     local f={}
     local url = api_url .. units_set .. city_id
     local cmd = "curl --connect-timeout 1 -fsm 3 '" .. url .. "'"
-
+    if f==nil or f==0 then return 1 end
     async.request(cmd, function(f)
         local text = f:read("*a")
         f:close()
