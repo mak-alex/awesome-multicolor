@@ -48,6 +48,7 @@ local settings            = function() end
 yawn_notification_preset  = {}
 
 function yawn.fetch_weather()
+    local f={}
     local url = api_url .. units_set .. city_id
     local cmd = "curl --connect-timeout 1 -fsm 3 '" .. url .. "'"
 
