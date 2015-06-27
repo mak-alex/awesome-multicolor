@@ -28,6 +28,7 @@ local setmetatable = setmetatable
 local mpd = {}
 
 local function worker(args)
+    local f={}
     local args        = args or {}
     local timeout     = args.timeout or 2
     local password    = args.password or ""
