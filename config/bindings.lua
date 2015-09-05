@@ -293,6 +293,17 @@ local globalkeys = awful.util.table.join(
         function ()
             mymainmenu:show({ keygrabber = true })
         end),
+   -- Set backlight brightness 
+   awful.key({ modkey }, "Up",
+        function ()
+            awful.util.spawn("xbacklight -inc 10%")
+            volumewidget.update()
+        end),
+    awful.key({ modkey }, "Down",
+        function ()
+            awful.util.spawn("xbacklight -dec 10%")
+            volumewidget.update()
+        end),
     -- ALSA volume control
     awful.key({ altkey }, "Up",
         function ()
