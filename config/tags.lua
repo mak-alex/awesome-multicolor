@@ -44,6 +44,17 @@ tyrannical.tags = {
       }
     },
     {
+      name        = "games",
+      init        = false,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
+      screen      = 1,
+      layout      = awful.layout.suit.max,
+      class = {
+        "Steam",
+      }
+    },
+
+    {
       name        = "im",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
@@ -54,6 +65,17 @@ tyrannical.tags = {
       }
     },
     {
+      name        = "mail",
+      init        = false,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
+      screen      = 1,
+      layout      = awful.layout.suit.max,
+      class = {
+        "Thunderbird",
+      }
+    },
+
+    {
       name        = "music",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
@@ -61,6 +83,26 @@ tyrannical.tags = {
       layout      = awful.layout.suit.max,
       class = {
         "gmusicbrowser", "mpd", "mpc", "rhythmbox", "amarok"
+      }
+    },
+    {
+      name        = "files",
+      init        = false,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
+      screen      = screen.count()>2 and 3 or 1,
+      layout      = awful.layout.suit.max,
+      class = {
+        "Nemo", "SpaceFM",
+      }
+    },
+    {
+      name        = "downloads",
+      init        = false,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
+      screen      = screen.count()>2 and 3 or 1,
+      layout      = awful.layout.suit.max,
+      class = {
+        "transmission-gtk", "deluge", "qtbittorrent"
       }
     },
     {
