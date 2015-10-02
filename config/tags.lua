@@ -102,7 +102,7 @@ tyrannical.tags = {
       screen      = screen.count()>2 and 3 or 1,
       layout      = awful.layout.suit.max,
       class = {
-        "transmission-gtk", "deluge", "qtbittorrent"
+        "transmission-gtk", "deluge", "qtbittorrent", "Qbittorrent"
       }
     },
     {
