@@ -36,6 +36,8 @@ function mem:show(t_out)
         preset = mem_notification_preset,
         text = ws,
         timeout = t_out,
+        border_width = 3,
+        border_color = "#7788af"
     })
 end
 

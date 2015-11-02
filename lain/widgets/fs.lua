@@ -47,6 +47,8 @@ function fs:show(t_out)
         preset = fs_notification_preset,
         text = ws,
         timeout = t_out,
+        border_width = 3,
+        border_color = "#7788af"
     })
 end
 
@@ -99,6 +101,8 @@ local function worker(args)
                 timeout = 8,
                 fg = "#000000",
                 bg = "#FFFFFF",
+                border_width = 3,
+                border_color = "#7788af"
             })
             helpers.set_map("fs", true)
         else

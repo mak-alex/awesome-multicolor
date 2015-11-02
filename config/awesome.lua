@@ -135,7 +135,7 @@ local autostart={
 home                   = os.getenv("HOME")
 terminal,editor,browser,editor_cmd = app.terminal,app.develop,app.browser,app.develop
 -- Global key: Mod4 - Win / Mod1 - Alt
-modkey,altkey          = "Mod4","Mod1" 
+modkey,altkey          = "Mod4","Mod1"
 -- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
 local dynamic_tagging  = true
 -- Standard awesome library
@@ -179,8 +179,167 @@ naughty.notify {
   text="<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. "\n\n<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
   ontop = true, border_color = "#80d9d8", border_width = 1, timeout = 10
 }
+
+function createEditConfigurationsFileFromAwesome(name)
+    local i, t, popen = 0, {}, io.popen
+    for filename in popen ('ls '..name):lines() do
+        i = i + 1
+        t[i] = { [filename] = name.."/"..filename }
+    end
+
+    return t
+end
+
+local ConfigFiles = {}
+for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/config'))
+do
+    for kk, vv in pairs(v)
+    do
+        table.insert(ConfigFiles,
+            {
+                kk,
+                editor_cmd .. " " .. vv,
+                settings_icon
+            }
+        )
+    end
+end
+
+local ThemesFiles = {}
+for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/themes/multicolor/'))
+do
+    for kk, vv in pairs(v)
+    do
+        if string.find(vv, ".lua")
+        then
+            table.insert(ThemesFiles,
+                {
+                    kk,
+                    editor_cmd .. " " .. vv,
+                    settings_icon
+                }
+            )
+        end
+    end
+end
+
+local UserWidgetsFiles = {}
+for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/widgets/'))
+do
+    for kk, vv in pairs(v)
+    do
+        table.insert(UserWidgetsFiles,
+            {
+                kk,
+                editor_cmd .. " " .. vv,
+                settings_icon
+            }
+        )
+    end
+end
+
+local GlobalWidgetsFiles = {}
+for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/lain/widgets/'))
+do
+    for kk, vv in pairs(v)
+    do
+        table.insert(GlobalWidgetsFiles,
+            {
+                kk,
+                editor_cmd .. " " .. vv,
+                settings_icon
+            }
+        )
+    end
+end
+
 -- Autogen Menu
-mymainmenu  = awful.menu.new({ items = menugen.build_menu(), theme = { height = 16, width = 130 }})
+mymainmenu  = awful.menu.new(
+    {
+        items = menugen.build_menu(),
+        theme =
+        {
+            height = 22,
+            width = 240,
+            border_width = 3,
+            border_color = '#7788af'
+        },
+        {
+            "Awesome",
+            {
+                {
+                    "Manual from Awesome",
+                    terminal .. " -e man awesome",
+                    help_icon
+                },
+                { "", },
+                {
+                    "Edit Base Config",
+                    ConfigFiles,
+                },
+                {
+                    "Edit Theme Config",
+                    ThemesFiles,
+                },
+                {
+                    "Edit User Widgets Config",
+                    UserWidgetsFiles,
+                },
+                {
+                    "Edit Global Widgets Config",
+                    GlobalWidgetsFiles,
+                },
+                { "", },
+                { "Update MultiColor", 'cd '..awful.util.getdir("config")..'; git pull;'},
+                { "", },
+                {
+                    "Awesome Restart",
+                    awesome.restart,
+                    beautiful.restart_icon
+                },
+                {
+                    "Awesome Quit",
+                    awesome.quit,
+                    beautiful.quit_icon
+                },
+
+            }
+        },
+        { "", },
+        {
+             "LockScreen",
+             terminal .. "-e xlock -mode ant3d",
+             nil,
+        },
+        {
+             "PowerOff",
+             terminal .. "-e poweroff",
+             nil,
+        },
+        {
+             "Reboot",
+             terminal .. "-e reboot",
+             nil,
+        },
+        { "" },
+        {
+            "Browser",
+            "FireFox",
+            nil,
+        },
+        {
+            "Terminal",
+            terminal,
+            nil,
+        },
+        {
+            "filemanager",
+            "spacefm",
+            nil,
+        },
+        { "" },
+    }
+)
 markup      = lain.util.markup
 -- Textclock
 clockicon   = wibox.widget.imagebox(beautiful.widget_clock)

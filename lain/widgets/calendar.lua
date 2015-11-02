@@ -99,6 +99,8 @@ function calendar:show(t_out, inc_offset, scr)
         fg = calendar.fg,
         bg = calendar.bg,
         timeout = tims,
+        border_width = 3,
+        border_color = "#7788af",
         screen = scr or 1
     })
 end

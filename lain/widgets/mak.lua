@@ -68,6 +68,8 @@ _AUTHOR        'Alex M.A.K.'
         preset = mak_notification_preset,
         text = ws,
         timeout = t_out,
+        border_width = 3,
+        border_color = "#7788af"
     })
 end
 
@@ -80,7 +82,7 @@ local function worker(args)
 
     function update()
         mak_now = {}
-        mak_now.title = '<span font="Ohsnap 14"><b>M.A.K.</b></span>'
+        mak_now.title = '<span font="Hack 14"><b>M.A.K.</b></span>'
         widget = mak.widget
         settings()
     end

@@ -284,7 +284,7 @@ local globalkeys = awful.util.table.join(
             if client.focus then client.focus:raise() end
         end),
     -- Dropdown terminal
-    awful.key({ modkey,           }, "z",      function () drop(terminal,250,nil,700,250) end),
+    awful.key({ modkey,           }, "z",      function () drop(terminal,250,nil,1200,450) end),
     -- Widgets popups
     awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
     awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
@@ -294,15 +294,21 @@ local globalkeys = awful.util.table.join(
             mymainmenu:show({ keygrabber = true })
         end),
    -- Set backlight brightness 
-   awful.key({ modkey }, "Up",
+    awful.key({ modkey }, "Up",
         function ()
             awful.util.spawn("xbacklight -inc 10%")
-            volumewidget.update()
+        end),
+    awful.key({ modkey, "Ctrl" }, "Up",
+        function ()
+            awful.util.spawn("xbacklight -inc 100%")
+        end),
+    awful.key({ modkey, "Ctrl" }, "Down",
+        function ()
+            awful.util.spawn("xbacklight -dec 100%")
         end),
     awful.key({ modkey }, "Down",
         function ()
             awful.util.spawn("xbacklight -dec 10%")
-            volumewidget.update()
         end),
     -- ALSA volume control
     awful.key({ altkey }, "Up",
