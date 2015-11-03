@@ -308,10 +308,10 @@ mymainmenu  = awful.menu.new(
         { "", },
         {
              "LockScreen",
-             terminal .. "-e xlock -mode ant3d",
+             "xlock -mode ant3d",
              nil,
         },
-        {
+        --[[{
              "PowerOff",
              terminal .. "-e poweroff",
              nil,
@@ -320,7 +320,7 @@ mymainmenu  = awful.menu.new(
              "Reboot",
              terminal .. "-e reboot",
              nil,
-        },
+        },]]
         { "" },
         {
             "Browser",
@@ -333,7 +333,7 @@ mymainmenu  = awful.menu.new(
             nil,
         },
         {
-            "filemanager",
+            "FileManager",
             "spacefm",
             nil,
         },

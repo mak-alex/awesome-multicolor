@@ -1,13 +1,3 @@
-
---[[
-                                                      
-     Licensed under GNU General Public License v2     
-      * (c) 2013, Luke Bonham                         
-      * (c) 2010, Adrian C.      <anrxc@sysphere.org> 
-      * (c) 2009, Lucas de Vries <lucas@glacicle.com> 
-                                                      
---]]
-
 local helpers      = require("lain.helpers")
 
 local beautiful    = require("beautiful")
