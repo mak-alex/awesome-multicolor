@@ -11,6 +11,7 @@ local math       = math
 local string     = string
 local type       = type
 local modkey     = "Mod4"
+local altkey     = "Mod1"
 local beautiful  = require("beautiful")
 local naughty    = require("naughty")
 local capi       = {
@@ -27,7 +28,7 @@ module("keydoc")
 local doc = { }
 local currentgroup = "Помощь"
 local orig = awful.key.new
-local font = "DejaVu Sans Mono 7.8"
+local font = "Hack 8"
 
 -- Replacement for awful.key.new
 local function new(mod, key, press, release, docstring)
@@ -62,6 +63,7 @@ local function key2str(key)
       [modkey] = "⊞",
       Shift    = "⇧",
       Control  = "^",
+      [altkey] = "alt",
    }
    for _, mod in pairs(key.modifiers) do
       mod = translate[mod] or mod
@@ -136,22 +138,25 @@ end
 
 -- Display help in a naughty notification
 local nid = nil
+local nid1 = nil
 function display()
    local strings = markup(awful.util.table.join(
       capi.root.keys(),
       capi.client.focus and capi.client.focus:keys() or {}))
 
    local result = ""
-   result = result .. awful.util.pread(config_dir .. "/keydoc/help_header " .. locale)
+   local result1 = ""
+   --result = result .. awful.util.pread(config_dir .. "/keydoc/help_header " .. locale)
+   local i=1
    for group, res in spairs(strings) do
-      if #result > 0 then result = result .. "\n" end
-      result = result .. '<span weight="bold" color="' .. beautiful.fg_normal .. '">' .. group .. "</span>\n" .. res
+    if #result > 0 then result = result .. "\n" end
+    result = result .. '<span weight="bold" color="' .. beautiful.fg_normal .. '">' .. group .. "</span>\n" .. res
    end
    if #result > 0 then result = result .. "\n" end
    result = result .. awful.util.pread(config_dir .. "/keydoc/help_footer " .. locale)
    nid = naughty.notify({ screen      = 1,
                           position    = "top_left",
-                          timeout     = 0,
+                          timeout     = 20,
                           icon        = beautiful.help_icon,
                           font        = font,
                           text        = result,

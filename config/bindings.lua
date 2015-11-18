@@ -199,28 +199,6 @@ local function aero_tag()
     aw_tag.viewonly(t)
 end
 
-local function register_keys()
-    local keys = {}
-    -- Comment the lines of the shortcut you don't want
-    keydoc.group("Динамические теги")
-    for _,data in  ipairs {
-        {{ modkey            }, "d"     , delete_tag, keydoc.display, "Удалить тег"},
-        {{ modkey            }, "n"     , new_tag, keydoc.display, "Добавить тег"},
-        --{{ modkey, "Shift"   }, "n"     , new_tag_with_focussed },
-        {{ modkey, "Mod1"    }, "n"     , move_to_new_tag       },
-        {{ modkey, "Mod1"    }, "r"     , rename_tag_to_focussed},
-        {{ modkey, "Shift"   }, "r"     , rename_tag            },
-        {{ modkey, "Mod1"    }, "Return", term_in_current_tag   },
-        {{ modkey, "Control" }, "Return", new_tag_with_term     },
-        {{ modkey, "Control" }, "f"     , fork_tag              },
-        {{ modkey            }, "a"     , aero_tag              },
-    } do
-        keys[#keys+1] = aw_key(data[1], data[2], data[3])
-    end
-    capi.root.keys(aw_util.table.join(capi.root.keys(),unpack(keys)))
-end
-
-
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
 	awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -233,18 +211,22 @@ root.buttons(awful.util.table.join(
 local globalkeys = awful.util.table.join(
     globalkeys,
     awful.key({ modkey }, "F1", keydoc.display, "Справочнег"),
-    keydoc.group("Тэги"),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev, keydoc.display, "Предыдущий тэг"),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext, keydoc.display, "Следующий тэг"),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore, keydoc.display, "История тэгов"),
-    awful.key({ modkey,           }, "u",      awful.client.urgent.jumpto),
-    -- Alt + Right Shift switches the current keyboard layout
-    awful.key({ "Mod1",           }, "Shift",  function () kbdcfg.switch() end),
-    awful.key({                   }, "F1",     function() hotkeys.wibox.visible = not hotkeys.wibox.visible end),
-    awful.key({ modkey,           }, "n",      function ()
-      awful.client.focus.byidx( 1)
-      if client.focus then client.focus:raise() end
-    end),
+    keydoc.group("Теги"),
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev, keydoc.display),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext, keydoc.display),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore, keydoc.display),
+    --awful.key({ modkey,           }, "u",      awful.client.urgent.jumpto),
+    awful.key({ modkey, "Shift"   }, "r"     , function () rename_tag() end, "Переименовать тег"),
+    awful.key({ modkey            }, "d"     , function () delete_tag() end, "Удалить тег"),
+    awful.key({ modkey            }, "n"     , function () new_tag() end, "Добавить тег"),
+    awful.key({ modkey, "Shift"   }, "n"     , function () new_tag_with_focussed() end, "Добавить тег и перенести в него работающее приложение"),
+    --awful.key({ modkey, altkey    }, "n"     , function () move_to_new_tag() end, "Перенести открытое приложение на новый тег"),
+    awful.key({ modkey, altkey    }, "r"     , function () rename_tag_to_focussed() end, "Переименовать тег именем открытого приложения"),
+    awful.key({ modkey, altkey    }, "Return", function () term_in_current_tag() end, "Открыть терминал в текущем теге"),
+    awful.key({ modkey, "Control" }, "Return", function () new_tag_with_term() end, "Добавить тег и открыть на нем терминал"),
+    awful.key({ modkey, "Control" }, "f"     , function () fork_tag() end, "Форк тега"),
+    awful.key({ modkey            }, "a"     , function () aero_tag() end, "Аеро тег (объядинение двух тегов в одном)"),
+
     keydoc.group("Панель"),
     awful.key({ modkey }, "b",                 function ()
       widgetbox[mouse.screen].visible = not widgetbox[mouse.screen].visible
@@ -508,4 +490,4 @@ awful.rules.rules = {
   },
 }
 
-glib.idle_add(glib.PRIORITY_DEFAULT_IDLE, register_keys)
+--glib.idle_add(glib.PRIORITY_DEFAULT_IDLE, register_keys)
