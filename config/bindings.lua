@@ -212,9 +212,9 @@ local globalkeys = awful.util.table.join(
     globalkeys,
     awful.key({ modkey }, "F1", keydoc.display, "Справочнег"),
     keydoc.group("Теги"),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev, keydoc.display),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext, keydoc.display),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore, keydoc.display),
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev, "Перейти на тег слева"),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext, "Перейти на тег справа"),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore, "Перейти на последний посещаемый тег"),
     --awful.key({ modkey,           }, "u",      awful.client.urgent.jumpto),
     awful.key({ modkey, "Shift"   }, "r"     , function () rename_tag() end, "Переименовать тег"),
     awful.key({ modkey            }, "d"     , function () delete_tag() end, "Удалить тег"),
@@ -242,17 +242,6 @@ local globalkeys = awful.util.table.join(
         client.focus:raise()
       end
     end,"Переключение между окнами"),
-    awful.key({ altkey,           }, "Tab",                                                      
-         function ()                                                                              
-            alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
-         end,"Переключение между окнами GUI"                                                                                      
-     ),                                                                                           
-                                                                                                  
-    awful.key({ altkey, "Shift"   }, "Tab",                                                      
-         function ()                                                                              
-            alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
-         end,"Переключение между окнами GUI"                                                                                      
-     ),
     keydoc.group("Поисковики"),
     awful.key({ altkey }, "F12", function ()
         awful.prompt.run({ prompt = '<span weight="bold"> | Web search: </span>' }, promptbox[mouse.screen].widget,

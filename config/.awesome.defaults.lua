@@ -161,7 +161,6 @@ local datewidget       = require('widgets/date')
 local menulauncher     = require('widgets/menu')
 local weather          = require('widgets/weather')
                          require('widgets/filesystem')
-local net_widgets      = require("widgets/net_widgets")
 --local gmail            = require('widgets/gmail')
 local cpu              = require('widgets/cpu')
 local coretemp         = require('widgets/coretemp')
@@ -172,7 +171,6 @@ local mpd              = require('widgets/mpd')
 local dyna             = require("dynawall")
 --local kbdcfg           = require("widgets/keyboardIndicator")
 local mak              = require('widgets/mak')
-alttab                 = require("widgets/alttab")
 --{{---| Java GUI's fix |---------------------------------------------------------------------------
 awful.util.spawn_with_shell("wmname LG3D")
 
@@ -392,11 +390,6 @@ spacer          = wibox.widget.textbox()
 separator       = wibox.widget.imagebox()
 spacer:set_text(" ")
 separator:set_image(beautiful.widget_sep)
-net_wireless = net_widgets.wireless({interface   = "wlp3s0", indent = 0, })
-net_wired = net_widgets.indicator({
-   interfaces  = {"br0"},
-    timeout     = 5
-})
 -- Wibox initialisation
 widgetbox,mybottomwibox,promptbox,layoutbox,taglist = {},{},{},{},{}
 taglist.buttons = awful.util.table.join(
@@ -430,8 +423,6 @@ for s = 1, screen.count() do
   -- Widgets that are aligned to the right
   local right_layout = wibox.layout.fixed.horizontal()
   if s == 1 then right_layout:add(wibox.widget.systray()) end
-  right_layout:add(net_wireless)
-  right_layout:add(net_wired)
   right_layout:add(netdownicon)       right_layout:add(netdowninfo)
   right_layout:add(netupicon)         right_layout:add(netupinfo)
   right_layout:add(volicon)           right_layout:add(volumewidget)
