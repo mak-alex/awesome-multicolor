@@ -250,6 +250,42 @@ local globalkeys = awful.util.table.join(
         client.focus:raise()
       end
     end),
+    awful.key({ altkey,           }, "Tab",                                                      
+         function ()                                                                              
+            alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
+         end                                                                                      
+     ),                                                                                           
+                                                                                                  
+    awful.key({ altkey, "Shift"   }, "Tab",                                                      
+         function ()                                                                              
+            alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
+         end                                                                                      
+     ),
+
+    awful.key({ altkey }, "F12", function ()
+        awful.prompt.run({ prompt = "Web search: " }, promptbox[mouse.screen].widget,
+            function (command)
+                awful.util.spawn(browser.." 'https://www.google.kz/?gfe_rd=cr&ei=ry9MVrvIGtDnwAPjjInoBQ&gws_rd=ssl#q="..command.."'", false)
+                -- Switch to the web tag, where Firefox is, in this case tag 3
+                if tags[mouse.screen][3] then awful.tag.viewonly(tags[mouse.screen][3]) end
+            end)
+    end),
+    awful.key({ modkey, "Ctrl" }, "F12", function ()
+        awful.prompt.run({ prompt = "Music search in VK: " }, promptbox[mouse.screen].widget,
+            function (command)
+                awful.util.spawn("/bin/bash ~/.config/awesome/widgets/vksearch/vksearch.bin '"..command.."'", false)
+                naughty.notify({ text = "Search track or compositor: "..command, timeout = 10, border_width =3, border_color = "#7788af", })
+                if tags[mouse.screen][3] then awful.tag.viewonly(tags[mouse.screen][3]) end
+            end)
+    end),
+    awful.key({ modkey            }, "F11", function ()
+        awful.prompt.run({ prompt = "Calculate: " }, promptbox[mouse.screen].widget,
+            function (expr)
+                local result = awful.util.eval("return (" .. expr .. ")")
+                naughty.notify({ text = expr .. " = " .. result, timeout = 10, border_width =3, border_color = "#7788af", })
+            end
+        )
+    end),
     -- Default client focus
     awful.key({ altkey }, "k",
         function ()

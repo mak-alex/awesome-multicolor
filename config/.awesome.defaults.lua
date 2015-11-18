@@ -128,12 +128,12 @@ local app={
   Autostart applications
 ]]
 local autostart={
-  ["browser"]="firefox", ["terminal"]="urxvt",
+  ["browser"]="firefox", ["terminal"]="urxvt", ["musicsearch"] = os.getenv("HOME") .. "/.config/awesome/widgets/vksearch/vksearch.bin",
   ["vm"]="/opt/VirtualBox/VirtualBox",    ["develop"]="subl3",
 }
 
 home                   = os.getenv("HOME")
-terminal,editor,browser,editor_cmd = app.terminal,app.develop,app.browser,app.develop
+terminal,editor,browser,editor_cmd, vksearch = app.terminal,app.develop,app.browser,app.develop, app.musicsearch
 -- Global key: Mod4 - Win / Mod1 - Alt
 modkey,altkey          = "Mod4","Mod1"
 -- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
@@ -161,6 +161,7 @@ local datewidget       = require('widgets/date')
 local menulauncher     = require('widgets/menu')
 local weather          = require('widgets/weather')
                          require('widgets/filesystem')
+local net_widgets      = require("widgets/net_widgets")
 --local gmail            = require('widgets/gmail')
 local cpu              = require('widgets/cpu')
 local coretemp         = require('widgets/coretemp')
@@ -171,7 +172,7 @@ local mpd              = require('widgets/mpd')
 local dyna             = require("dynawall")
 --local kbdcfg           = require("widgets/keyboardIndicator")
 local mak              = require('widgets/mak')
-
+alttab                 = require("widgets/alttab")
 --{{---| Java GUI's fix |---------------------------------------------------------------------------
 awful.util.spawn_with_shell("wmname LG3D")
 
@@ -388,7 +389,11 @@ spacer          = wibox.widget.textbox()
 separator       = wibox.widget.imagebox()
 spacer:set_text(" ")
 separator:set_image(beautiful.widget_sep)
-
+net_wireless = net_widgets.wireless({interface   = "wlp3s0", indent = 0, })
+net_wired = net_widgets.indicator({
+   interfaces  = {"br0"},
+    timeout     = 5
+})
 -- Wibox initialisation
 widgetbox,mybottomwibox,promptbox,layoutbox,taglist = {},{},{},{},{}
 taglist.buttons = awful.util.table.join(
@@ -410,7 +415,6 @@ for s = 1, screen.count() do
     awful.button({ }, 4, function () awful.layout.inc(awful.layout.layouts, 1) end),
     awful.button({ }, 5, function () awful.layout.inc(awful.layout.layouts, -1) end)
   ))
- 
   taglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist.buttons)
   mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
   widgetbox[s] = awful.wibox({ position = "top", screen = s, fg = beautiful.fg_normal, bg = beautiful.bg_normal, border_color = 0, border_width = 0 })
@@ -423,6 +427,8 @@ for s = 1, screen.count() do
   -- Widgets that are aligned to the right
   local right_layout = wibox.layout.fixed.horizontal()
   if s == 1 then right_layout:add(wibox.widget.systray()) end
+  right_layout:add(net_wireless)
+  right_layout:add(net_wired)
   right_layout:add(netdownicon)       right_layout:add(netdowninfo)
   right_layout:add(netupicon)         right_layout:add(netupinfo)
   right_layout:add(volicon)           right_layout:add(volumewidget)
