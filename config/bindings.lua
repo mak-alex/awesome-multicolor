@@ -249,27 +249,27 @@ local globalkeys = awful.util.table.join(
     awful.key({ modkey }, "b",                 function ()
       widgetbox[mouse.screen].visible = not widgetbox[mouse.screen].visible
       mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
-    end, keydoc.display, "Скрыть панели"),
+    end,"Скрыть панели"),
     -- Widgets popups
-    awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end, keydoc.display, "Показать календарь"),
-    awful.key({ altkey,           }, "h",      function () fswidget.show(7) end, keydoc.display, "Показать df -h"),
+    awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end,"Показать календарь"),
+    awful.key({ altkey,           }, "h",      function () fswidget.show(7) end,"Показать df -h"),
     keydoc.group("Окна"),
     awful.key({ modkey,           }, "Tab",    function ()
       awful.client.focus.history.previous()
       if client.focus then
         client.focus:raise()
       end
-    end, keydoc.display, "Переключение между окнами"),
+    end,"Переключение между окнами"),
     awful.key({ altkey,           }, "Tab",                                                      
          function ()                                                                              
             alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
-         end, keydoc.display, "Переключение между окнами GUI"                                                                                      
+         end,"Переключение между окнами GUI"                                                                                      
      ),                                                                                           
                                                                                                   
     awful.key({ altkey, "Shift"   }, "Tab",                                                      
          function ()                                                                              
             alttab.switch(-1, "Alt_L", "Tab", "ISO_Left_Tab")                                            
-         end, keydoc.display, "Переключение между окнами GUI"                                                                                      
+         end,"Переключение между окнами GUI"                                                                                      
      ),
     keydoc.group("Поисковики"),
     awful.key({ altkey }, "F12", function ()
@@ -282,7 +282,7 @@ local globalkeys = awful.util.table.join(
                 if tags[mouse.screen][3] then awful.tag.viewonly(tags[mouse.screen][3]) end
               end
             end)
-    end, keydoc.display, "Поиск в Google"),
+    end,"Поиск в Google"),
     awful.key({ modkey, "Ctrl" }, "F12", function ()
         awful.prompt.run({ prompt = '<span weight="bold"> | Music search in VK: </span>' }, promptbox[mouse.screen].widget,
             function (command)
@@ -293,7 +293,7 @@ local globalkeys = awful.util.table.join(
                 if tags[mouse.screen][3] then awful.tag.viewonly(tags[mouse.screen][3]) end
               end
             end)
-    end, keydoc.display, "Поиск и запуск музыки с VK.COM в mplayer"),
+    end,"Поиск и запуск музыки с VK.COM в mplayer"),
     keydoc.group("Калькуляторы"),
     awful.key({ modkey            }, "F11", function ()
         awful.prompt.run({ prompt = '<span weight="bold"> | Calculate: </span>' }, promptbox[mouse.screen].widget,
@@ -305,7 +305,7 @@ local globalkeys = awful.util.table.join(
               end
             end
         )
-    end, keydoc.display, "Простой калькулятор"),
+    end,"Простой калькулятор"),
     -- Default client focus
     awful.key({ altkey }, "k",
         function ()
@@ -324,73 +324,74 @@ local globalkeys = awful.util.table.join(
       	    awful.client.focus.history.previous()
             awful.client.focus.bydirection("down")
             if client.focus then client.focus:raise() end
-        end, keydoc.display, "Фокус окна снизу"),
+        end,"Фокус окна снизу"),
     awful.key({ modkey }, "k",
         function()
             awful.client.focus.bydirection("up")
             if client.focus then client.focus:raise() end
-        end, keydoc.display, "Фокус окна сверху"),
+        end,"Фокус окна сверху"),
     awful.key({ modkey }, "h",
         function()
             awful.client.focus.bydirection("left")
             if client.focus then client.focus:raise() end
-        end, keydoc.display, "Фокус окна слева"),
+        end,"Фокус окна слева"),
     awful.key({ modkey }, "l",
         function()
             awful.client.focus.bydirection("right")
             if client.focus then client.focus:raise() end
-        end, keydoc.display, "Фокус окна справа"),
+        end,"Фокус окна справа"),
     -- Dropdown terminal
     keydoc.group("Терминалы"),
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end, keydoc.display, "Стандартный терминал"),
-    awful.key({ modkey,           }, "z",      function () drop(terminal,250,nil,1200,450) end, keydoc.display, "Простой выпадающий терминал"),
+    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end,"Стандартный терминал"),
+    awful.key({ modkey,           }, "z",      function () drop(terminal,250,nil,1200,450) end,"Простой выпадающий терминал"),
      -- Show Menu
     keydoc.group("Меню"),
     awful.key({ modkey }, "w",
         function ()
             mymainmenu:show({ keygrabber = true })
-        end, keydoc.display, "Генерируемое меню приложений"),
+        end,"Генерируемое меню приложений"),
     awful.key({ modkey },            "r",     function () promptbox[mouse.screen]:run() end, "Строка запуска"),
    -- Set backlight brightness 
     keydoc.group("Дисплей"),
     awful.key({ modkey }, "Up",
         function ()
             awful.util.spawn("xbacklight -inc 10%")
-        end, keydoc.display, "Прибавить яркость на 10%"),
-    awful.key({ modkey, "Ctrl" }, "Up",
-        function ()
-            awful.util.spawn("xbacklight -inc 100%")
-        end, keydoc.display, "Прибавить яркость на 100%"),
-    awful.key({ modkey, "Ctrl" }, "Down",
-        function ()
-            awful.util.spawn("xbacklight -dec 100%")
-        end, keydoc.display, "Понизить яркость на 100%"),
+        end,"Прибавить яркость на 10%"),
     awful.key({ modkey }, "Down",
         function ()
             awful.util.spawn("xbacklight -dec 10%")
-        end, keydoc.display, "Понизить яркость на 10%"),
+        end,"Понизить яркость на 10%"),
+    awful.key({ modkey, "Ctrl" }, "Up",
+        function ()
+            awful.util.spawn("xbacklight -inc 100%")
+        end,"Прибавить яркость на 100%"),
+    awful.key({ modkey, "Ctrl" }, "Down",
+        function ()
+            awful.util.spawn("xbacklight -dec 100%")
+        end,"Понизить яркость на 100%"),
+    
     -- ALSA volume control
     keydoc.group("Звук"),
     awful.key({ altkey }, "Up",
         function ()
             awful.util.spawn("amixer -q set Master 1%+")
             volumewidget.update()
-        end, keydoc.display, "Прибавить громкость на 1%"),
+        end,"Прибавить громкость на 1%"),
     awful.key({ altkey }, "Down",
         function ()
             awful.util.spawn("amixer -q set Master 1%-")
             volumewidget.update()
-        end, keydoc.display, "Понизить громкость на 1%"),
+        end,"Понизить громкость на 1%"),
     awful.key({ altkey }, "m",
         function ()
             awful.util.spawn("amixer -q set Master playback toggle")
             volumewidget.update()
-        end, keydoc.display, "Выключить звук"),
+        end,"Выключить звук"),
     awful.key({ altkey, "Control" }, "m",
         function ()
             awful.util.spawn("amixer -q set Master playback 100%")
             volumewidget.update()
-        end, keydoc.display, "Прибавить громкость на 100%"),
+        end,"Прибавить громкость на 100%"),
 
     -- MPD control
     keydoc.group("Музыка"),
@@ -398,22 +399,22 @@ local globalkeys = awful.util.table.join(
         function ()
             awful.util.spawn_with_shell("mpc toggle || ncmpcpp toggle || ncmpc toggle || pms toggle")
             mpdwidget.update()
-        end, keydoc.display, "Пориостановить проигрывание"),
+        end,"Пориостановить проигрывание"),
     awful.key({ altkey, "Control" }, "Down",
         function ()
             awful.util.spawn_with_shell("mpc stop || ncmpcpp stop || ncmpc stop || pms stop")
             mpdwidget.update()
-        end, keydoc.display, "Остановить проигрывание"),
+        end,"Остановить проигрывание"),
     awful.key({ altkey, "Control" }, "Left",
         function ()
             awful.util.spawn_with_shell("mpc prev || ncmpcpp prev || ncmpc prev || pms prev")
             mpdwidget.update()
-        end, keydoc.display, "Предыдущий трек"),
+        end,"Предыдущий трек"),
     awful.key({ altkey, "Control" }, "Right",
         function ()
             awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")
             mpdwidget.update()
-        end, keydoc.display, "Следующий трек"),
+        end,"Следующий трек"),
 
 
     -- Standard program

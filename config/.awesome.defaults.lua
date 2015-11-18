@@ -177,10 +177,13 @@ alttab                 = require("widgets/alttab")
 awful.util.spawn_with_shell("wmname LG3D")
 
 naughty.notify {
-  text="<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. "\n\n<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
-  ontop = true, border_color = "#80d9d8", border_width = 1, timeout = 10
+  text = "<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..
+  MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..
+  MULTICOLOR._URL .. "\n\n<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
+  ontop = true, border_color = "#7788af", border_width = 3, timeout = 3
 }
 
+-- Auto-genereate menu from Awesome configs and plugins --
 function createEditConfigurationsFileFromAwesome(name)
     local i, t, popen = 0, {}, io.popen
     for filename in popen ('ls '..name):lines() do
@@ -464,9 +467,6 @@ for s = 1, screen.count() do
   mybottomwibox[s]:set_widget(bottom_layout)
 end
 
--- Add keyboard shortcuts
---dofile(os.getenv("HOME") .. "/.config/awesome/shortcuts.lua")
-
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
@@ -503,9 +503,3 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- Default static wall
 if beautiful.wallpaper then for s = 1,screen.count() do gears.wallpaper.maximized(beautiful.wallpaper, s, true) end end
--- if you need dynamic wallpapers
--- uncomment this function
-dyna.wall(false,"~/Images/Wall")
-r.run("xterm")
-r.run("gvim")
-r.run("setxkbmap -layout us,ru -option grp:alt_shift_toggle")
