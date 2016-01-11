@@ -34,6 +34,16 @@ tyrannical.tags = {
       }
     },
     {
+      name        = "photographer",
+      init        = false,                   -- Load the tag on startup
+      exclusive   = true,                   -- Refuse any other type of clients (by classes)
+      screen      = screen.count() > 1 and 2 or 1,
+      layout      = awful.layout.suit.fair,
+      class = {
+        "Darktable", "darktable",
+      }
+    },
+    {
       name        = "dev",
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
@@ -141,7 +151,7 @@ tyrannical.properties.floating = {
     "xine"         , "feh"             , "kmix"       , "kcalc"        , "xcalc"          ,
     "yakuake"      , "Select Color$"   , "kruler"     , "kcolorchooser", "Paste Special"  ,
     "New Form"     , "Insert Picture"  , "kcharselect", "mythfrontend" , "plasmoidviewer" ,
-    "sflphone-client-kde", "sflphone-client-gnome", "xev",
+    "sflphone-client-kde", "sflphone-client-gnome", "xev", "Firefox",
     amarok = false , "yakuake", "Conky"
 }
 
