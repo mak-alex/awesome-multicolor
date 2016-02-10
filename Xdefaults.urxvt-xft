@@ -1,10 +1,10 @@
 !Molokai theme
 !*xterm*faceName:ohsnap:style=Regular:size=12
 *xterm*faceName:terminus:style=Regular:size=9
-*xterm*background: #0D151D
+*xterm*background: #06222e
 *xterm*foreground: #d0d0d0
 *xterm*cursorColor: #d0d0d0
-*xterm*color0: #0D151D
+*xterm*color0: #06222e
 *xterm*color1: #960050
 *xterm*color2: #66aa11
 *xterm*color3: #c47f2c
@@ -22,10 +22,10 @@
 *xterm*color15: #d0d0d0 
 
 *urxvt*font: xft:hack:size=9
-*urxvt*background: #0D151D
+*urxvt*background: #06222e
 *urxvt*foreground: #d0d0d0
 *urxvt*cursorColor: #d0d0d0
-*urxvt*color0: #0D151D
+*urxvt*color0: #06222e
 *urxvt*color1: #960050
 *urxvt*color2: #66aa11
 *urxvt*color3: #c47f2c

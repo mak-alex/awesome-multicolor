@@ -58,9 +58,9 @@ tyrannical.tags = {
       init        = false,                   -- Load the tag on startup
       exclusive   = true,                   -- Refuse any other type of clients (by classes)
       screen      = 1,
-      layout      = awful.layout.suit.max,
+      layout      = awful.layout.suit.fair,
       class = {
-        "Steam",
+        "Steam", "steam", "steam-launcher", "Steam-Launcher"
       }
     },
 
