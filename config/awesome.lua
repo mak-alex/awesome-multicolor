@@ -135,6 +135,8 @@ modkey,altkey = "Mod4","Mod1"
 local dynamic_tagging = true
 -- Standard awesome library
 local awful = require('awful')
+awful.rules     = require("awful.rules")
+                  require("awful.autofocus")
 wibox = require("wibox")
 gears = require('gears')
 -- Theme handling library
@@ -154,7 +156,8 @@ end
 
 require("config/bindings")
 -- Theme: defines colours, icons, and wallpapers
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/multicolor/theme.lua")
+local themename = "dark"
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
 --- Widgets
 local alsawidget = require('widgets/volume')
 local datewidget = require('widgets/date')
@@ -335,6 +338,13 @@ mymainmenu  = awful.menu.new(
     { "" },
   }
 )
+separators = lain.util.separators
+-- Separators
+spr = wibox.widget.textbox(' ')
+arrl = wibox.widget.imagebox()
+arrl:set_image(beautiful.arrl)
+arrl_dl = separators.arrow_left(beautiful.bg_focus, "alpha")
+arrl_ld = separators.arrow_left("alpha", beautiful.bg_focus)
 
 markup = lain.util.markup
 -- Textclock
@@ -529,36 +539,47 @@ do
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
+  left_layout:add(spr)
   left_layout:add(taglist[s])
   left_layout:add(promptbox[s])
+  left_layout:add(spr)
 
+  -- Widgets that are aligned to the upper right
+  local right_layout_toggle = true
+  local function right_layout_add (...)
+    local arg = {...}
+    if right_layout_toggle then
+      right_layout:add(arrl_ld)
+      for i, n in pairs(arg) do
+        right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
+      end
+    else
+      right_layout:add(arrl_dl)
+      for i, n in pairs(arg) do
+          right_layout:add(n)
+      end
+    end
+    right_layout_toggle = not right_layout_toggle
+  end
+
+  right_layout = wibox.layout.fixed.horizontal()
   -- Widgets that are aligned to the right
-  local right_layout = wibox.layout.fixed.horizontal()
   if s == 1
   then
     right_layout:add(wibox.widget.systray())
   end
-
-  right_layout:add(netdownicon)
-  right_layout:add(netdowninfo)
-  right_layout:add(netupicon)
-  right_layout:add(netupinfo)
-  right_layout:add(volicon)
-  right_layout:add(volumewidget)
-  right_layout:add(memicon)
-  right_layout:add(memwidget)
-  right_layout:add(cpuicon)
-  right_layout:add(cpuwidget)
-  right_layout:add(tempicon)
-  right_layout:add(tempwidget)
-  right_layout:add(fsicon)
-  right_layout:add(fswidget)
-  right_layout:add(baticon)
-  right_layout:add(batwidget)
-  right_layout:add(calendar_icon)
-  right_layout:add(calendarwidget)
-  right_layout:add(clock_icon)
-  right_layout:add(clockwidget)
+  right_layout:add(spr)
+  right_layout:add(arrl)
+  right_layout_add(netdownicon, netdowninfo)
+  right_layout_add(netupicon, netupinfo)
+  right_layout_add(volicon, volumewidget)
+  right_layout_add(memicon, memwidget)
+  right_layout_add(cpuicon, cpuwidget)
+  right_layout_add(tempicon, tempwidget)
+  right_layout_add(fsicon, fswidget)
+  right_layout_add(baticon, batwidget)
+  right_layout_add(calendar_icon, calendarwidget)
+  right_layout_add(clock_icon, clockwidget)
 
   -- Now bring it all together (with the tasklist in the middle)
   local layout = wibox.layout.align.horizontal()

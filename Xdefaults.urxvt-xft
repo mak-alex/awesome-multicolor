@@ -1,10 +1,10 @@
 !Molokai theme
 !*xterm*faceName:ohsnap:style=Regular:size=12
 *xterm*faceName:terminus:style=Regular:size=9
-*xterm*background: #000000
+*xterm*background: #161616
 *xterm*foreground: #d0d0d0
 *xterm*cursorColor: #d0d0d0
-*xterm*color0: #000000
+*xterm*color0: #161616
 *xterm*color1: #960050
 *xterm*color2: #66aa11
 *xterm*color3: #c47f2c
@@ -23,10 +23,10 @@
 
 !*urxvt*font: xft:hack:size=9
 *urxvt*font: xft:ohsnap:size=9
-*urxvt*background: #000000
+*urxvt*background: #161616
 *urxvt*foreground: #d0d0d0
 *urxvt*cursorColor: #d0d0d0
-*urxvt*color0: #000000
+*urxvt*color0: #161616
 *urxvt*color1: #960050
 *urxvt*color2: #66aa11
 *urxvt*color3: #c47f2c
@@ -42,8 +42,8 @@
 *urxvt*color13: #bb88dd
 *urxvt*color14: #4eb4fa
 *urxvt*color15: #d0d0d0
-*urxvt*transparent: true
-*urxvt*shading: 10
+!*urxvt*transparent: true
+!*urxvt*shading: 10
 ! scrollbar style - rxvt (default), plain (most compact), next, or xterm
 *urxvt*scrollstyle: next
 *urxvt*scrollBar: false
