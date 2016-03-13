@@ -143,9 +143,9 @@ gears = require('gears')
 beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-lain = require("lain")
-local r = require("runonce")
-
+lain = require("modules.lain")
+local r = require("modules.runonce")
+local dyna = require("modules.dynawall")
 -- Dynamic tagging
 if dynamic_tagging
 then
@@ -156,21 +156,22 @@ end
 
 require("config/bindings")
 -- Theme: defines colours, icons, and wallpapers
-local themename = "dark"
+local themename = "dark" -- "dark" or "multicolor"
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
---- Widgets
+-- {{{ Widgets
 local alsawidget = require('widgets/volume')
 local datewidget = require('widgets/date')
-local menulauncher = require('widgets/menu')
-local weather = require('widgets/weather')
+local mailhover = require('widgets/mailhover')
+--local weather = require('widgets/weather')
 require('widgets/filesystem')
-local cpu = require('widgets/cpu')
+local cpu = require('widgets/cpuinfo')
 local coretemp = require('widgets/coretemp')
 local battery = require('widgets/battery')
 local network = require('widgets/network')
-local mem = require('widgets/mem')
+local mem = require('widgets/memmory')
 local mpd = require('widgets/mpd')
-local dyna = require("dynawall")
+local kbdcfg = require('widgets/keyboard')
+-- }}}
 --{{---| Java GUI's fix |---------------------------------------------------------------------------
 awful.util.spawn_with_shell("wmname LG3D")
 
@@ -548,15 +549,18 @@ do
   local right_layout_toggle = true
   local function right_layout_add (...)
     local arg = {...}
-    if right_layout_toggle then
+    if right_layout_toggle 
+    then
       right_layout:add(arrl_ld)
-      for i, n in pairs(arg) do
+      for i, n in pairs(arg) 
+      do
         right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
       end
     else
       right_layout:add(arrl_dl)
-      for i, n in pairs(arg) do
-          right_layout:add(n)
+      for i, n in pairs(arg) 
+      do
+        right_layout:add(n)
       end
     end
     right_layout_toggle = not right_layout_toggle
@@ -570,26 +574,6 @@ do
   end
   right_layout:add(spr)
   right_layout:add(arrl)
-  --[[right_layout:add(netdownicon)
-  right_layout:add(netdowninfo)
-  right_layout:add(netupicon)
-  right_layout:add(netupinfo)
-  right_layout:add(volicon)
-  right_layout:add(volumewidget)
-  right_layout:add(memicon)
-  right_layout:add(memwidget)
-  right_layout:add(cpuicon)
-  right_layout:add(cpuwidget)
-  right_layout:add(tempicon)
-  right_layout:add(tempwidget)
-  right_layout:add(fsicon)
-  right_layout:add(fswidget)
-  right_layout:add(baticon)
-  right_layout:add(batwidget)
-  right_layout:add(calendar_icon)
-  right_layout:add(calendarwidget)
-  right_layout:add(clock_icon)
-  right_layout:add(clockwidget)]]
   right_layout_add(netdownicon, netdowninfo)
   right_layout_add(netupicon, netupinfo)
   right_layout_add(volicon, volumewidget)
@@ -600,6 +584,7 @@ do
   right_layout_add(baticon, batwidget)
   right_layout_add(calendar_icon, calendarwidget)
   right_layout_add(clock_icon, clockwidget)
+  right_layout_add(kbdcfg.widget)
 
   -- Now bring it all together (with the tasklist in the middle)
   local layout = wibox.layout.align.horizontal()

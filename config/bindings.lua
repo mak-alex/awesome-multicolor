@@ -105,9 +105,9 @@ local awful = require('awful')
 awful.rules = require("awful.rules")
 awful.autofocus = require("awful.autofocus")
 local beautiful = require("beautiful")
-drop = require("scratchdrop")
-menugen = require("menugen")
-tyrannical = require("tyrannical")
+drop = require("modules.scratchdrop")
+menugen = require("modules.menugen")
+tyrannical = require("modules.tyrannical")
 
 --hotkeys = require("widgets/hotkeys")
 local capi = {root=root,client=client,tag=tag,mouse=mouse}
@@ -120,8 +120,7 @@ local aw_layout = require("awful.layout")
 local aw_key = require("awful.key")
 local aw_prompt = require("awful.prompt")
 local glib = require("lgi").GLib
-local kbdcfg = require("widgets/keyboardIndicator")
-local keydoc = require("keydoc")
+local keydoc = require("modules.keydoc")
 
 -- Delete a tag as of 3.5.5, this have a few issue. Patches are on their way
 local function delete_tag()
@@ -311,6 +310,16 @@ root.buttons(
 -- {{{ Key bindings
 local globalkeys = awful.util.table.join(
   globalkeys,
+  -- Switch the current keyboard layout
+  awful.key(
+    { 
+      altkey,           
+    }, 
+    "Shift_L", 
+    function () 
+      kbdcfg.switch() 
+    end
+  ),
   awful.key(
     {
       modkey
@@ -868,7 +877,14 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Awesome"),
   awful.key(
     {
-      modkey, "Control" }, "r", awesome.restart, keydoc.display, "Перезагрузить Awesome"),
+      modkey, 
+      "Control" 
+    }, 
+    "r", 
+    awesome.restart, 
+    keydoc.display, 
+    "Перезагрузить Awesome"
+  ),
   awful.key(
     {
       modkey, "Shift"   }, "q", awesome.quit, keydoc.display, "Выйти из Awesome"),

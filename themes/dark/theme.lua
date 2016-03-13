@@ -151,9 +151,16 @@ theme.mouse_finder_color = "#CC9393"
 theme.menu_height = "16"
 theme.menu_width = "140"
 
+theme.english = theme.confdir .. "/icons/english.png"
+theme.russian = theme.confdir .. "/icons/russian.png"
+
 theme.arrl = theme.confdir .. "/icons/arrl.png"
 theme.arrl_dl = theme.confdir .. "/icons/arrl_dl.png"
 theme.arrl_ld = theme.confdir .. "/icons/arrl_ld.png"
+
+theme.layout_tile = theme.confdir .. "/layouts/tile.png"
+theme.layout_tilebottom = theme.confdir .. "/layouts/tilebottom.png"
+theme.layout_floating = theme.confdir .. "/layouts/floating.png"
 
 theme.submenu_icon = theme.confdir .. "/icons/submenu.png"
 theme.widget_temp = theme.confdir .. "/icons/temp.png"

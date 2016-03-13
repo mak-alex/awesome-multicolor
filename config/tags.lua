@@ -17,7 +17,7 @@ awful.layout.layouts = {
   awful.layout.suit.magnifier
 }
 
-local tyrannical = require("tyrannical")
+local tyrannical = require("modules.tyrannical")
 tyrannical.tags = {
   {
     name        = "term",

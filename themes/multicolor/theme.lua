@@ -125,6 +125,10 @@ theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
 theme.wallpaper = theme.confdir .. "/wall.png"
 
 theme.font = "Ohsnap 9"
+
+theme.english = theme.confdir .. "/icons/english.png"
+theme.russian = theme.confdir .. "/icons/russian.png"
+
 --theme.taglist_font =
 theme.menu_bg_normal = "#161616"
 theme.menu_bg_focus = "#161616"

@@ -31,7 +31,7 @@ local MULTICOLOR = {
 awful           = require('awful')
 naughty         = require('naughty')
 confdir         = awful.util.getdir("config")
-local file      = require('file')
+local file      = require('modules.file')
 local rc, err   = loadfile(confdir .. "/config/awesome.lua");
 if rc then rc, err = pcall(rc); if rc then file.copy(confdir.."/config/awesome.lua",confdir.."/config/.awesome.defaults.lua") return end end
 dofile(confdir .. "/config/.awesome.defaults.lua")
