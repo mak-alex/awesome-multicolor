@@ -19,7 +19,7 @@
 *xterm*color12: #5f5fee
 *xterm*color13: #bb88dd
 *xterm*color14: #4eb4fa
-*xterm*color15: #d0d0d0 
+*xterm*color15: #d0d0d0
 
 !*urxvt*font: xft:hack:size=9
 *urxvt*font: xft:ohsnap:size=9
@@ -41,7 +41,7 @@
 *urxvt*color12: #5f5fee
 *urxvt*color13: #bb88dd
 *urxvt*color14: #4eb4fa
-*urxvt*color15: #d0d0d0 
+*urxvt*color15: #d0d0d0
 *urxvt*transparent: true
 *urxvt*shading: 10
 ! scrollbar style - rxvt (default), plain (most compact), next, or xterm

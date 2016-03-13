@@ -1,3 +1,4 @@
+---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
 local MULTICOLOR = {
   _NAME = "FH-MultiColor",
   _VERSION = 'MULTICOLOR v0.1.0-rc1',
@@ -25,7 +26,7 @@ local MULTICOLOR = {
     ]],
   _DESCRIPTION = [[
   Multicolor Configuration for the awesome window manager (3.5)
-    If you're disappointed by fonts, check your `~/.fonts.conf`. 
+    If you're disappointed by fonts, check your `~/.fonts.conf`.
     It is presumed that you configure your autostart in `~/.xinitrc`.
 
     ##Capabilities
@@ -62,7 +63,7 @@ local MULTICOLOR = {
       * mpd
       * dyna
 
-    HOTKEYS: 
+    HOTKEYS:
     (If you want to change old bindings, open please bindings.lua file and edit...):
                      --------------------------------------
     Operations with MPD servers:
@@ -101,9 +102,9 @@ local MULTICOLOR = {
       maximized hor and vert: win_m
       kill window:            win_shift_c
       floating window:        win_ctrl_space
-      move left:              win_h 
+      move left:              win_h
       move right:             win_l
-      move up:                win_k 
+      move up:                win_k
       move down:              win_j
                      --------------------------------------
     Panel:
@@ -118,90 +119,90 @@ local MULTICOLOR = {
   ]]
 }
 
-theme                               = {}
+theme = {}
 
-theme.confdir                       = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
-theme.wallpaper                     = theme.confdir .. "/wall.png"
+theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
+theme.wallpaper = theme.confdir .. "/wall.png"
 
-theme.font                          = "Ohsnap 9"
---theme.taglist_font                =
-theme.menu_bg_normal                = "#000000"
-theme.menu_bg_focus                 = "#000000"
-theme.bg_normal                     = "#000000"
-theme.bg_focus                      = "#000000"
-theme.bg_urgent                     = "#000000"
-theme.fg_normal                     = "#aaaaaa"
-theme.fg_focus                      = "#ff8c00"
-theme.fg_urgent                     = "#af1d18"
-theme.fg_minimize                   = "#ffffff"
-theme.fg_black                      = "#424242"
-theme.fg_red                        = "#ce5666"
-theme.fg_green                      = "#80a673"
-theme.fg_yellow                     = "#ffaf5f"
-theme.fg_blue                       = "#7788af"
-theme.fg_magenta                    = "#94738c"
-theme.fg_cyan                       = "#778baf"
-theme.fg_white                      = "#aaaaaa"
-theme.fg_blu                        = "#8ebdde"
-theme.border_width                  = "3"
-theme.border_normal                 = "#1c2022"
-theme.border_focus                  = "#80a573"
-theme.border_marked                 = "#3ca4d8"
-theme.border_color                  = "#7788af"
-theme.menu_width                    = "110"
-theme.menu_border_width             = "3"
-theme.menu_border_color             = "#7788af"
-theme.menu_fg_normal                = "#aaaaaa"
-theme.menu_fg_focus                 = "#ff8c00"
-theme.menu_bg_normal                = "#000000"
-theme.menu_bg_focus                 = "#0D1777"
+theme.font = "Ohsnap 9"
+--theme.taglist_font =
+theme.menu_bg_normal = "#000000"
+theme.menu_bg_focus = "#000000"
+theme.bg_normal = "#000000"
+theme.bg_focus = "#000000"
+theme.bg_urgent = "#000000"
+theme.fg_normal = "#aaaaaa"
+theme.fg_focus = "#ff8c00"
+theme.fg_urgent = "#af1d18"
+theme.fg_minimize = "#ffffff"
+theme.fg_black = "#424242"
+theme.fg_red = "#ce5666"
+theme.fg_green = "#80a673"
+theme.fg_yellow = "#ffaf5f"
+theme.fg_blue = "#7788af"
+theme.fg_magenta = "#94738c"
+theme.fg_cyan = "#778baf"
+theme.fg_white = "#aaaaaa"
+theme.fg_blu = "#8ebdde"
+theme.border_width = "3"
+theme.border_normal = "#1c2022"
+theme.border_focus = "#80a573"
+theme.border_marked = "#3ca4d8"
+theme.border_color = "#7788af"
+theme.menu_width = "110"
+theme.menu_border_width = "3"
+theme.menu_border_color = "#7788af"
+theme.menu_fg_normal = "#aaaaaa"
+theme.menu_fg_focus = "#ff8c00"
+theme.menu_bg_normal = "#000000"
+theme.menu_bg_focus = "#0D1777"
 
-theme.submenu_icon                  = theme.confdir .. "/icons/submenu.png"
-theme.widget_temp                   = theme.confdir .. "/icons/temp.png"
-theme.widget_uptime                 = theme.confdir .. "/icons/ac.png"
-theme.widget_cpu                    = theme.confdir .. "/icons/cpu.png"
-theme.widget_weather                = theme.confdir .. "/icons/dish.png"
-theme.widget_fs                     = theme.confdir .. "/icons/fs.png"
-theme.widget_mem                    = theme.confdir .. "/icons/mem.png"
-theme.widget_fs                     = theme.confdir .. "/icons/fs.png"
-theme.widget_note                   = theme.confdir .. "/icons/note.png"
-theme.widget_note_on                = theme.confdir .. "/icons/note_on.png"
-theme.widget_netdown                = theme.confdir .. "/icons/net_down.png"
-theme.widget_netup                  = theme.confdir .. "/icons/net_up.png"
-theme.widget_mail                   = theme.confdir .. "/icons/mail.png"
-theme.widget_batt                   = theme.confdir .. "/icons/bat.png"
-theme.widget_clock                  = theme.confdir .. "/icons/clock.png"
-theme.widget_vol                    = theme.confdir .. "/icons/spkr.png"
+theme.submenu_icon = theme.confdir .. "/icons/submenu.png"
+theme.widget_temp = theme.confdir .. "/icons/temp.png"
+theme.widget_uptime = theme.confdir .. "/icons/ac.png"
+theme.widget_cpu = theme.confdir .. "/icons/cpu.png"
+theme.widget_weather = theme.confdir .. "/icons/dish.png"
+theme.widget_fs = theme.confdir .. "/icons/fs.png"
+theme.widget_mem = theme.confdir .. "/icons/mem.png"
+theme.widget_fs = theme.confdir .. "/icons/fs.png"
+theme.widget_note = theme.confdir .. "/icons/note.png"
+theme.widget_note_on = theme.confdir .. "/icons/note_on.png"
+theme.widget_netdown = theme.confdir .. "/icons/net_down.png"
+theme.widget_netup = theme.confdir .. "/icons/net_up.png"
+theme.widget_mail = theme.confdir .. "/icons/mail.png"
+theme.widget_batt = theme.confdir .. "/icons/bat.png"
+theme.widget_clock = theme.confdir .. "/icons/clock.png"
+theme.widget_vol = theme.confdir .. "/icons/spkr.png"
 
-theme.mpd                           = theme.confdir .. "/icons/mpd.png"
-theme.mpd_on                        = theme.confdir .. "/icons/mpd_on.png"
-theme.prev                          = theme.confdir .. "/icons/prev.png"
-theme.nex                           = theme.confdir .. "/icons/next.png"
-theme.stop                          = theme.confdir .. "/icons/stop.png"
-theme.pause                         = theme.confdir .. "/icons/pause.png"
-theme.play                          = theme.confdir .. "/icons/play.png"
+theme.mpd = theme.confdir .. "/icons/mpd.png"
+theme.mpd_on = theme.confdir .. "/icons/mpd_on.png"
+theme.prev = theme.confdir .. "/icons/prev.png"
+theme.nex = theme.confdir .. "/icons/next.png"
+theme.stop = theme.confdir .. "/icons/stop.png"
+theme.pause = theme.confdir .. "/icons/pause.png"
+theme.play = theme.confdir .. "/icons/play.png"
 
-theme.taglist_squares_sel           = theme.confdir .. "/icons/square_a.png"
-theme.taglist_squares_unsel         = theme.confdir .. "/icons/square_b.png"
+theme.taglist_squares_sel = theme.confdir .. "/icons/square_a.png"
+theme.taglist_squares_unsel = theme.confdir .. "/icons/square_b.png"
 
-theme.tasklist_disable_icon         = true
-theme.tasklist_floating             = ""
+theme.tasklist_disable_icon = true
+tasklist_only_icon = true
+theme.tasklist_floating = ""
 theme.tasklist_maximized_horizontal = ""
-theme.tasklist_maximized_vertical   = ""
+theme.tasklist_maximized_vertical = ""
 
-theme.layout_tile                   = theme.confdir .. "/icons/tile.png"
-theme.layout_tilegaps               = theme.confdir .. "/icons/tilegaps.png"
-theme.layout_tileleft               = theme.confdir .. "/icons/tileleft.png"
-theme.layout_tilebottom             = theme.confdir .. "/icons/tilebottom.png"
-theme.layout_tiletop                = theme.confdir .. "/icons/tiletop.png"
-theme.layout_fairv                  = theme.confdir .. "/icons/fairv.png"
-theme.layout_fairh                  = theme.confdir .. "/icons/fairh.png"
-theme.layout_spiral                 = theme.confdir .. "/icons/spiral.png"
-theme.layout_dwindle                = theme.confdir .. "/icons/dwindle.png"
-theme.layout_max                    = theme.confdir .. "/icons/max.png"
-theme.layout_fullscreen             = theme.confdir .. "/icons/fullscreen.png"
-theme.layout_magnifier              = theme.confdir .. "/icons/magnifier.png"
-theme.layout_floating               = theme.confdir .. "/icons/floating.png"
-
+theme.layout_tile = theme.confdir .. "/icons/tile.png"
+theme.layout_tilegaps = theme.confdir .. "/icons/tilegaps.png"
+theme.layout_tileleft = theme.confdir .. "/icons/tileleft.png"
+theme.layout_tilebottom = theme.confdir .. "/icons/tilebottom.png"
+theme.layout_tiletop = theme.confdir .. "/icons/tiletop.png"
+theme.layout_fairv = theme.confdir .. "/icons/fairv.png"
+theme.layout_fairh = theme.confdir .. "/icons/fairh.png"
+theme.layout_spiral = theme.confdir .. "/icons/spiral.png"
+theme.layout_dwindle = theme.confdir .. "/icons/dwindle.png"
+theme.layout_max = theme.confdir .. "/icons/max.png"
+theme.layout_fullscreen = theme.confdir .. "/icons/fullscreen.png"
+theme.layout_magnifier = theme.confdir .. "/icons/magnifier.png"
+theme.layout_floating = theme.confdir .. "/icons/floating.png"
 
 return theme
