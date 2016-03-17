@@ -131,7 +131,7 @@ local app={
 local dynamic_tagging = true
 
 -- Theme: defines colours, icons, and wallpapers
-local themename = "dark" -- "dark" or "multicolor"
+themename =  "pro-dark" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "pro-gotham" or "pro-medium-dark" or "pro-medium-light"
 ---}}}
 
 
@@ -146,6 +146,7 @@ awful.rules     = require("awful.rules")
                   require("awful.autofocus")
 wibox = require("wibox")
 gears = require('gears')
+vicious           = require("modules.vicious")
 -- Theme handling library
 beautiful = require("beautiful")
 -- Notification library
@@ -177,6 +178,7 @@ local network = require('widgets/network')
 local mem = require('widgets/memmory')
 require('widgets/mpd')
 local kbdcfg = require('widgets/keyboard')
+
 -- }}}
 
 --{{---| Java GUI's fix |---------------------------------------------------------------------------
@@ -362,7 +364,32 @@ arrl:set_image(beautiful.arrl)
 arrl_dl = separators.arrow_left(beautiful.bg_focus, "alpha")
 arrl_ld = separators.arrow_left("alpha", beautiful.bg_focus)
 
+-- | Markup | --
 markup = lain.util.markup
+
+space3 = markup.font("Hack 3", " ")
+space2 = markup.font("Hack 2", " ")
+vspace1 = '<span font="Hack 3"> </span>'
+vspace2 = '<span font="Hack 3">  </span>'
+clockgf = beautiful.clockgf
+require('widgets/mail')
+-- | Widgets | --
+spr = wibox.widget.imagebox()
+spr:set_image(beautiful.spr)
+spr4px = wibox.widget.imagebox()
+spr4px:set_image(beautiful.spr4px)
+spr5px = wibox.widget.imagebox()
+spr5px:set_image(beautiful.spr5px)
+
+widget_display = wibox.widget.imagebox()
+widget_display:set_image(beautiful.widget_display)
+widget_display_r = wibox.widget.imagebox()
+widget_display_r:set_image(beautiful.widget_display_r)
+widget_display_l = wibox.widget.imagebox()
+widget_display_l:set_image(beautiful.widget_display_l)
+widget_display_c = wibox.widget.imagebox()
+widget_display_c:set_image(beautiful.widget_display_c)
+
 -- Textclock
 clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
@@ -542,27 +569,25 @@ do
   )
   taglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist.buttons)
   mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-  widgetbox[s] = awful.wibox(
-    {
-      position = "top",
-      screen = s,
-      fg = beautiful.fg_normal,
-      bg = beautiful.bg_normal,
-      border_color = 0,
-      border_width = 1
-    }
-  )
+  widgetbox[s] = awful.wibox({ position = "top", screen = s, border_width = 0, height = 22 })
+  --widgetbox[s]:set_widget(layout)
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
-  left_layout:add(spr)
-  left_layout:add(archicon)
-  left_layout:add(taglist[s])
-  left_layout:add(promptbox[s])
-  left_layout:add(spr)
-
+  if themename == "pro-dark" or themename == "pro-gotham" or themename == "pro-light" or themename == "pro-medium-dark" or themename == "pro-medium-light"
+  then
+    left_layout:add(spr5px)
+    left_layout:add(taglist[s])
+    left_layout:add(spr5px)
+  else
+    left_layout:add(spr)
+    left_layout:add(archicon)
+    left_layout:add(taglist[s])
+    left_layout:add(promptbox[s])
+    left_layout:add(spr)
+  end
   right_layout = wibox.layout.fixed.horizontal()
-  if themename ~= "multicolor"
+  if themename == "dark"
   then
     -- Widgets that are aligned to the upper right
     local right_layout_toggle = true
@@ -603,6 +628,79 @@ do
     right_layout_add(calendar_icon, calendarwidget)
     right_layout_add(clock_icon, clockwidget)
     right_layout_add(kbdcfg.widget)
+  elseif themename == "pro-dark" or themename == "pro-gotham" or themename == "pro-light" or themename == "pro-medium-dark" or themename == "pro-medium-light"
+  then
+    if s == 1 then
+        right_layout:add(spr)
+        right_layout:add(spr5px)
+        right_layout:add(promptbox[s])
+        right_layout:add(wibox.widget.systray())
+        right_layout:add(spr5px)
+    end
+    right_layout:add(widget_display_l)
+    right_layout:add(kbdcfg_widget)
+    right_layout:add(widget_display_r)
+    right_layout:add(spr5px)
+    right_layout:add(spr)
+    right_layout:add(spr5px)
+    right_layout:add(widget_display_l)
+    right_layout:add(volumewidget)
+    right_layout:add(widget_display_r)
+    right_layout:add(spr5px)
+
+    right_layout:add(spr)
+    right_layout:add(widget_mail)
+    right_layout:add(widget_display_l)
+    right_layout:add(mailwidget)
+    right_layout:add(widget_display_r)
+    right_layout:add(spr5px)
+
+    right_layout:add(spr)
+
+    right_layout:add(widget_cpu)
+    right_layout:add(widget_display_l)
+    right_layout:add(cpuwidget)
+    --right_layout:add(widget_display_r)
+    right_layout:add(widget_display_c)
+    right_layout:add(tmpwidget)
+    right_layout:add(widget_tmp)
+    right_layout:add(widget_display_r)
+    right_layout:add(spr5px)
+
+    right_layout:add(spr)
+
+    right_layout:add(widget_mem)
+    right_layout:add(widget_display_l)
+    right_layout:add(memwidget)
+    right_layout:add(widget_display_r)
+    right_layout:add(spr5px)
+
+    right_layout:add(spr)
+
+    right_layout:add(widget_fs)
+    right_layout:add(widget_display_l)
+    right_layout:add(fswidget)
+    right_layout:add(widget_display_r)
+    right_layout:add(spr5px)
+
+    right_layout:add(spr)
+
+    right_layout:add(widget_netdl)
+    right_layout:add(widget_display_l)
+    right_layout:add(netwidgetdl)
+    right_layout:add(widget_display_c)
+    right_layout:add(netwidgetul)
+    right_layout:add(widget_display_r)
+    right_layout:add(widget_netul)
+
+    right_layout:add(spr)
+
+    right_layout:add(widget_clock)
+    right_layout:add(widget_display_l)
+    right_layout:add(clockwidget)
+    right_layout:add(widget_display_r)
+    right_layout:add(spr5px)
+    right_layout:add(spr)
   else
     right_layout:add(spr)
     right_layout:add(arrl)
@@ -635,14 +733,8 @@ do
   layout:set_right(right_layout)
   widgetbox[s]:set_widget(layout)
   -- Create the bottom wibox
-  mybottomwibox[s] = awful.wibox(
-    {
-      position = "bottom",
-      screen = s,
-      border_width = 1,
-      height = 20
-    }
-  )
+  mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = 0, height = 20 })
+  
   -- Widgets that are aligned to the bottom left
   bottom_left_layout = wibox.layout.fixed.horizontal()
   --[[bottom_left_layout:add(spr)
@@ -669,6 +761,7 @@ do
   bottom_layout:set_left(bottom_left_layout)
   bottom_layout:set_middle(mytasklist[s])
   bottom_layout:set_right(bottom_right_layout)
+  mybottomwibox[s]:set_bg(beautiful.panel)
   mybottomwibox[s]:set_widget(bottom_layout)
 end
 
