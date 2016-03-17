@@ -105,7 +105,7 @@ local awful = require('awful')
 awful.rules = require("awful.rules")
 awful.autofocus = require("awful.autofocus")
 local beautiful = require("beautiful")
-drop = require("modules.scratchdrop")
+quake = require("modules.scratchdrop")
 menugen = require("modules.menugen")
 tyrannical = require("modules.tyrannical")
 
@@ -121,6 +121,17 @@ local aw_key = require("awful.key")
 local aw_prompt = require("awful.prompt")
 local glib = require("lgi").GLib
 local keydoc = require("modules.keydoc")
+
+quake_console = quake({
+    terminal = terminal,
+    --argname = "-name %s -e tmux",
+    name = "tilda",
+    height = 300,
+    width = 520,
+    horiz = "right",
+    vert = "bottom",
+    screen = 1
+})
 
 -- Delete a tag as of 3.5.5, this have a few issue. Patches are on their way
 local function delete_tag()
@@ -695,7 +706,7 @@ local globalkeys = awful.util.table.join(
     },
     "z",
     function ()
-      drop(terminal,250,nil,1200,450)
+      quake_console:toggle()
     end,
     "Простой выпадающий терминал"
   ),
@@ -841,7 +852,6 @@ local globalkeys = awful.util.table.join(
     "Up",
     function ()
       awful.util.spawn_with_shell("mpc toggle || ncmpcpp toggle || ncmpc toggle || pms toggle")
-      mpdwidget.update()
     end,
     "Пориостановить проигрывание"
   ),
@@ -853,21 +863,18 @@ local globalkeys = awful.util.table.join(
     "Down",
     function ()
       awful.util.spawn_with_shell("mpc stop || ncmpcpp stop || ncmpc stop || pms stop")
-      mpdwidget.update()
     end,
     "Остановить проигрывание"
   ),
   awful.key({ altkey, "Control" }, "Left",
     function ()
       awful.util.spawn_with_shell("mpc prev || ncmpcpp prev || ncmpc prev || pms prev")
-      mpdwidget.update()
     end,
     "Предыдущий трек"
   ),
   awful.key({ altkey, "Control" }, "Right",
     function ()
       awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")
-      mpdwidget.update()
     end,
     "Следующий трек"
   ),

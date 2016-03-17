@@ -122,6 +122,7 @@ local MULTICOLOR = {
 theme = {}
 
 theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/dark"
+theme.icons = os.getenv("HOME") .. "/.config/awesome/icons"
 theme.wallpaper = theme.confdir .. "/wall.png"
 
 theme.font = "Hack 9"
@@ -132,7 +133,7 @@ theme.fg_urgent = "#CC9393"
 theme.bg_normal = "#1A1A1A"
 theme.bg_focus = "#313131"
 theme.bg_urgent = "#1A1A1A"
-theme.border_width = "1"
+theme.border_width = "3"
 theme.border_normal = "#3F3F3F"
 theme.border_focus = "#7F7F7F"
 theme.border_marked = "#CC9393"
@@ -187,21 +188,13 @@ theme.widget_net = theme.confdir .. "/icons/net.png"
 theme.widget_hdd = theme.confdir .. "/icons/hdd.png"
 theme.widget_music = theme.confdir .. "/icons/note.png"
 theme.widget_music_on = theme.confdir .. "/icons/note_on.png"
-theme.widget_vol = theme.confdir .. "/icons/vol.png"
 theme.widget_vol_low = theme.confdir .. "/icons/vol_low.png"
 theme.widget_vol_no = theme.confdir .. "/icons/vol_no.png"
 theme.widget_vol_mute = theme.confdir .. "/icons/vol_mute.png"
 theme.widget_mail = theme.confdir .. "/icons/mail.png"
 theme.widget_mail_on = theme.confdir .. "/icons/mail_on.png"
 
-
-theme.mpd = theme.confdir .. "/icons/mpd.png"
-theme.mpd_on = theme.confdir .. "/icons/mpd_on.png"
-theme.prev = theme.confdir .. "/icons/prev.png"
-theme.nex = theme.confdir .. "/icons/next.png"
-theme.stop = theme.confdir .. "/icons/stop.png"
-theme.pause = theme.confdir .. "/icons/pause.png"
-theme.play = theme.confdir .. "/icons/play.png"
+theme.widget_arch = theme.icons .. "/blue/arch_10x10.png"
 
 theme.taglist_squares_sel = theme.confdir .. "/icons/square_a.png"
 theme.taglist_squares_unsel = theme.confdir .. "/icons/square_b.png"
@@ -225,5 +218,22 @@ theme.layout_max = theme.confdir .. "/icons/max.png"
 theme.layout_fullscreen = theme.confdir .. "/icons/fullscreen.png"
 theme.layout_magnifier = theme.confdir .. "/icons/magnifier.png"
 theme.layout_floating = theme.confdir .. "/icons/floating.png"
+
+-- | MPD | --
+
+--[[theme.mpd_prev  = theme.icons .. "/mpd/mpd_prev.png"
+theme.mpd_nex   = theme.icons .. "/mpd/mpd_next.png"
+theme.mpd_stop  = theme.icons .. "/mpd/mpd_stop.png"
+theme.mpd_pause = theme.icons .. "/mpd/mpd_pause.png"
+theme.mpd_play  = theme.icons .. "/mpd/mpd_play.png"
+theme.mpd_sepr  = theme.icons .. "/mpd/mpd_sepr.png"
+theme.mpd_sepl  = theme.icons .. "/mpd/mpd_sepl.png"]]--
+theme.mpd = theme.confdir .. "/icons/mpd.png"
+theme.mpd_on = theme.confdir .. "/icons/mpd_on.png"
+theme.mpd_prev = theme.confdir .. "/icons/prev.png"
+theme.mpd_nex = theme.confdir .. "/icons/next.png"
+theme.mpd_stop = theme.confdir .. "/icons/stop.png"
+theme.mpd_pause = theme.confdir .. "/icons/pause.png"
+theme.mpd_play = theme.confdir .. "/icons/play.png"
 
 return theme

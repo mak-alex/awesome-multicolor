@@ -27,7 +27,7 @@ tyrannical.tags = {
     selected    = true,
     layout      = awful.layout.suit.fair,
     class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
-      "xterm" , "urxvt" , "aterm","XTerm","XTerm","konsole","terminator","gnome-terminal", "emacs",
+      "xterm" , "urxvt" , "aterm","XTerm","XTerm","konsole","terminator","gnome-terminal",
     }
   },
   {
@@ -57,7 +57,7 @@ tyrannical.tags = {
     screen      = screen.count()>2 and 3 or 1,
     layout      = awful.layout.suit.max,
     class = {
-      "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Emacs"
+      "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Emacs", "sublime_text", "subl*"
     }
   },
   {

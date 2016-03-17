@@ -28,6 +28,10 @@
 * Dynamic generate menu (via Alex M.A.K)
 * Dropdown terminal (via Alex M.A.K)
 
+## Fix bug: when you change the keyboard layout does not work pressing elements Awesome
+* open file /usr/share/X11/xkb/compat/basic
+	* find and comment string group 2 = AltGr; group 3 = AltGr; group 4 = AltGr; 
+	
 ##HOTKEYS:
 * (If you want to change old bindings, open please bindings.lua file and edit...):
 * Operations with MPD servers:

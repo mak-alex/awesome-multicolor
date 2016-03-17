@@ -27,6 +27,7 @@ local MULTICOLOR = {
   _DESCRIPTION = [[
   Multicolor Configuration for the awesome window manager (3.5)
     If you're disappointed by fonts, check your `~/.fonts.conf`.
+    If you're disappointed by fonts, check your `~/.fonts.conf`.
     It is presumed that you configure your autostart in `~/.xinitrc`.
 
     ##Capabilities
@@ -124,7 +125,7 @@ local app={
   ["browser"]="firefox",
   ["terminal"]="urxvt",
   ["graphic"]="gimp",
-  ["develop"]="gvim",
+  ["develop"]="urxvt -e vim",
 }
 
 home = os.getenv("HOME")
@@ -158,6 +159,7 @@ require("config/bindings")
 -- Theme: defines colours, icons, and wallpapers
 local themename = "dark" -- "dark" or "multicolor"
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
+
 -- {{{ Widgets
 local alsawidget = require('widgets/volume')
 local datewidget = require('widgets/date')
@@ -169,9 +171,10 @@ local coretemp = require('widgets/coretemp')
 local battery = require('widgets/battery')
 local network = require('widgets/network')
 local mem = require('widgets/memmory')
-local mpd = require('widgets/mpd')
+require('widgets/mpd')
 local kbdcfg = require('widgets/keyboard')
 -- }}}
+
 --{{---| Java GUI's fix |---------------------------------------------------------------------------
 awful.util.spawn_with_shell("wmname LG3D")
 
@@ -197,30 +200,66 @@ function createEditConfigurationsFileFromAwesome(name)
 end
 
 local ConfigFiles = {}
-for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/config'))
-do
-  for kk, vv in pairs(v)
-  do
-    table.insert(
-      ConfigFiles,
-      {
-        kk,
-        editor_cmd .. " " .. vv,
-        settings_icon
-      }
-    )
-  end
-end
-
 local ThemesFiles = {}
-for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/themes/multicolor/'))
-do
-  for kk, vv in pairs(v)
+local UserWidgetsFiles = {}
+local GlobalWidgetsFiles = {}
+
+if #ConfigFiles == 0 or #ConfigFiles > 2
+then
+  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/config'))
   do
-    if string.find(vv, ".lua")
-    then
+    for kk, vv in pairs(v)
+    do
       table.insert(
-        ThemesFiles,
+        ConfigFiles,
+        {
+          kk,
+          editor_cmd .. " " .. vv,
+          settings_icon
+        }
+      )
+    end
+  end
+
+  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/themes/multicolor/'))
+  do
+    for kk, vv in pairs(v)
+    do
+      if string.find(vv, ".lua")
+      then
+        table.insert(
+          ThemesFiles,
+          {
+            kk,
+            editor_cmd .. " " .. vv,
+            settings_icon
+          }
+        )
+      end
+    end
+  end
+
+  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/widgets/'))
+  do
+    for kk, vv in pairs(v)
+    do
+      table.insert(
+        UserWidgetsFiles,
+        {
+          kk,
+          editor_cmd .. " " .. vv,
+          settings_icon
+        }
+      )
+    end
+  end
+
+  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/lain/widgets/'))
+  do
+    for kk, vv in pairs(v)
+    do
+      table.insert(
+        GlobalWidgetsFiles,
         {
           kk,
           editor_cmd .. " " .. vv,
@@ -230,39 +269,6 @@ do
     end
   end
 end
-
-local UserWidgetsFiles = {}
-for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/widgets/'))
-do
-  for kk, vv in pairs(v)
-  do
-    table.insert(
-      UserWidgetsFiles,
-      {
-        kk,
-        editor_cmd .. " " .. vv,
-        settings_icon
-      }
-    )
-  end
-end
-
-local GlobalWidgetsFiles = {}
-for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/lain/widgets/'))
-do
-  for kk, vv in pairs(v)
-  do
-    table.insert(
-      GlobalWidgetsFiles,
-      {
-        kk,
-        editor_cmd .. " " .. vv,
-        settings_icon
-      }
-    )
-  end
-end
-
 -- Autogen Menu
 mymainmenu  = awful.menu.new(
   {
@@ -339,6 +345,11 @@ mymainmenu  = awful.menu.new(
     { "" },
   }
 )
+
+-- {{{ Arch icon
+archicon = wibox.widget.imagebox()
+archicon:set_image(beautiful.widget_arch)
+-- }}}
 separators = lain.util.separators
 -- Separators
 spr = wibox.widget.textbox(' ')
@@ -534,57 +545,85 @@ do
       fg = beautiful.fg_normal,
       bg = beautiful.bg_normal,
       border_color = 0,
-      border_width = 0
+      border_width = 1
     }
   )
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
   left_layout:add(spr)
+  left_layout:add(archicon)
   left_layout:add(taglist[s])
   left_layout:add(promptbox[s])
   left_layout:add(spr)
 
-  -- Widgets that are aligned to the upper right
-  local right_layout_toggle = true
-  local function right_layout_add (...)
-    local arg = {...}
-    if right_layout_toggle 
-    then
-      right_layout:add(arrl_ld)
-      for i, n in pairs(arg) 
-      do
-        right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
-      end
-    else
-      right_layout:add(arrl_dl)
-      for i, n in pairs(arg) 
-      do
-        right_layout:add(n)
-      end
-    end
-    right_layout_toggle = not right_layout_toggle
-  end
-
   right_layout = wibox.layout.fixed.horizontal()
-  -- Widgets that are aligned to the right
-  if s == 1
+  if themename ~= "peura"
   then
-    right_layout:add(wibox.widget.systray())
+    -- Widgets that are aligned to the upper right
+    local right_layout_toggle = true
+    local function right_layout_add (...)
+      local arg = {...}
+      if right_layout_toggle 
+      then
+        right_layout:add(arrl_ld)
+        for i, n in pairs(arg) 
+        do
+          right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
+        end
+      else
+        right_layout:add(arrl_dl)
+        for i, n in pairs(arg) 
+        do
+          right_layout:add(n)
+        end
+      end
+      right_layout_toggle = not right_layout_toggle
+    end
+
+    -- Widgets that are aligned to the right
+    if s == 1
+    then
+      right_layout:add(wibox.widget.systray())
+    end
+    right_layout:add(spr)
+    right_layout:add(arrl)
+    right_layout_add(netdownicon, netdowninfo)
+    right_layout_add(netupicon, netupinfo)
+    right_layout_add(volicon, volumewidget)
+    right_layout_add(memicon, memwidget)
+    right_layout_add(cpuicon, cpuwidget)
+    right_layout_add(tempicon, tempwidget)
+    right_layout_add(fsicon, fswidget)
+    right_layout_add(baticon, batwidget)
+    right_layout_add(calendar_icon, calendarwidget)
+    right_layout_add(clock_icon, clockwidget)
+    right_layout_add(kbdcfg.widget)
+  else
+    right_layout:add(spr)
+    right_layout:add(arrl)
+    right_layout:add(netdownicon)
+    right_layout:add(netdowninfo)
+    right_layout:add(netupicon)
+    right_layout:add(netupinfo)
+    right_layout:add(volicon)
+    right_layout:add(volumewidget)
+    right_layout:add(memicon)
+    right_layout:add(memwidget)
+    right_layout:add(cpuicon)
+    right_layout:add(cpuwidget)
+    right_layout:add(tempicon)
+    right_layout:add(tempwidget)
+    right_layout:add(fsicon)
+    right_layout:add(fswidget)
+    right_layout:add(baticon)
+    right_layout:add(batwidget)
+    right_layout:add(calendar_icon)
+    right_layout:add(calendarwidget)
+    right_layout:add(clock_icon)
+    right_layout:add(clockwidget)
+    right_layout:add(kbdcfg.widget)
   end
-  right_layout:add(spr)
-  right_layout:add(arrl)
-  right_layout_add(netdownicon, netdowninfo)
-  right_layout_add(netupicon, netupinfo)
-  right_layout_add(volicon, volumewidget)
-  right_layout_add(memicon, memwidget)
-  right_layout_add(cpuicon, cpuwidget)
-  right_layout_add(tempicon, tempwidget)
-  right_layout_add(fsicon, fswidget)
-  right_layout_add(baticon, batwidget)
-  right_layout_add(calendar_icon, calendarwidget)
-  right_layout_add(clock_icon, clockwidget)
-  right_layout_add(kbdcfg.widget)
 
   -- Now bring it all together (with the tasklist in the middle)
   local layout = wibox.layout.align.horizontal()
@@ -596,20 +635,34 @@ do
     {
       position = "bottom",
       screen = s,
-      border_width = 0,
+      border_width = 1,
       height = 20
     }
   )
   -- Widgets that are aligned to the bottom left
   bottom_left_layout = wibox.layout.fixed.horizontal()
+  --[[bottom_left_layout:add(spr)
+  bottom_left_layout:add(prev_icon)
+  bottom_left_layout:add(spr)
+  bottom_left_layout:add(stop_icon)
+  bottom_left_layout:add(spr)
+  bottom_left_layout:add(play_pause_icon)
+  bottom_left_layout:add(spr)
+  bottom_left_layout:add(next_icon)]]
+  --bottom_left_layout:add(mpd_sepl)
+  --bottom_left_layout:add(musicwidget)
+  --bottom_left_layout:add(mpd_sepr)
+  
   -- Widgets that are aligned to the bottom right
   bottom_right_layout = wibox.layout.fixed.horizontal()
-  bottom_right_layout:add(mpdicon) bottom_right_layout:add(mpdwidget)
+  --bottom_right_layout:add(mpdicon) 
+  --bottom_right_layout:add(musicwidget)
+  bottom_right_layout:add(musicwidget.widget)
+  bottom_right_layout:add(layoutbox[s])
+
   -- Now bring it all together (with the tasklist in the middle)
   bottom_layout = wibox.layout.align.horizontal()
   bottom_layout:set_left(bottom_left_layout)
-  --bottom_right_layout:add(makwidget)
-  bottom_right_layout:add(layoutbox[s])
   bottom_layout:set_middle(mytasklist[s])
   bottom_layout:set_right(bottom_right_layout)
   mybottomwibox[s]:set_widget(bottom_layout)
