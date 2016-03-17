@@ -1,71 +1,37 @@
-local M = {}
-
--- get the current Pid of awesome
-local function getCurrentPid()
-    -- get awesome pid from pgrep
-    local fpid = io.popen("pgrep -u " .. os.getenv("USER") .. " -o awesome")
-    local pid = fpid:read("*n")
-    fpid:close()
-
-    -- sanity check
-    if pid == nil then
-        return -1
+require("lfs") 
+-- {{{ Run programm once
+local function processwalker()
+   local function yieldprocess()
+      for dir in lfs.dir("/proc") do
+        -- All directories in /proc containing a number, represent a process
+        if tonumber(dir) ~= nil then
+          local f, err = io.open("/proc/"..dir.."/cmdline")
+          if f then
+            local cmdline = f:read("*all")
+            f:close()
+            if cmdline ~= "" then
+              coroutine.yield(cmdline)
+            end
+          end
+        end
+      end
     end
-
-    return pid
+    return coroutine.wrap(yieldprocess)
 end
 
-local function getOldPid(filename)
-    -- open file
-    local pidFile = io.open(filename)
-    if pidFile == nil then
-        return -1
-    end
+function run_once(process, cmd)
+   assert(type(process) == "string")
+   local regex_killer = {
+      ["+"]  = "%+", ["-"] = "%-",
+      ["*"]  = "%*", ["?"]  = "%?" }
 
-    -- read number
-    local pid = pidFile:read("*n")
-    pidFile:close()
-
-    -- sanity check
-    if pid <= 0 then
-        return -1
-    end
-
-    return pid;
+   for p in processwalker() do
+      if p:find(process:gsub("[-+?*]", regex_killer)) then
+     return
+      end
+   end
+   return awful.util.spawn(cmd or process)
 end
+-- }}}
 
-local function writePid(filename, pid)
-    local pidFile = io.open(filename, "w+")
-    pidFile:write(pid)
-    pidFile:close()
-end
-
-local function shallExecute(oldPid, newPid)
-    -- simple check if equivalent
-    if oldPid == newPid then
-        return false
-    end
-
-    return true
-end
-
-local function getPidFile()
-    local host = io.lines("/proc/sys/kernel/hostname")()
-    return awful.util.getdir("cache") .. "/awesome." .. host .. ".pid"
-end
-
--- run Once per real awesome start (config reload works)
--- does not cover "pkill awesome && awesome"
-function M.run(shellCommand)
-    -- check and Execute
-    if shallExecute(M.oldPid, M.currentPid) then
-        awful.util.spawn_with_shell(shellCommand)
-    end
-end
-
-M.pidFile = getPidFile()
-M.oldPid = getOldPid(M.pidFile)
-M.currentPid = getCurrentPid()
-writePid(M.pidFile, M.currentPid)
-
-return M
+return run_once

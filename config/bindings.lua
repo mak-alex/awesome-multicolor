@@ -322,7 +322,7 @@ root.buttons(
 local globalkeys = awful.util.table.join(
   globalkeys,
   -- Switch the current keyboard layout
-  awful.key(
+  --[[awful.key(
     { 
       altkey,           
     }, 
@@ -330,7 +330,7 @@ local globalkeys = awful.util.table.join(
     function () 
       kbdcfg.switch() 
     end
-  ),
+  ),]]
   awful.key(
     {
       modkey
@@ -803,7 +803,6 @@ local globalkeys = awful.util.table.join(
     "Up",
     function ()
       awful.util.spawn("amixer -q set Master 1%+")
-      volumewidget.update()
     end,
     "Прибавить громкость на 1%"
   ),
@@ -814,7 +813,6 @@ local globalkeys = awful.util.table.join(
     "Down",
     function ()
       awful.util.spawn("amixer -q set Master 1%-")
-      volumewidget.update()
     end,
     "Понизить громкость на 1%"
   ),
@@ -825,7 +823,6 @@ local globalkeys = awful.util.table.join(
     "m",
     function ()
       awful.util.spawn("amixer -q set Master playback toggle")
-      volumewidget.update()
     end,
     "Выключить звук"
   ),
@@ -837,7 +834,6 @@ local globalkeys = awful.util.table.join(
     "m",
     function ()
       awful.util.spawn("amixer -q set Master playback 100%")
-      volumewidget.update()
     end,
     "Прибавить громкость на 100%"
   ),

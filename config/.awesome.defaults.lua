@@ -1,4 +1,29 @@
----- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
+--- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
+-------------------------------------------------------------------------
+------------------------- SETTING FOR USER!!! ---------------------------
+-------------------------------------------------------------------------
+--- {{{ USER CONFIGURATION
+--[[
+  Your frequently used applications.
+Please change if something is not the same ...
+]]--
+local app={
+  ["browser"]="firefox",
+  ["terminal"]="urxvt",
+  ["graphic"]="gimp",
+  ["develop"]="urxvt -e vim",
+}
+
+-- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
+local dynamic_tagging = true
+
+-- Theme: defines colours, icons, and wallpapers
+themename =  "pro-light" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "pro-gotham" or "pro-medium-dark" or "pro-medium-light"
+--- }}}
+-------------------------------------------------------------------------
+----------------------- END SETTING FOR USER!!! -------------------------
+-------------------------------------------------------------------------
+
 local MULTICOLOR = {
   _NAME = "FH-MultiColor",
   _VERSION = 'MULTICOLOR v0.1.0-rc1',
@@ -116,84 +141,71 @@ local MULTICOLOR = {
       quit wm:                win_shift_q
   ]]
 }
---- {{{ USER CONFIGURATION
---[[
-  Your frequently used applications.
-Please change if something is not the same ...
-]]--
-local app={
-  ["browser"]="firefox",
-  ["terminal"]="urxvt",
-  ["graphic"]="gimp",
-  ["develop"]="urxvt -e vim",
-}
--- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
-local dynamic_tagging = true
 
--- Theme: defines colours, icons, and wallpapers
-themename =  "pro-dark" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "pro-gotham" or "pro-medium-dark" or "pro-medium-light"
----}}}
-
-
-home = os.getenv("HOME")
 terminal,editor,browser,editor_cmd, vksearch = app.terminal,app.develop,app.browser,app.develop, app.musicsearch
+
 -- Global key: Mod4 - Win / Mod1 - Alt
 modkey,altkey = "Mod4","Mod1"
 
--- Standard awesome library
+-- {{{ Standard awesome library
 local awful = require('awful')
 awful.rules     = require("awful.rules")
                   require("awful.autofocus")
 wibox = require("wibox")
 gears = require('gears')
 vicious           = require("modules.vicious")
+
 -- Theme handling library
 beautiful = require("beautiful")
+
 -- Notification library
 local naughty = require("naughty")
+-- }}}
+
+-- {{{ User awesome library
+-- load the widget code
 lain = require("modules.lain")
 local r = require("modules.runonce")
 local dyna = require("modules.dynawall")
--- Dynamic tagging
+
+  -- {{{ Dynamic tagging
 if dynamic_tagging
 then
   require("config/tags")
 else
   require("config/tags_fallback")
 end
-
+  -- }}}
 require("config/bindings")
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
-
--- {{{ Widgets
-local alsawidget = require('widgets/volume')
-local datewidget = require('widgets/date')
-local mailhover = require('widgets/mailhover')
---local weather = require('widgets/weather')
-require('widgets/filesystem')
-local cpu = require('widgets/cpuinfo')
-local coretemp = require('widgets/coretemp')
-local battery = require('widgets/battery')
-local network = require('widgets/network')
-local mem = require('widgets/memmory')
-require('widgets/mpd')
-local kbdcfg = require('widgets/keyboard')
-
 -- }}}
 
---{{---| Java GUI's fix |---------------------------------------------------------------------------
+if tonumber(os.date("%H")) < 20
+then
+  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
+else
+  themename = "pro-dark"
+  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
+end
+
+run_once("setxkbmap -layout us,ru -option grp:alt_shift_toggle")
+run_once("mpd")
+run_once("firefox")
+
+-- {{{ Java GUI's fix
 awful.util.spawn_with_shell("wmname LG3D")
+-- }}}
 
 naughty.notify {
   text = "<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..
   MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..
   MULTICOLOR._URL .. "\n\n<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
-  ontop = true, border_color = "#7788af", border_width = 3, timeout = 3
+  ontop = true, border_color = "#7788af", border_width = 3, timeout = 3, position   = "top_right"
 }
 
--- Auto-genereate menu from Awesome configs and plugins --
-function createEditConfigurationsFileFromAwesome(name)
+-- {{{ Auto-genereate menu from Awesome configs and plugins
+local function createEditConfigurationsFileFromAwesome(name)
   local i, t, popen = 0, {}, io.popen
+
   for filename in popen ('ls '..name):lines()
   do
     i = i + 1
@@ -205,14 +217,42 @@ function createEditConfigurationsFileFromAwesome(name)
   return t
 end
 
-local ConfigFiles = {}
-local ThemesFiles = {}
-local UserWidgetsFiles = {}
-local GlobalWidgetsFiles = {}
+local ConfigFiles,ThemesFiles, UserWidgetsFiles, GlobalWidgetsFiles = {}, {}, {}, {}
+
+local function genMenu(array, path)
+  for k, v in pairs(createEditConfigurationsFileFromAwesome(path))
+  do
+    for kk, vv in pairs(v)
+    do
+      if prefix == nil or prefix == ''
+      then
+        table.insert(
+          array,
+          {
+            kk,
+            editor_cmd .. " " .. vv,
+            settings_icon
+          }
+        )
+      else
+        table.insert(
+          array,
+          {
+            kk,
+            editor_cmd .. " " .. vv .. '/init.lua',
+            settings_icon
+          }
+        )
+      end
+    end
+  end
+  return array
+end
 
 if #ConfigFiles == 0 or #ConfigFiles > 2
 then
-  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/config'))
+  
+  --[[for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/config'))
   do
     for kk, vv in pairs(v)
     do
@@ -225,7 +265,7 @@ then
         }
       )
     end
-  end
+  end]]
 
   for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/themes/'..themename..'/'))
   do
@@ -275,6 +315,7 @@ then
     end
   end
 end
+
 -- Autogen Menu
 mymainmenu  = awful.menu.new(
   {
@@ -297,7 +338,7 @@ mymainmenu  = awful.menu.new(
         { "", },
         {
           "Edit Base Config",
-          ConfigFiles,
+          genMenu(ConfigFiles, awful.util.getdir("config")..'/config')--ConfigFiles,
         },
         {
           "Edit Theme Config",
@@ -323,7 +364,7 @@ mymainmenu  = awful.menu.new(
           "Awesome Quit",
           awesome.quit,
           beautiful.quit_icon
-        },
+        }
       }
     },
     { "", },
@@ -351,20 +392,37 @@ mymainmenu  = awful.menu.new(
     { "" },
   }
 )
+-- }}}
 
--- {{{ Arch icon
+-- {{{ User awesome widgets
+local alsawidget = require('widgets/volume')
+local datewidget = require('widgets/date')
+local mailhover = require('widgets/mailhover')
+--local weather = require('widgets/weather')
+require('widgets/filesystem')
+local cpu = require('widgets/cpuinfo')
+local coretemp = require('widgets/coretemp')
+local battery = require('widgets/battery')
+local network = require('widgets/network')
+local mem = require('widgets/memmory')
+require('widgets/mpd')
+--require('widgets/keyboard')
+-- }}}
+
+-- {{{ Arch icon widget
 archicon = wibox.widget.imagebox()
 archicon:set_image(beautiful.widget_arch)
 -- }}}
+
+-- {{{ Separators
 separators = lain.util.separators
--- Separators
 spr = wibox.widget.textbox(' ')
 arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
 arrl_dl = separators.arrow_left(beautiful.bg_focus, "alpha")
 arrl_ld = separators.arrow_left("alpha", beautiful.bg_focus)
-
--- | Markup | --
+-- }}}
+-- {{{ Markup
 markup = lain.util.markup
 
 space3 = markup.font("Hack 3", " ")
@@ -372,6 +430,7 @@ space2 = markup.font("Hack 2", " ")
 vspace1 = '<span font="Hack 3"> </span>'
 vspace2 = '<span font="Hack 3">  </span>'
 clockgf = beautiful.clockgf
+
 require('widgets/mail')
 -- | Widgets | --
 spr = wibox.widget.imagebox()
@@ -389,12 +448,14 @@ widget_display_l = wibox.widget.imagebox()
 widget_display_l:set_image(beautiful.widget_display_l)
 widget_display_c = wibox.widget.imagebox()
 widget_display_c:set_image(beautiful.widget_display_c)
+-- }}}
 
--- Textclock
+-- {{{ Textclock widget
 clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
+-- }}}
 
--- Handle runtime errors after startup
+-- {{{ Handle runtime errors after startup
 do local in_error = false
   awesome.connect_signal(
     "debug::error",
@@ -409,15 +470,15 @@ do local in_error = false
       naughty.notify{
         text="<span color='#87af5f'>Awesome crashed during startup on</span> <span color='#e54c62'>" .. os.date("%d/%m/%Y %T</span>:\n\n<span color='#87af5f'>NAME CONF</span>: ")
         ..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. '\n<span color="#87af5f">ERROR</span>: ' .. err .. "\n\n\
-        <span color='#80d9d8'>Please send an error report to</span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
+        <span color='#80d9d8'>Please send an error report to</span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n", position   = "top_right", 
         timeout = 0
       }
       in_error = false
     end
   )
 end
-
--- Task list
+-- }}}
+-- {{{ Task list
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
   awful.button(
@@ -484,14 +545,16 @@ mytasklist.buttons = awful.util.table.join(
     end
   )
 )
+-- }}}
 
--- Small widgets and widget boxes
+-- {{{ Small widgets and widget boxes
 spacer = wibox.widget.textbox()
 separator = wibox.widget.imagebox()
 spacer:set_text(" ")
 separator:set_image(beautiful.widget_sep)
+-- }}}
 
--- Wibox initialisation
+-- {{{ Wibox initialisation
 widgetbox,mybottomwibox,promptbox,layoutbox,taglist = {},{},{},{},{}
 taglist.buttons = awful.util.table.join(
   awful.button(
@@ -578,7 +641,7 @@ do
   then
     left_layout:add(spr5px)
     left_layout:add(taglist[s])
-    left_layout:add(spr5px)
+    --left_layout:add(spr5px)
   else
     left_layout:add(spr)
     left_layout:add(archicon)
@@ -627,22 +690,22 @@ do
     right_layout_add(baticon, batwidget)
     right_layout_add(calendar_icon, calendarwidget)
     right_layout_add(clock_icon, clockwidget)
-    right_layout_add(kbdcfg.widget)
+    --right_layout_add(kbdcfg.widget)
   elseif themename == "pro-dark" or themename == "pro-gotham" or themename == "pro-light" or themename == "pro-medium-dark" or themename == "pro-medium-light"
   then
     if s == 1 then
-        right_layout:add(spr)
-        right_layout:add(spr5px)
-        right_layout:add(promptbox[s])
-        right_layout:add(wibox.widget.systray())
-        right_layout:add(spr5px)
+      right_layout:add(spr)
+      right_layout:add(spr5px)
+      right_layout:add(promptbox[s])
+      right_layout:add(wibox.widget.systray())
+      right_layout:add(spr5px)
     end
-    right_layout:add(widget_display_l)
-    right_layout:add(kbdcfg_widget)
-    right_layout:add(widget_display_r)
-    right_layout:add(spr5px)
-    right_layout:add(spr)
-    right_layout:add(spr5px)
+    --right_layout:add(widget_display_l)
+    --right_layout:add(kbdcfg.widget)
+    --right_layout:add(widget_display_r)
+    --right_layout:add(spr5px)
+    --right_layout:add(spr)
+    --right_layout:add(spr5px)
     right_layout:add(widget_display_l)
     right_layout:add(volumewidget)
     right_layout:add(widget_display_r)
@@ -660,7 +723,6 @@ do
     right_layout:add(widget_cpu)
     right_layout:add(widget_display_l)
     right_layout:add(cpuwidget)
-    --right_layout:add(widget_display_r)
     right_layout:add(widget_display_c)
     right_layout:add(tmpwidget)
     right_layout:add(widget_tmp)
@@ -724,7 +786,7 @@ do
     right_layout:add(calendarwidget)
     right_layout:add(clock_icon)
     right_layout:add(clockwidget)
-    right_layout:add(kbdcfg.widget)
+    --right_layout:add(kbdcfg.widget)
   end
 
   -- Now bring it all together (with the tasklist in the middle)
@@ -737,18 +799,7 @@ do
   
   -- Widgets that are aligned to the bottom left
   bottom_left_layout = wibox.layout.fixed.horizontal()
-  --[[bottom_left_layout:add(spr)
-  bottom_left_layout:add(prev_icon)
-  bottom_left_layout:add(spr)
-  bottom_left_layout:add(stop_icon)
-  bottom_left_layout:add(spr)
-  bottom_left_layout:add(play_pause_icon)
-  bottom_left_layout:add(spr)
-  bottom_left_layout:add(next_icon)]]
-  --bottom_left_layout:add(mpd_sepl)
-  --bottom_left_layout:add(musicwidget)
-  --bottom_left_layout:add(mpd_sepr)
-  
+
   -- Widgets that are aligned to the bottom right
   bottom_right_layout = wibox.layout.fixed.horizontal()
   --bottom_right_layout:add(mpdicon) 
@@ -764,6 +815,7 @@ do
   mybottomwibox[s]:set_bg(beautiful.panel)
   mybottomwibox[s]:set_widget(bottom_layout)
 end
+-- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -803,8 +855,9 @@ client.connect_signal(
     end
   end
 )
+-- }}}
 
--- Enable sloppy focus
+-- {{{ Enable sloppy focus
 client.connect_signal(
   "mouse::enter",
   function(c)
@@ -830,7 +883,7 @@ client.connect_signal(
 )
 -- }}}
 
--- Default static wall
+-- {{{ Default static wall
 if beautiful.wallpaper
 then
   for s = 1,screen.count()
@@ -838,3 +891,4 @@ then
     gears.wallpaper.maximized(beautiful.wallpaper, s, true)
   end
 end
+-- }}}

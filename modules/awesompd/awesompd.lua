@@ -849,7 +849,7 @@ function awesompd:show_notification(hint_title, hint_text, hint_image)
    self:hide_notification()
    self.notification = naughty.notify({ title      =  hint_title
 					, text       = awesompd.protect_string(hint_text)
-					, timeout    = 65
+					, timeout    = 5
 					, position   = "top_right"
                                         , icon       = hint_image
                                         , icon_size  = self.album_cover_size

@@ -43,3 +43,22 @@ naughty.notify{
   <span color='#80d9d8'>Please send an error report to</span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
   timeout = 0, border_color = "#fdd9d8", border_width = 1,
 }
+
+
+--- {{{ USER CONFIGURATION
+--[[
+  Your frequently used applications.
+Please change if something is not the same ...
+]]--
+app={
+  ["browser"]="firefox",
+  ["terminal"]="urxvt",
+  ["graphic"]="gimp",
+  ["develop"]="urxvt -e vim",
+}
+-- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
+dynamic_tagging = true
+
+-- Theme: defines colours, icons, and wallpapers
+themename =  "pro-dark" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "pro-gotham" or "pro-medium-dark" or "pro-medium-light"
+---}}}

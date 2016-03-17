@@ -30,7 +30,7 @@ theme.border_width  = 1
 theme.border_normal = "#888888"
 theme.border_focus  = "#e4e4e4"
 theme.border_marked = "#CC9393"
-
+theme.useless_gap_width = 20
 -- | Menu | --
 
 theme.menu_height = 16
