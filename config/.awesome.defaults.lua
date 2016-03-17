@@ -116,7 +116,7 @@ local MULTICOLOR = {
       quit wm:                win_shift_q
   ]]
 }
-
+--- {{{ USER CONFIGURATION
 --[[
   Your frequently used applications.
 Please change if something is not the same ...
@@ -127,13 +127,19 @@ local app={
   ["graphic"]="gimp",
   ["develop"]="urxvt -e vim",
 }
+-- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
+local dynamic_tagging = true
+
+-- Theme: defines colours, icons, and wallpapers
+local themename = "dark" -- "dark" or "multicolor"
+---}}}
+
 
 home = os.getenv("HOME")
 terminal,editor,browser,editor_cmd, vksearch = app.terminal,app.develop,app.browser,app.develop, app.musicsearch
 -- Global key: Mod4 - Win / Mod1 - Alt
 modkey,altkey = "Mod4","Mod1"
--- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
-local dynamic_tagging = true
+
 -- Standard awesome library
 local awful = require('awful')
 awful.rules     = require("awful.rules")
@@ -156,8 +162,6 @@ else
 end
 
 require("config/bindings")
--- Theme: defines colours, icons, and wallpapers
-local themename = "dark" -- "dark" or "multicolor"
 beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
 
 -- {{{ Widgets
@@ -221,7 +225,7 @@ then
     end
   end
 
-  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/themes/multicolor/'))
+  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/themes/'..themename..'/'))
   do
     for kk, vv in pairs(v)
     do
@@ -247,14 +251,14 @@ then
         UserWidgetsFiles,
         {
           kk,
-          editor_cmd .. " " .. vv,
+          editor_cmd .. " " .. vv .. '/init.lua',
           settings_icon
         }
       )
     end
   end
 
-  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/lain/widgets/'))
+  for k, v in pairs(createEditConfigurationsFileFromAwesome(awful.util.getdir("config")..'/modules/lain/widgets/'))
   do
     for kk, vv in pairs(v)
     do
@@ -558,7 +562,7 @@ do
   left_layout:add(spr)
 
   right_layout = wibox.layout.fixed.horizontal()
-  if themename ~= "peura"
+  if themename ~= "multicolor"
   then
     -- Widgets that are aligned to the upper right
     local right_layout_toggle = true

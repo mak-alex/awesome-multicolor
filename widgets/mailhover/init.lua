@@ -11,7 +11,7 @@ local capi = {
 local awful = require("awful")
 local naughty = require("naughty")
 local beautiful = require('beautiful')
-module("mailhoover")
+module("widgets.mailhoover")
 
 local popup
 local account_format = "<span color='" .. beautiful.fg_urgent .."'><b>%s</b></span>"

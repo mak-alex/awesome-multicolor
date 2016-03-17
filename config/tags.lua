@@ -182,13 +182,13 @@ tyrannical.properties.maximize = {
   amarok = false,
 }
 
--- tyrannical.properties.border_width = {
---   XTerm = 0
--- }
-
-tyrannical.properties.border_color = {
-  XTerm = "#0A1535"
+tyrannical.properties.border_width = {
+   urxvt = 3
 }
+
+--[[tyrannical.properties.border_color = {
+  urxvt = "#7788af"
+}]]
 
 tyrannical.properties.intrusive_popup = {
   "qbittorrent"

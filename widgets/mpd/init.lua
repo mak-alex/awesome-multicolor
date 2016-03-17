@@ -4,7 +4,7 @@
 
    musicwidget = awesompd:create() -- Create awesompd widget
    musicwidget.font = "Hack" -- Set widget font
-   -- musicwidget.font_color = "#FFFFFF" --Set widget font color
+   musicwidget.font_color = "#7F7F7F" --Set widget font color
    -- musicwidget.background = "#000000" --Set widget background color
    musicwidget.scrolling = true -- If true, the text in the widget will be scrolled
    musicwidget.output_size = 30 -- Set the size of widget in symbols
@@ -31,7 +31,7 @@
 
    -- Specify how big in pixels should an album cover be. Maximum value
    -- is 100.
-   musicwidget.album_cover_size = 50
+   musicwidget.album_cover_size = 150
 
    -- This option is necessary if you want the album covers to be shown
    -- for your local tracks.
