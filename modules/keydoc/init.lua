@@ -168,7 +168,7 @@ local nid = nil
 local nid1 = nil
 
 function display()
-  file = io.open("/home/flashhacker/keydoc", "w")
+  --file = io.open("/home/flashhacker/keydoc", "w")
   local strings = markup(
     awful.util.table.join(
       capi.root.keys(),
@@ -188,8 +188,8 @@ function display()
     end
     result = result .. '<span weight="bold" color="' .. beautiful.fg_normal .. '">' .. group .. "</span>\n" .. res
     --awful.util.spawn("urxvt -e echo '" .. group ..":" ..res .. "' >> /home/flashhacker/keydoc")
-    file:write(group)
-    file:write("  "..res)
+    --file:write(group)
+    --file:write("  "..res)
   end
 
   if #result > 0
@@ -201,7 +201,7 @@ function display()
     config_dir .. "/keydoc/help_footer " .. locale
   )
   
-  file:close()
+  --file:close()
   nid = naughty.notify(
     {
       screen = 1,

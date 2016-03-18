@@ -180,17 +180,34 @@ end
   -- }}}
 require("config/bindings")
 -- }}}
-local cfg_path = awful.util.getdir("config")
-local cmd = "ls -1 " .. cfg_path .. "/themes/.usedTheme/"
-local f = io.popen(cmd)
 
-for theme in f:lines() do
-  themename = theme
+function getUsedThemeName()
+  local cfg_path = awful.util.getdir("config")
+  local cmd = "ls -1 " .. cfg_path .. "/themes/.usedTheme/"
+  local f = io.popen(cmd)
+  local usedThemeName
+  for theme in f:lines() do
+    if theme ~= nil and theme ~= ''
+    then
+      return theme
+    end
+    return false
+  end
+  f:close()
 end
 
-f:close()
+themename = getUsedThemeName()
+
 local generateMenu = require("widgets.generateMenu")
-beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/.usedTheme/"..themename.."/theme.lua")
+
+if themename ~= nil and themename ~= ''
+then
+  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/.usedTheme/"..themename.."/theme.lua")
+else
+  themename = "simple"
+  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
+end
+
 --beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
 
 run_once("setxkbmap -layout us,ru -option grp:alt_shift_toggle")
@@ -228,38 +245,6 @@ require('widgets/mpd')
 --require('widgets/keyboard')
 -- }}}
 
-naughty.config.presets.online = {
-    bg = "#1f880e80",
-    fg = "#ffffff",
-}
-naughty.config.presets.chat = naughty.config.presets.online
-naughty.config.presets.away = {
-    bg = "#eb4b1380",
-    fg = "#ffffff",
-}
-naughty.config.presets.xa = {
-    bg = "#65000080",
-    fg = "#ffffff",
-}
-naughty.config.presets.dnd = {
-    bg = "#65340080",
-    fg = "#ffffff",
-}
-naughty.config.presets.invisible = {
-    bg = "#ffffff80",
-    fg = "#000000",
-}
-naughty.config.presets.offline = {
-    bg = "#64636380",
-    fg = "#ffffff",
-}
-naughty.config.presets.requested = naughty.config.presets.offline
-naughty.config.presets.error = {
-    bg = "#ff000080",
-    fg = "#ffffff",
-}
-
-
 -- {{{ Arch icon widget
 archicon = wibox.widget.imagebox()
 archicon:set_image(beautiful.widget_arch)
@@ -284,6 +269,10 @@ arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
 arrl_dl = separators.arrow_left(beautiful.bg_focus, "alpha")
 arrl_ld = separators.arrow_left("alpha", beautiful.bg_focus)
+spacer = wibox.widget.textbox()
+separator = wibox.widget.imagebox()
+spacer:set_text(" ")
+separator:set_image(beautiful.widget_sep)
 -- }}}
 
 -- {{{ Markup
@@ -312,11 +301,6 @@ widget_display_l = wibox.widget.imagebox()
 widget_display_l:set_image(beautiful.widget_display_l)
 widget_display_c = wibox.widget.imagebox()
 widget_display_c:set_image(beautiful.widget_display_c)
--- }}}
-
--- {{{ Textclock widget
-clockicon = wibox.widget.imagebox(beautiful.widget_clock)
-mytextclock = awful.widget.textclock(markup("#7788af", "%A %d %B ") .. markup("#343639", ">") .. markup("#de5e1e", " %H:%M "))
 -- }}}
 
 -- {{{ Handle runtime errors after startup
@@ -412,15 +396,9 @@ mytasklist.buttons = awful.util.table.join(
 )
 -- }}}
 
--- {{{ Small widgets and widget boxes
-spacer = wibox.widget.textbox()
-separator = wibox.widget.imagebox()
-spacer:set_text(" ")
-separator:set_image(beautiful.widget_sep)
--- }}}
-
 -- {{{ Wibox initialisation
-mywibox,mybottomwibox,mypromptbox,mylayoutbox,mytaglist,mytagwibox = {},{},{},{},{}, {}
+mywibox,mybottomwibox,mypromptbox,mylayoutbox,mytaglist,mytagwibox = {},{},{},{},{},{}
+
 mytaglist.buttons = awful.util.table.join(
   awful.button(
     { },
@@ -500,10 +478,8 @@ do
   if themename == 'simple'
   then
     -- Create a taglist widget
-    --mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
     mytaglist[s] = simple.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-    -- Create a tasklist widget
-    
+    -- Create a tasklist widget 
     mytasklist[s] = simple.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s, height = 18+tagsh })
@@ -513,8 +489,6 @@ do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
     mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = 0, height = 22 })
   end
-  --mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-  --mywibox[s]:set_widget(layout)
 
   --- {{{ LEFT ALIGN WIDGET 
   -- Widgets that are aligned to the left
@@ -523,12 +497,9 @@ do
   then
     left_layout:add(spr5px)
     left_layout:add(mytaglist[s])
-    --left_layout:add(spr5px)
   elseif themename == 'simple'
   then
     left_layout:add(wibox.widget.background(mylayoutbox[s], beautiful.bg_focus))
-    --left_layout:add(spr_ld_r)
-    --left_layout:add(mytasklist[s])
     left_layout:add(wibox.widget.background(mytasklist[s], beautiful.bg_focus))
     left_layout:add(spr_dl_r)
     left_layout:add(wibox.widget.background(mypromptbox[s], beautiful.bg_focus))
@@ -595,12 +566,6 @@ do
       right_layout:add(wibox.widget.systray())
       right_layout:add(spr5px)
     end
-    --right_layout:add(widget_display_l)
-    --right_layout:add(kbdcfg.widget)
-    --right_layout:add(widget_display_r)
-    --right_layout:add(spr5px)
-    --right_layout:add(spr)
-    --right_layout:add(spr5px)
     right_layout:add(widget_display_l)
     right_layout:add(volumewidget)
     right_layout:add(widget_display_r)
