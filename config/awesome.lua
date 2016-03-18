@@ -18,7 +18,7 @@ local app={
 local dynamic_tagging = true
 
 -- Theme: defines colours, icons, and wallpapers
-themename =  "simple" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "pro-gotham" or "pro-medium-dark" or "pro-medium-light" or "simple"
+themename =  "dark" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "pro-gotham" or "pro-medium-dark" or "pro-medium-light" or "simple"
 --- }}}
 -------------------------------------------------------------------------
 ----------------------- END SETTING FOR USER!!! -------------------------
@@ -169,7 +169,6 @@ lain = require("modules.lain")
 local r = require("modules.runonce")
 local dyna = require("modules.dynawall")
 local simple = require("modules.simple")
-local generateMenu = require("widgets.generateMenu")
 
   -- {{{ Dynamic tagging
 if dynamic_tagging
@@ -181,18 +180,24 @@ end
   -- }}}
 require("config/bindings")
 -- }}}
+local cfg_path = awful.util.getdir("config")
+local cmd = "ls -1 " .. cfg_path .. "/themes/.usedTheme/"
+local f = io.popen(cmd)
 
-if tonumber(os.date("%H")) < 20
-then
-  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
-else
-  themename = "pro-dark"
-  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
+for theme in f:lines() do
+  themename = theme
 end
+
+f:close()
+local generateMenu = require("widgets.generateMenu")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/.usedTheme/"..themename.."/theme.lua")
+--beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
 
 run_once("setxkbmap -layout us,ru -option grp:alt_shift_toggle")
 run_once("mpd")
 run_once("unclutter")
+run_once('cairo-compmgr')
+run_once('nm-applet')
 --awful.util.spawn("urxvt -e mutt",{new_tag=true})
 
 -- {{{ Java GUI's fix
@@ -222,6 +227,38 @@ local mem = require('widgets/memmory')
 require('widgets/mpd')
 --require('widgets/keyboard')
 -- }}}
+
+naughty.config.presets.online = {
+    bg = "#1f880e80",
+    fg = "#ffffff",
+}
+naughty.config.presets.chat = naughty.config.presets.online
+naughty.config.presets.away = {
+    bg = "#eb4b1380",
+    fg = "#ffffff",
+}
+naughty.config.presets.xa = {
+    bg = "#65000080",
+    fg = "#ffffff",
+}
+naughty.config.presets.dnd = {
+    bg = "#65340080",
+    fg = "#ffffff",
+}
+naughty.config.presets.invisible = {
+    bg = "#ffffff80",
+    fg = "#000000",
+}
+naughty.config.presets.offline = {
+    bg = "#64636380",
+    fg = "#ffffff",
+}
+naughty.config.presets.requested = naughty.config.presets.offline
+naughty.config.presets.error = {
+    bg = "#ff000080",
+    fg = "#ffffff",
+}
+
 
 -- {{{ Arch icon widget
 archicon = wibox.widget.imagebox()

@@ -1,42 +1,40 @@
-##Multicolor Configuration for the awesome window manager (3.5)
-* If you're disappointed by fonts, check your `~/.fonts.conf`. 
-* It is presumed that you configure your autostart in `~/.xinitrc`.
-* Help with hotkeys <F1>
+## Представляю Вашему вниманию MultiColor v. 2.0 (awesome 3.5.x)
+* Скриншоты вы найдете в директории screenshots
+* Вызов справки <Win>+<F1>
 
-##What do we have?
-* Dynamic tags
-* Terms tags for dynamic tags
-* The drop-down terminal
-* Running the backup configuration
-* Widgets
-* Generated applications menu
-* Dynamic desktop background
-* And many other amenities ...
- 
-##Capabilities
-* Themes
-* Dynamic wallpaper
-* Test script for hacking
-* Dynamic desktop tagging (via tyrannical)
-* ALSA control (by Rman)
-* Freedesktop menu
-* Multiple desktop support
-* Beautiful notifications (via naughty)
+## Что под капотом?
+* Динамические теги
+* Множество оформлений
+* Динамическое меню
+* Динамеческое суб-меню для конфигурации MultiColor
+* Динамическое суб-меню для выбора темы без редактирования каких либо файлов
+* Только необходимые виджеты
+* Музыкальный модуль (awesomempd) с динамическим меню и радио-списком (di.fm)
+* Резервирование текущей рабочей конфигурации
+* Восстановление из резервной конфигурации
+* И многое другое...
 
-##Dependencies
-* tyrannical (optional)
-* Dynamic generate menu (via Alex M.A.K)
-* Dropdown terminal (via Alex M.A.K)
+## Структура конфигурации MultiColor
+* Директория awesome (multicolor) содержит:
+    * config - содержит в основные конфигурационные файлы, такие как:
+        * awesome.lua - основной файл со всей несущей конфигурации для awesome 3.5.x
+        * .awesome.default.lua - резервная копия последней работающей конфигурации MultiColor
+        * bindings.lua - файл с конфигурацией хоткеев как глобальных так и нет
+        * tags.lua - файл с конфигурацией рабочего пространства и настройками динамических тегов
+        * fallback_tags.lua - файл с конфигурацией рабочего пространства и отключенными динамическими тегами
+    * modules - содержит сторонние и не только модули
+    * widgets - содержит основные виджеты
+    * themes - содержит основные темы (8 штук)
+    * screenshots - без вариантов ;-)
 
-## Fix bug: when you change the keyboard layout does not work pressing elements Awesome
-* open file /usr/share/X11/xkb/compat/basic
-	* find and comment string group 2 = AltGr; group 3 = AltGr; group 4 = AltGr; 
-<<<<<<< HEAD
-	
-=======
+## Fix bug: при смене раскладки, не возможно по клику, переходить по вкладкам
+* откройте файл /usr/share/X11/xkb/compat/basic
+	* найдите и закомментируйте эти строк:
+	    *  group 2 = AltGr; 
+	    *  group 3 = AltGr; 
+	    *  group 4 = AltGr; 
 
->>>>>>> 820e39fa76b7c5cf100218e61113e716d05b1ad4
-##HOTKEYS:
+## Основные хоткеи:
 * (If you want to change old bindings, open please bindings.lua file and edit...):
 * Operations with MPD servers:
 	* mpc|ncmpc|pms next:     alt_shift_(arrow_right)

@@ -1,4 +1,45 @@
 local menugen = require("modules.menugen")
+
+mythememenu = {}
+
+function removeOldTheme()
+  local cfg_path = awful.util.getdir("config")
+  local cmd = "ls -1 " .. cfg_path .. "/themes/.usedTheme/"
+
+  local f = io.popen(cmd)
+
+  for l in f:lines() do
+    awful.util.spawn("rm " .. cfg_path .. "/themes/.usedTheme/"..l)
+  end
+  f:close()
+end
+
+function theme_load(theme)
+   local cfg_path = awful.util.getdir("config")
+
+   -- Create a symlink from the given theme to /home/user/.config/awesome/current_theme
+   removeOldTheme()
+   awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. " " .. cfg_path ..  "/themes/.usedTheme/" .. theme)
+   awesome.restart()
+end
+
+function theme_menu()
+   -- List your theme files and feed the menu table
+   local cmd = "ls -1 " .. awful.util.getdir("config") .. "/themes/"
+   local f = io.popen(cmd)
+
+   for l in f:lines() do
+    local item = { l, function () theme_load(l) end }
+    table.insert(mythememenu, item)
+   end
+
+   f:close()
+end
+
+-- Generate your table at startup or restart
+theme_menu()
+
+
 -- {{{ Auto-genereate menu from Awesome configs and plugins
 local function createEditConfigurationsFileFromAwesome(name)
   local i, t, popen = 0, {}, io.popen
@@ -110,6 +151,7 @@ function generateMenu()
           { "", },
           { "Update MultiColor", 'cd '..awful.util.getdir("config")..'; git pull;'},
           { "", },
+          { "Awesome Themes", mythememenu },
           {
             "Awesome Restart",
             awesome.restart,
