@@ -2,6 +2,9 @@
 * Скриншоты вы найдете в директории screenshots
 * Вызов справки <Win>+<F1>
 
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164408_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164428_1920x1080_scrot.png)
+
 ## Что под капотом?
 * Динамические теги
 * Множество оформлений
@@ -13,6 +16,9 @@
 * Резервирование текущей рабочей конфигурации
 * Восстановление из резервной конфигурации
 * И многое другое...
+
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164445_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164502_1920x1080_scrot.png)
 
 ## Структура конфигурации MultiColor
 * Директория awesome (multicolor) содержит:
@@ -33,6 +39,9 @@
 	    *  group 2 = AltGr; 
 	    *  group 3 = AltGr; 
 	    *  group 4 = AltGr; 
+
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164516_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164532_1920x1080_scrot.png)
 
 ## Основные хоткеи:
 * (If you want to change old bindings, open please bindings.lua file and edit...):
@@ -79,3 +88,6 @@
 * Awesome:
 	* restart wm:             win_ctrl_enter
 	* quit wm:                win_shift_q
+
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164543_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164559_1920x1080_scrot.png)
