@@ -821,7 +821,7 @@ local globalkeys = awful.util.table.join(
     "F3",
     function ()
       -- Or for more advanced use case, you can use a full tag definition too
-      awful.util.spawn("urxvt -e mutt",{ new_tag= {name = "mail", exclusive = true, layout = awful.layout.suit.tile.top, intrusive=true, floating=true, ontop=true}}) 
+      awful.util.spawn("urxvt -name mutt -e mutt",{ new_tag= {name = "mail", exclusive = true, layout = awful.layout.suit.tile.top, intrusive=true, floating=true, ontop=true}}) 
     end,
     "Почтовое приложение Mutt"
   ),
@@ -832,7 +832,7 @@ local globalkeys = awful.util.table.join(
     "F4",
     function ()
       -- Or for more advanced use case, you can use a full tag definition too
-      awful.util.spawn("urxvt -e mcabber",{ new_tag= {name = "im", exclusive = true, layout = awful.layout.suit.max, intrusive=true, floating=true, ontop=true}}) 
+      awful.util.spawn("urxvt -name mcabber -e mcabber",{ new_tag= {name = "im", exclusive = true, layout = awful.layout.suit.max, intrusive=true, floating=true, ontop=true}}) 
     end,
     "IM Client Mcabber"
   ),
@@ -843,7 +843,7 @@ local globalkeys = awful.util.table.join(
     "F5",
     function ()
       -- Or for more advanced use case, you can use a full tag definition too
-      awful.util.spawn("urxvt -e ranger",{ new_tag= {name = "files", exclusive = true, layout = awful.layout.suit.max, intrusive=true, floating=true, ontop=true}}) 
+      awful.util.spawn("urxvt -name ranger -e ranger",{ new_tag= {name = "files", exclusive = true, layout = awful.layout.suit.max, intrusive=true, floating=true, ontop=true}}) 
     end,
     "FileManager Ranger"
   ),

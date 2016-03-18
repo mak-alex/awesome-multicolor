@@ -25,7 +25,7 @@ tyrannical.tags = {
     exclusive   = true,                   -- Refuse any other type of clients (by classes)
     screen      = {1,2},
     selected    = true,
-    layout      = awful.layout.suit.fair,
+    layout      = awful.layout.suit.floating,
     class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
       "xterm" , "urxvt" , "aterm","XTerm","XTerm","konsole","terminator","gnome-terminal",
     }
@@ -35,9 +35,9 @@ tyrannical.tags = {
     init        = false,                   -- Load the tag on startup
     exclusive   = true,                   -- Refuse any other type of clients (by classes)
     screen      = screen.count() > 1 and 2 or 1,
-    layout      = awful.layout.suit.fair,
+    layout      = awful.layout.suit.tile.left,
     class = {
-      "Iceweasel", "Chromium", "nightly", "uzbl", "surf", "Firefox",
+      "Iceweasel", "Chromium", "nightly", "uzbl", "surf", "Firefox", "luakit", "dwb"
     }
   },
   {
@@ -47,7 +47,7 @@ tyrannical.tags = {
     screen      = screen.count() > 1 and 2 or 1,
     layout      = awful.layout.suit.fair,
     class = {
-      "Darktable", "darktable",
+      "Darktable", "darktable","nomacs","gthumb","Shotwell"
     }
   },
   {
@@ -55,9 +55,12 @@ tyrannical.tags = {
     init        = false,                   -- Load the tag on startup
     exclusive   = true,                   -- Refuse any other type of clients (by classes)
     screen      = screen.count()>2 and 3 or 1,
-    layout      = awful.layout.suit.max,
+    layout      = awful.layout.suit.tile.left,
     class = {
-      "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Emacs", "sublime_text", "subl*"
+      "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Emacs", "sublime_text", "subl*", "Atom", "Brackets", "Eclipse",
+    },
+    instance = {
+      "vim"
     }
   },
   {
@@ -77,7 +80,10 @@ tyrannical.tags = {
     screen      = 1,
     layout      = awful.layout.suit.max,
     class = {
-      "Psi", "psi", "skype", "xchat", "choqok", "hotot", "qwit", "weechat", "*weechat*", "mcabber", "*mcabber*"
+      "Psi", "psi", "skype", "xchat", "choqok", "hotot", "qwit",
+    },
+    instance = {
+      "weechat", "mcabber", "irssi"
     }
   },
   {
@@ -86,8 +92,9 @@ tyrannical.tags = {
     exclusive   = true,                   -- Refuse any other type of clients (by classes)
     screen      = 1,
     layout      = awful.layout.suit.max,
+    instance    = { "mutt" },
     class = {
-      "Thunderbird", "*mutt*", "mutt"
+      "Thunderbird",
     }
   },
 
@@ -108,7 +115,10 @@ tyrannical.tags = {
     screen      = screen.count()>2 and 3 or 1,
     layout      = awful.layout.suit.max,
     class = {
-      "Nemo", "SpaceFM", "urxvt -e ranger", "ranger", "*ranger*"
+      "SpaceFM",
+    },
+    instance = {
+      "ranger",
     }
   },
   {
@@ -119,6 +129,9 @@ tyrannical.tags = {
     layout      = awful.layout.suit.max,
     class = {
       "transmission-gtk", "deluge", "qtbittorrent", "Qbittorrent"
+    },
+    intance = {
+       "rtorrent"
     }
   },
   {
@@ -157,12 +170,12 @@ tyrannical.properties.floating = {
   "xine"         , "feh"             , "kmix"       , "kcalc"        , "xcalc"          ,
   "yakuake"      , "Select Color$"   , "kruler"     , "kcolorchooser", "Paste Special"  ,
   "New Form"     , "Insert Picture"  , "kcharselect", "mythfrontend" , "plasmoidviewer" ,
-  "sflphone-client-kde", "sflphone-client-gnome", "xev", "Firefox",
+  "sflphone-client-kde", "sflphone-client-gnome", "xev",
   amarok = false , "yakuake", "Conky"
 }
 
 tyrannical.properties.ontop = {
-  "Xephyr"       , "ksnapshot"       , "kruler"
+  "Xephyr"       , "ksnapshot"       , "kruler", "urxvt"
 }
 
 tyrannical.properties.focusable = {
@@ -195,7 +208,7 @@ tyrannical.properties.intrusive_popup = {
 }
 
 tyrannical.properties.centered = {
-  "kcalc"
+  "kcalc", "urxvt"
 }
 
 tyrannical.properties.skip_taskbar = {
