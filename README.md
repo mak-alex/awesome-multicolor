@@ -1,11 +1,4 @@
 ## Представляю Вашему вниманию MultiColor v. 2.0 (awesome 3.5.x)
-* Вызов справки <Win>+<F1>
-
-![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-185402_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164408_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164428_1920x1080_scrot.png)
-
-## Что под капотом?
 * Динамические теги
 * Множество оформлений
 * Динамическое меню
@@ -16,10 +9,11 @@
 * Резервирование текущей рабочей конфигурации
 * Восстановление из резервной конфигурации
 * И многое другое...
+* Динамический справочник
 
-![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164445_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164502_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-184859_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-185402_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164408_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164428_1920x1080_scrot.png)
 
 ## Структура конфигурации MultiColor
 * Директория awesome (multicolor) содержит:
@@ -34,6 +28,10 @@
     * themes - содержит основные темы (8 штук)
     * screenshots - без вариантов ;-)
 
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164445_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164502_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-184859_1920x1080_scrot.png)
+
 ## Fix bug: при смене раскладки, не возможно по клику, переходить по вкладкам
 * откройте файл /usr/share/X11/xkb/compat/basic
 	* найдите и закомментируйте эти строк:
@@ -44,6 +42,17 @@
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164516_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164532_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-185033_1920x1080_scrot.png)
+
+## Зависимости:
+* Awesome 3.5.x
+* URxvt
+* Cairo-Compmgr (не обязательный)
+* Mpd+Ncmpcpp or Ncmcp or Mpc
+* Unclutter (не обязательный)
+* mcabber (не обязательный)
+* Mutt (не обязательный)
+* Ranger
+* Xlock
 
 ## Основные хоткеи:
 	* Awesome  

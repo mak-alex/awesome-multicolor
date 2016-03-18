@@ -183,12 +183,12 @@ function generateMenu()
       },
       {
         "FileManager",
-        "urxvt -e ranger",
+        "urxvtc -name ranger -e ranger",
         nil,
       },
       {
         "E-mail",
-        "urxvt -e mutt",
+        "urxvtc -name mutt -e mutt",
         nil,
       },
       { "" },

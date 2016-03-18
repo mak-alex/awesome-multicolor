@@ -216,10 +216,6 @@ run_once("unclutter")
 run_once('cairo-compmgr')
 run_once('nm-applet')
 run_once('urxvtd')
-run_once("urxvt -name mutt -e mutt")
-run_once("urxvt -name mcabber -e mcabber")
-
---awful.util.spawn("urxvt -e mutt",{new_tag=true})
 
 -- {{{ Java GUI's fix
 awful.util.spawn_with_shell("wmname LG3D")
