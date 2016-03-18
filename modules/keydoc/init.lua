@@ -6,6 +6,7 @@ local pairs = pairs
 local math = math
 local string = string
 local type = type
+local io = io
 local modkey = "Mod4"
 local altkey = "Mod1"
 local beautiful = require("beautiful")
@@ -167,6 +168,7 @@ local nid = nil
 local nid1 = nil
 
 function display()
+  file = io.open("/home/flashhacker/keydoc", "w")
   local strings = markup(
     awful.util.table.join(
       capi.root.keys(),
@@ -185,6 +187,9 @@ function display()
       result = result .. "\n"
     end
     result = result .. '<span weight="bold" color="' .. beautiful.fg_normal .. '">' .. group .. "</span>\n" .. res
+    --awful.util.spawn("urxvt -e echo '" .. group ..":" ..res .. "' >> /home/flashhacker/keydoc")
+    file:write(group)
+    file:write("  "..res)
   end
 
   if #result > 0
@@ -195,7 +200,8 @@ function display()
   result = result .. awful.util.pread(
     config_dir .. "/keydoc/help_footer " .. locale
   )
-
+  
+  file:close()
   nid = naughty.notify(
     {
       screen = 1,

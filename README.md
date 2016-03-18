@@ -1,7 +1,7 @@
 ## Представляю Вашему вниманию MultiColor v. 2.0 (awesome 3.5.x)
-* Скриншоты вы найдете в директории screenshots
 * Вызов справки <Win>+<F1>
 
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-185402_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164408_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164428_1920x1080_scrot.png)
 
@@ -46,50 +46,68 @@
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-185033_1920x1080_scrot.png)
 
 ## Основные хоткеи:
-* (If you want to change old bindings, open please bindings.lua file and edit...):
-* Operations with MPD servers:
-	* mpc|ncmpc|pms next:     alt_shift_(arrow_right)
-	* mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
-	* mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
-	* mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
-* Operations with audio:
-	* volume up:              alt_(arrow_up)
-	* volume down:            alt_(arrow_down)
-	* volume mute:            alt_m
-	* volumn 100%:            alt_ctrl_m
-* Dynamic tags:
-	* delete_tag:             win_d
-	* new tag:                win_n
-	* new tag with focussed:  win_shift_n
-	* move to new tag:        win_alt_n
-	* rename tag to focussed: win_alt_r
-	* rename tag:             win_shift_r
-	* term in current  tag:   win_alt_enter
-	* new tag with term:      win_ctrl_enter
-	* fork tag:               win_ctrl_f
-	* aero tag:               win_a
-	* tag view prev:          win_(arrow_left)
-	* tag view next:          win_(arrow_right)
-	* tag history restore:    win_Escape
-* Terminal:
-	* new terminal:           win_enter
-	* dropdown terminal:      win_z
-* Window:
-	* open window fullscreen: win_f
-	* maximized hor and vert: win_m
-	* kill window:            win_shift_c
-	* floating window:        win_ctrl_space
-	* move left:              win_h 
-    * move right:             win_l
-    * move up:                win_k 
-    * move down:              win_j
-* Panel:
-	* hide panels:            win_b
-* Menu:
-	* open dynamic menu:      win_w
-* Awesome:
-	* restart wm:             win_ctrl_enter
-	* quit wm:                win_shift_q
+	* Awesome  
+		* ^ + ⊞ + r  -  Перезагрузить Awesome
+		* ⇧ + ⊞ + q  -  Выйти из Awesome
+	* Дисплей  
+		* ⊞ + Up  -  Прибавить яркость на 10%
+		* ⊞ + Down  -  Понизить яркость на 10%
+		* ^ + ⊞ + Up  -  Прибавить яркость на 100%
+		* ^ + ⊞ + Down  -  Понизить яркость на 100%
+	* Звук  
+		*  alt + Up  -  Прибавить громкость на 1%
+		* alt + Down  -  Понизить громкость на 1%
+		* alt + F3  -  Почтовое приложение Mutt
+		* alt + F4  -  IM Client Mcabber
+		* alt + F5  -  FileManager Ranger
+		* alt + m  -  Выключить звук
+		* ^ + alt + m  -  Прибавить громкость на 100%
+	* Калькуляторы  
+		* ⊞ + F11  -  Простой калькулятор
+	* Меню  
+		* ⊞ + w  -  Генерируемое меню приложений
+		* ⊞ + r  -  Строка запуска
+		* alt + ⊞ + l  -  Выход, блокировка экрана и т.д.
+	* Музыка  
+		* ^ + alt + Up  -  Пориостановить проигрывание
+		* ^ + alt + Down  -  Остановить проигрывание
+		* ^ + alt + Left  -  Предыдущий трек
+		* ^ + alt + Right  -  Следующий трек
+	* Окна  
+		* ⊞ + Tab  -  Переключение между окнами
+		* alt + Tab  -  Переключение между окнами
+		* alt + Tab  -  Переключение между окнами
+	* Панель  
+		* ⊞ + b  -  Скрыть панели
+		* alt + c  -  Показать календарь
+		* alt + h  -  Показать df -h
+	* Поисковики  
+		* alt + F12  -  Поиск в Google
+	* Помощь  
+		* ⊞ + F1  -  Справочнег
+	* Теги  
+		* ⊞ + Left  -  Перейти на тег слева
+		* ⊞ + Right  -  Перейти на тег справа
+		* ⊞ + Escape  -  Перейти на последний посещаемый тег
+		* ⇧ + ⊞ + r  -  Переименовать тег
+		* ⊞ + d  -  Удалить тег
+		* ⊞ + n  -  Добавить тег
+		* ⇧ + ⊞ + n  -  Добавить тег и перенести в него работающее приложение
+		* alt + ⊞ + r  -  Переименовать тег именем открытого приложения
+		* alt + ⊞ + Return  -  Открыть терминал в текущем теге
+		* ^ + ⊞ + Return  -  Добавить тег и открыть на нем терминал
+		* ^ + ⊞ + f  -  Форк тега
+		* ⊞ + a  -  Аеро тег (объядинение двух тегов в одном)
+	* Терминалы  
+		* ⊞ + Return  -  Стандартный терминал
+		* ⊞ + z  -  Простой выпадающий терминал
+	* Фокус окон  
+		* ⊞ + j  -  Фокус окна снизу
+		* ⊞ + k  -  Фокус окна сверху
+		* ⊞ + h  -  Фокус окна слева
+		* ⊞ + l  -  Фокус окна справа
+	* Скриншот
+		* ⊞ + Сtrl + F12 - Сделать скриншот
 
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164543_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164559_1920x1080_scrot.png)
