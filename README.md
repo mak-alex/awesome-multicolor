@@ -19,6 +19,7 @@
 
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164445_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164502_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-184859_1920x1080_scrot.png)
 
 ## Структура конфигурации MultiColor
 * Директория awesome (multicolor) содержит:
@@ -42,6 +43,7 @@
 
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164516_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-164532_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/multicolor/raw/master/screenshots/2016-03-18-185033_1920x1080_scrot.png)
 
 ## Основные хоткеи:
 * (If you want to change old bindings, open please bindings.lua file and edit...):
