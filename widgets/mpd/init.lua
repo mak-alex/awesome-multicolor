@@ -4,7 +4,7 @@
 
    musicwidget = awesompd:create() -- Create awesompd widget
    musicwidget.font = "Hack" -- Set widget font
-   musicwidget.font_color = theme.fg_focus --Set widget font color
+   --musicwidget.font_color = theme.fg_focus --Set widget font color
    --musicwidget.background = "#000000" --Set widget background color
    musicwidget.scrolling = true -- If true, the text in the widget will be scrolled
    musicwidget.output_size = 30 -- Set the size of widget in symbols
@@ -40,8 +40,8 @@
    -- Specify decorators on the left and the right side of the
    -- widget. Or just leave empty strings if you decorate the widget
    -- from outside.
-   musicwidget.ldecorator = "[ "
-   musicwidget.rdecorator = " ]"
+   musicwidget.ldecorator = " "
+   musicwidget.rdecorator = " "
 
    -- Set all the servers to work with (here can be any servers you use)
    musicwidget.servers = {

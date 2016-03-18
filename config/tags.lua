@@ -77,7 +77,7 @@ tyrannical.tags = {
     screen      = 1,
     layout      = awful.layout.suit.max,
     class = {
-      "Psi", "psi", "skype", "xchat", "choqok", "hotot", "qwit"
+      "Psi", "psi", "skype", "xchat", "choqok", "hotot", "qwit", "weechat", "*weechat*", "mcabber", "*mcabber*"
     }
   },
   {
@@ -87,7 +87,7 @@ tyrannical.tags = {
     screen      = 1,
     layout      = awful.layout.suit.max,
     class = {
-      "Thunderbird", "urxvt -e mutt"
+      "Thunderbird", "*mutt*", "mutt"
     }
   },
 
@@ -98,7 +98,7 @@ tyrannical.tags = {
     screen      = screen.count()>2 and 3 or 1,
     layout      = awful.layout.suit.max,
     class = {
-      "gmusicbrowser", "mpd", "mpc", "rhythmbox", "amarok"
+      "gmusicbrowser", "rhythmbox", "amarok"
     }
   },
   {
@@ -108,7 +108,7 @@ tyrannical.tags = {
     screen      = screen.count()>2 and 3 or 1,
     layout      = awful.layout.suit.max,
     class = {
-      "Nemo", "SpaceFM",
+      "Nemo", "SpaceFM", "urxvt -e ranger", "ranger", "*ranger*"
     }
   },
   {

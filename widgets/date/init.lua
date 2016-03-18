@@ -11,7 +11,7 @@ clockwidget = wibox.widget.background()
 clockwidget:set_widget(mytextclock)
 clockwidget:set_bgimage(beautiful.widget_bg)
 -- Calendar
-mytextcalendar = awful.widget.textclock(markup("#7788af", space2 .. "%A %d %b<span font='Terminus 10px'> </span>"..markup("#343639", ">")))
+mytextcalendar = awful.widget.textclock(markup("#7788af", space2 .. "%A %d %b<span font='Terminus 10px'> </span>"..markup("#343639", "")))
 calendar_icon = wibox.widget.imagebox()
 calendar_icon:set_image(beautiful.calendar)
 calendarwidget = wibox.widget.background()

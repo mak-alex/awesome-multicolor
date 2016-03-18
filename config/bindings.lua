@@ -108,7 +108,6 @@ local beautiful = require("beautiful")
 quake = require("modules.scratchdrop")
 menugen = require("modules.menugen")
 tyrannical = require("modules.tyrannical")
-
 --hotkeys = require("widgets/hotkeys")
 local capi = {root=root,client=client,tag=tag,mouse=mouse}
 local ipairs = ipairs
@@ -208,7 +207,7 @@ local function rename_tag()
     {
       prompt = "New tag name: "
     },
-    promptbox[capi.mouse.screen].widget,
+    mypromptbox[capi.mouse.screen].widget,
     function(new_name)
       if not new_name or #new_name == 0
       then
@@ -510,6 +509,29 @@ local globalkeys = awful.util.table.join(
     end,
     "Переключение между окнами"
   ),
+  awful.key(
+    {
+      altkey,
+    },
+    "Tab",
+    function ()                                                                              
+      alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
+    end                                                                                      
+    ,
+    "Переключение между окнами"
+  ),
+  awful.key(
+    {
+      altkey,
+      "Shift_L"
+    },
+    "Tab",
+    function ()                                                                              
+      alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
+    end                                                                                      
+    ,
+    "Переключение между окнами"
+  ),
 
   keydoc.group("Поисковики"),
   awful.key(
@@ -522,7 +544,7 @@ local globalkeys = awful.util.table.join(
         {
           prompt = '<span weight="bold"> | Web search: </span>'
         },
-        promptbox[mouse.screen].widget,
+        mypromptbox[mouse.screen].widget,
         function (command)
           if command ~= nil and command ~= ''
           then
@@ -537,7 +559,7 @@ local globalkeys = awful.util.table.join(
       )
     end,
     "Поиск в Google"
-  ),
+  ), -- scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/shots/'
   awful.key(
     {
       modkey,
@@ -545,31 +567,7 @@ local globalkeys = awful.util.table.join(
     },
     "F12",
     function ()
-      awful.prompt.run(
-        {
-          prompt = '<span weight="bold"> | Music search in VK: </span>'
-        },
-        promptbox[mouse.screen].widget,
-        function (command)
-          if command ~= nil and command ~= ''
-          then
-            awful.util.spawn("/bin/bash ~/.config/awesome/widgets/vksearch/vksearch.bin '"..command.."'", false)
-            naughty.notify(
-              {
-                text = "Search track or compositor: "..command,
-                timeout = 10,
-                border_width =3,
-                border_color = "#7788af",
-              }
-            )
-
-            if tags[mouse.screen][3]
-            then
-              awful.tag.viewonly(tags[mouse.screen][3])
-            end
-          end
-        end
-      )
+      awful.util.spawn("scrot -e 'mv $f ~/Pictures/shots/'", false)
     end,
     "Поиск и запуск музыки с VK.COM в mplayer"
   ),
@@ -581,7 +579,7 @@ local globalkeys = awful.util.table.join(
     },
     "F11",
     function ()
-      awful.prompt.run({ prompt = '<span weight="bold"> | Calculate: </span>' }, promptbox[mouse.screen].widget,
+      awful.prompt.run({ prompt = '<span weight="bold"> | Calculate: </span>' }, mypromptbox[mouse.screen].widget,
         function (expr)
           if expr ~= nil and expr ~= ''
           then
@@ -733,7 +731,7 @@ local globalkeys = awful.util.table.join(
     },
     "r",
     function ()
-      promptbox[mouse.screen]:run()
+      mypromptbox[mouse.screen]:run()
     end,
     "Строка запуска"
   ),
@@ -815,6 +813,39 @@ local globalkeys = awful.util.table.join(
       awful.util.spawn("amixer -q set Master 1%-")
     end,
     "Понизить громкость на 1%"
+  ),
+  awful.key(
+    {
+      altkey
+    },
+    "F3",
+    function ()
+      -- Or for more advanced use case, you can use a full tag definition too
+      awful.util.spawn("urxvt -e mutt",{ new_tag= {name = "mail", exclusive = true, layout = awful.layout.suit.tile.top, intrusive=true, floating=true, ontop=true}}) 
+    end,
+    "Почтовое приложение Mutt"
+  ),
+  awful.key(
+    {
+      altkey
+    },
+    "F4",
+    function ()
+      -- Or for more advanced use case, you can use a full tag definition too
+      awful.util.spawn("urxvt -e mcabber",{ new_tag= {name = "im", exclusive = true, layout = awful.layout.suit.max, intrusive=true, floating=true, ontop=true}}) 
+    end,
+    "IM Client Mcabber"
+  ),
+  awful.key(
+    {
+      altkey
+    },
+    "F5",
+    function ()
+      -- Or for more advanced use case, you can use a full tag definition too
+      awful.util.spawn("urxvt -e ranger",{ new_tag= {name = "files", exclusive = true, layout = awful.layout.suit.max, intrusive=true, floating=true, ontop=true}}) 
+    end,
+    "FileManager Ranger"
   ),
   awful.key(
     {

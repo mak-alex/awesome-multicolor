@@ -1,18 +1,21 @@
--- Keyboard map indicator and changer
-kbdcfg = {}
-kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = { { "us", "" , "Foo" }, { "ru", "" , "Bar" } } 
-kbdcfg.current = 1  -- us is our default layout
-kbdcfg.widget = wibox.widget.textbox()
-kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][3] .. " ")
-kbdcfg.switch = function ()
-  kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
-  local t = kbdcfg.layout[kbdcfg.current]
-  kbdcfg.widget:set_text(" " .. t[3] .. " ")
-  os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
-end
+layout_indicator = require("modules.keyboard-layout-indicator.keyboard-layout-indicator")
+-- define your layouts
+kbdcfg = layout_indicator({
+    layouts = {
+        {name="dv",  layout="de",  variant="dvorak"},
+        {name="ru",  layout="ru",  variant="winkeys"},
+        {name="us",  layout="us",  variant=nil}
+    }
+})
 
- -- Mouse bindings
-kbdcfg.widget:buttons(
- awful.util.table.join(awful.button({ }, 1, function () kbdcfg.switch() end))
-)
+-- optionally add a middle-mouse binding to set a custom layout:
+kbdcfg.widget:buttons(awful.util.table.join(
+    kbdcfg.widget:buttons(),
+    awful.button({ }, 2, 
+        function ()
+            awful.prompt.run(
+                { prompt="Run: ", text="setxkbmap " },
+                mypromptbox[mouse.screen].widget,
+                function(cmd) kbdcfg:setcustom(cmd) end )
+        end)
+))
