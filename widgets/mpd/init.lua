@@ -40,8 +40,8 @@
    -- Specify decorators on the left and the right side of the
    -- widget. Or just leave empty strings if you decorate the widget
    -- from outside.
-   musicwidget.ldecorator = " "
-   musicwidget.rdecorator = " "
+   musicwidget.ldecorator = "[ "
+   musicwidget.rdecorator = " ]"
 
    -- Set all the servers to work with (here can be any servers you use)
    musicwidget.servers = {

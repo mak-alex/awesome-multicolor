@@ -194,6 +194,9 @@ theme.widget_vol_mute = theme.confdir .. "/icons/vol_mute.png"
 theme.widget_mail = theme.confdir .. "/icons/mail.png"
 theme.widget_mail_on = theme.confdir .. "/icons/mail_on.png"
 
+theme.decor = theme.confdir .. "/icons/decor.png"
+theme.decor_blue = theme.confdir .. "/icons/decor_blue.png"
+
 theme.widget_arch = theme.icons .. "/blue/arch_10x10.png"
 
 theme.taglist_squares_sel = theme.confdir .. "/icons/square_a.png"

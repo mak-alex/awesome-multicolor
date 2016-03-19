@@ -1,7 +1,6 @@
 -- ALSA volume
 if themename ~= "pro-dark" and themename ~= "pro-gotham" and themename ~= "pro-light" and themename ~= "pro-medium-dark" and themename ~= "pro-medium-light"
 then
-	volicon = wibox.widget.imagebox(beautiful.widget_vol)
 	volumewidget = lain.widgets.alsa({
 	    settings = function()
 	        if volume_now.status == "off" then
