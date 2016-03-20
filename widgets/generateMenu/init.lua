@@ -1,3 +1,9 @@
+--- Generator general menu
+---- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
+---- @release $Id: $
+---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
+---- vim: retab 
+--
 local menugen = require("modules.menugen")
 
 mythememenu = {}

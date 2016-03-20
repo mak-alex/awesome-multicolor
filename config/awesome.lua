@@ -1,4 +1,9 @@
---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
+--- General configuration MultiColor from Awesome 3.5.x
+---- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
+---- @release $Id: $
+---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
+---- vim: retab 
+--
 -------------------------------------------------------------------------
 ------------------------- SETTING FOR USER!!! ---------------------------
 -------------------------------------------------------------------------
@@ -23,125 +28,6 @@ themename =  "dark" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "p
 -------------------------------------------------------------------------
 ----------------------- END SETTING FOR USER!!! -------------------------
 -------------------------------------------------------------------------
-
-local MULTICOLOR = {
-  _NAME = "FH-MultiColor",
-  _VERSION = 'MULTICOLOR v2.0',
-  _URL = 'https://bitbucket.org/enlab/multicolor',
-  _MAIL = 'flashhacker1988@gmail.com',
-  _LICENSE = [[
-    MIT LICENSE
-    Copyright (c) 2015 Mikhailenko Alexandr Konstantinovich (a.k.a) Alex M.A.K
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the
-    "Software"), to deal in the Software without restriction, including
-    without limitation the rights to use, copy, modify, merge, publish,
-    distribute, sublicense, and/or sell copies of the Software, and to
-    permit persons to whom the Software is furnished to do so, subject to
-    the following conditions:
-    The above copyright notice and this permission notice shall be included
-    in all copies or substantial portions of the Software.
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    ]],
-  _DESCRIPTION = [[
-  Multicolor Configuration for the awesome window manager (3.5)
-    If you're disappointed by fonts, check your `~/.fonts.conf`.
-    If you're disappointed by fonts, check your `~/.fonts.conf`.
-    It is presumed that you configure your autostart in `~/.xinitrc`.
-
-    ##Capabilities
-      * Themes
-      * Dynamic wallpaper
-      * Test script for hacking
-      * Dynamic desktop tagging (via tyrannical)
-      * ALSA control (by Rman)
-      * Freedesktop menu
-      * Multiple desktop support
-      * Beautiful notifications (via naughty)
-
-    ##Dependencies
-      * tyrannical (optional)
-      * Dynamic generate menu (via Alex M.A.K)
-      * Dropdown terminal (via Alex M.A.K)
-
-    ##Widgets
-      * alsawidget
-      * datewidget
-      * menulauncher
-      * weather
-      * filesystem
-      * imap
-      * gmail
-      * cpu
-      * coretemp
-      * battery
-      * network
-      * mem
-      * mpd
-      * dyna
-
-    HOTKEYS:
-    (If you want to change old bindings, open please bindings.lua file and edit...):
-                     --------------------------------------
-    Operations with MPD servers:
-      mpc|ncmpc|pms next:     alt_shift_(arrow_right)
-      mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
-      mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
-      mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
-                     --------------------------------------
-    Operations with audio:
-      volume up:              alt_(arrow_up)
-      volume down:            alt_(arrow_down)
-      volume mute:            alt_m
-      volumn 100%:            alt_ctrl_m
-                     --------------------------------------
-    Dynamic tags:
-      delete_tag:             win_d
-      new tag:                win_n
-      new tag with focussed:  win_shift_n
-      move to new tag:        win_alt_n
-      rename tag to focussed: win_alt_r
-      rename tag:             win_shift_r
-      term in current  tag:   win_alt_enter
-      new tag with term:      win_ctrl_enter
-      fork tag:               win_ctrl_f
-      aero tag:               win_a
-      tag view prev:          win_(arrow_left)
-      tag view next:          win_(arrow_right)
-      tag history restore:    win_Escape
-                     --------------------------------------
-    Terminal:
-      new terminal:           win_enter
-      dropdown terminal:      win_z
-                     --------------------------------------
-    Window:
-      open window fullscreen: win_f
-      maximized hor and vert: win_m
-      kill window:            win_shift_c
-      floating window:        win_ctrl_space
-      move left:              win_h
-      move right:             win_l
-      move up:                win_k
-      move down:              win_j
-                     --------------------------------------
-    Panel:
-      hide panels:            win_b
-                     --------------------------------------
-    Menu:
-      open dynamic menu:      win_w
-                     --------------------------------------
-    Awesome:
-      restart wm:             win_ctrl_enter
-      quit wm:                win_shift_q
-  ]]
-}
-
 terminal,editor,browser,editor_cmd, vksearch = app.terminal,app.develop,app.browser,app.develop, app.musicsearch
 
 -- Global key: Mod4 - Win / Mod1 - Alt
@@ -220,13 +106,6 @@ run_once('urxvtd')
 -- {{{ Java GUI's fix
 awful.util.spawn_with_shell("wmname LG3D")
 -- }}}
-
-naughty.notify {
-  text = "<span color='#e54c62'>Welcome to Multicolor Configuration from Awesome 3.5</span>\n\n<span color='#87af5f'>NAME CONF: </span>"..
-  MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..
-  MULTICOLOR._URL .. "\n\n<span color='#80d9d8'>Coded by Alex M.A.K. (a.k.a) FlashHacker </span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n",
-  ontop = true, border_color = "#7788af", border_width = 3, timeout = 3, position   = "top_right"
-}
 
 local mymainmenu = generateMenu()
 
@@ -321,11 +200,21 @@ do local in_error = false
       end
 
       in_error = true
-      naughty.notify{
-        text="<span color='#87af5f'>Awesome crashed during startup on</span> <span color='#e54c62'>" .. os.date("%d/%m/%Y %T</span>:\n\n<span color='#87af5f'>NAME CONF</span>: ")
-        ..MULTICOLOR._NAME..'\n<span color="#87af5f">VERSION CONF</span>: '..MULTICOLOR._VERSION..'\n<span color="#87af5f">GIT URL</span>: '..MULTICOLOR._URL .. '\n<span color="#87af5f">ERROR</span>: ' .. err .. "\n\n\
-        <span color='#80d9d8'>Please send an error report to</span> <span color='#7788af'>"..MULTICOLOR._MAIL.."</span>\n", position   = "top_right", 
-        timeout = 0
+      naughty.notify {
+        text = "[BACKUP]: Restore Multicolor Configuration from Awesome 3.5\n" ..
+        '\n[NAME]: MultiColor' ..
+        '\n[VER.]: '.."2.0"..
+        '\n[URL]: '.. 'https://bitbucket.org/enlab/multicolor' .. 
+        '\n[PATH]: ' .. confdir.."/config/.awesome.defaults.lua"..
+        '\n[ERROR]: ' .. err ..
+        '\n\nPlease try to fix the error in the main configuration file and restart Awesome!' ..
+        '\nIf you can not fix the error yourself, contact the developer!\n' ..
+        "\n\nCoded by Alexandr Mikhailenko a.k.a. Alex M.A.K. "..'<alex-m.a.k@yandex.kz>'.."\n",
+        ontop = true, 
+        border_color = "#7788af", 
+        border_width = 3, 
+        timeout = 60, 
+        position   = "top_right"
       }
       in_error = false
     end

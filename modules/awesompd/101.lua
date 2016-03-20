@@ -1,3 +1,9 @@
+--- Radio 101.ru
+---- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
+---- @release $Id: $
+---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
+---- vim: retab 
+--
 local util = require('awful.util')
 local format = string.format
 local playlist = require('101-playlist')
