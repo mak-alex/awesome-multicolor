@@ -50,7 +50,7 @@ local naughty = require("naughty")
 
 -- {{{ User awesome library
 -- load the widget code
-alttab = require("modules.alttab")
+--alttab = require("modules.alttab")
 lain = require("modules.lain")
 local r = require("modules.runonce")
 local dyna = require("modules.dynawall")

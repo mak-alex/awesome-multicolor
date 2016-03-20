@@ -509,7 +509,7 @@ local globalkeys = awful.util.table.join(
     end,
     "Переключение между окнами"
   ),
-  awful.key(
+  --[[awful.key(
     {
       altkey,
     },
@@ -531,7 +531,7 @@ local globalkeys = awful.util.table.join(
     end                                                                                      
     ,
     "Переключение между окнами"
-  ),
+  ),]]
 
   keydoc.group("Поисковики"),
   awful.key(
