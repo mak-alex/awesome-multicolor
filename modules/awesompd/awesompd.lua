@@ -36,6 +36,7 @@ local utf8 = awesompd.try_require("utf8")
 asyncshell = awesompd.try_require("asyncshell")
 local jamendo = awesompd.try_require("jamendo")
 local di = awesompd.try_require("di")
+local Radio101 = awesompd.try_require("101")
 
 -- Constants
 awesompd.PLAYING = "Playing"
@@ -483,14 +484,21 @@ function awesompd:command_show_menu()
             end
             table.insert(jamendo_menu, self:menu_jamendo_format())
             table.insert(jamendo_menu, self:menu_jamendo_order())
+            
             local di_menu = di.menu(function(channel)
                   self:add_di_stream(channel)
             end)
+
+            local Radio101_menu = Radio101.menu(function(channel)
+                  self:add_Radio101_stream(channel)
+            end)
+            
             new_menu = { { "Playback", self:menu_playback() },
                          { "Options", self:menu_options() },
                          { "List", self:menu_list() },
                          { "Playlists", self:menu_playlists() },
                          { "Digitally Imported", di_menu },
+                         { "Radio 101.ru", Radio101_menu },
                          { "Jamendo", jamendo_menu } }
          end 
          table.insert(new_menu, { "Servers", self:menu_servers() }) 
@@ -843,6 +851,14 @@ function awesompd:add_di_stream(channel)
    awful.util.spawn("echo '" .. channel.name .. "' > ~/canal")
 end
 
+function awesompd:add_Radio101_stream(channel)
+   self:command("add '" .. Radio101.form_stream_url(channel.link) .. "'")
+   self.recreate_menu = true
+   self.recreate_list = true
+   self:show_notification("Digitally Imported",
+                          format('Added channel "' .. channel.name .. '"'))
+   awful.util.spawn("echo '" .. channel.name .. "' > ~/canal")
+end
 -- /// End of menu generation functions ///
 
 function awesompd:show_notification(hint_title, hint_text, hint_image)

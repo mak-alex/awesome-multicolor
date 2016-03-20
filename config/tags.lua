@@ -56,9 +56,9 @@ tyrannical.tags = {
     exclusive   = true,                   -- Refuse any other type of clients (by classes)
     screen      = screen.count()>2 and 3 or 1,
     layout      = awful.layout.suit.tile.left,
-    --[[class = {
+    class = {
       "Subl3", "Sublime-Text", "GVim", "Medit", "Gedit", "Geany", "Emacs", "sublime_text", "subl*", "Atom", "Brackets", "Eclipse",
-    },]]
+    },
     instance = {
       "vim","*vim*","VIM","*VIM*"
     }
