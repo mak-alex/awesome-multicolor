@@ -22,10 +22,12 @@ end
 
 function theme_load(theme)
    local cfg_path = awful.util.getdir("config")
+   local home_path = os.getenv('HOME')
 
    -- Create a symlink from the given theme to /home/user/.config/awesome/current_theme
    removeOldTheme()
    awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. " " .. cfg_path ..  "/themes/.usedTheme/" .. theme)
+   awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. "/Xdefaults" .. " " .. home_path .. "/.Xdefaults")
    awesome.restart()
 end
 
