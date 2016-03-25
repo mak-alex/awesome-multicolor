@@ -28,7 +28,7 @@ tyrannical.tags = {
     layout      = awful.layout.suit.floating,
     class       = { --Accept the following classes, refuse everything else (because of "exclusive=true")
       "xterm" , "urxvt" , "aterm","XTerm","XTerm","konsole","terminator","gnome-terminal",
-    }
+    },
   },
   {
     name        = "net",

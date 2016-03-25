@@ -126,11 +126,6 @@ function generateMenu()
         border_color = '#7788af'
       },
       {
-        "Applications",
-        menugen.build_menu(),
-        beautiful.applications
-      },
-      {
         "Awesome",
         {
           {
@@ -171,7 +166,33 @@ function generateMenu()
         },
         beautiful.awesomewm
       },
+      { "" },
+      {
+        "Browser",
+        "FireFox",
+        beautiful.browser,
+      },
+      {
+        "Terminal",
+        terminal,
+        beautiful.console,
+      },
+      {
+        "FileManager",
+        "urxvtc -name ranger -e ranger",
+        beautiful.filemanager,
+      },
+      {
+        "E-mail",
+        "urxvtc -name mutt -e mutt",
+        beautiful.email,
+      },
       { "", },
+      {
+        "Applications",
+        menugen.build_menu(),
+        beautiful.applications
+      },
       {
         "Google Applications",
         {
@@ -249,6 +270,35 @@ function generateMenu()
         },
         beautiful.google_apps
       },
+      {
+        "Develop",
+        {
+          {
+            "Lua Functions",
+            {
+              {
+                "5.1",
+                browser .. ' --new-tab "http://www.lua.org/manual/5.1/index.html#index"'
+              },
+              {
+                "5.2",
+                browser .. ' --new-tab "http://www.lua.org/manual/5.2/index.html#index"'
+              },
+              {
+                "5.3",
+                browser .. ' --new-tab "http://www.lua.org/manual/5.3/index.html#index"'
+              }
+            },
+            beautiful.lualogo
+          },
+          {
+            "Cloud9",
+            browser .. ' --new-tab "https://ide.c9.io/"',
+            beautiful.cloud9
+          }
+        },
+        beautiful.develop
+      },
       { "", },
       {
            "LockScreen",
@@ -264,27 +314,6 @@ function generateMenu()
             "Poweroff",
             'systemctl poweroff -i',
             beautiful.poweroff
-      },
-      { "" },
-      {
-        "Browser",
-        "FireFox",
-        beautiful.browser,
-      },
-      {
-        "Terminal",
-        terminal,
-        beautiful.console,
-      },
-      {
-        "FileManager",
-        "urxvtc -name ranger -e ranger",
-        beautiful.filemanager,
-      },
-      {
-        "E-mail",
-        "urxvtc -name mutt -e mutt",
-        beautiful.email,
       },
     }
   )

@@ -140,7 +140,9 @@ theme.themesAwesome = theme.icons .. '/themesAwesome.png'
 theme.poweroff = theme.icons .. '/poweroff.png'
 theme.restart = theme.icons .. '/restart.png'
 theme.applications = theme.icons .. '/applications.png'
-
+theme.lualogo = theme.icons .. '/luaLogo.png'
+theme.cloud9 = theme.icons .. '/cloud9.png'
+theme.develop = theme.icons .. '/develop.png'
 -- | GOOGLE APPS | --
 theme.google_apps = theme.icons .. '/google/google_apps.png'
 --
