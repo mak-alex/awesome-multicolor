@@ -78,7 +78,7 @@ local function genMenu(array, path, prefix, exe)
           {
             kk,
             command,
-            settings_icon
+            beautiful.file
           }
         )
       elseif prefix == nil and prefix == '' and exe ~= nil and exe ~= ''
@@ -90,7 +90,7 @@ local function genMenu(array, path, prefix, exe)
           {
             kk,
             command,
-            settings_icon
+            beautiful.file
           }
         )
       else
@@ -105,7 +105,7 @@ local function genMenu(array, path, prefix, exe)
           {
             kk,
             command,
-            settings_icon
+            beautiful.file
           }
         )
       end
@@ -118,7 +118,6 @@ function generateMenu()
   -- Autogen Menu
   mymainmenu  = awful.menu.new(
     {
-      items = menugen.build_menu(),
       theme =
       {
         height = 22,
@@ -127,74 +126,166 @@ function generateMenu()
         border_color = '#7788af'
       },
       {
+        "Applications",
+        menugen.build_menu(),
+        beautiful.applications
+      },
+      {
         "Awesome",
         {
           {
             "Manual from Awesome",
             terminal .. " -e man awesome",
-            help_icon
+            beautiful.awesomeManual
           },
           { "", },
           {
             "Edit Base Config",
             genMenu(ConfigFiles, awful.util.getdir("config")..'/config'),
+            beautiful.sourceEdit
           },
           {
             "Edit Theme Config",
             genMenu(ThemesFiles, awful.util.getdir("config")..'/themes/'..themename..'/', '.lua'),
+            beautiful.sourceEdit
           },
           {
             "Edit User Widgets Config",
             genMenu(UserWidgetsFiles, awful.util.getdir("config")..'/widgets/', nil, true),
+            beautiful.sourceEdit
           },
           {
             "Edit Global Widgets Config",
             genMenu(GlobalWidgetsFiles, awful.util.getdir("config")..'/modules/lain/widgets/'),
+            beautiful.sourceEdit
           },
           { "", },
-          { "Update MultiColor", 'cd '..awful.util.getdir("config")..'; git pull;'},
+          { "Update MultiColor", 'cd '..awful.util.getdir("config")..'; git pull;', beautiful.updateAwesome },
           { "", },
-          { "Awesome Themes", mythememenu },
+          { "Awesome Themes", mythememenu, beautiful.themesAwesome },
           {
             "Awesome Restart",
             awesome.restart,
-            beautiful.restart_icon
+            beautiful.restart
+          }
+        },
+        beautiful.awesomewm
+      },
+      { "", },
+      {
+        "Google Applications",
+        {
+          {
+            "Create spreadsheet",
+            browser .. ' --new-tab "https://docs.google.com/spreadsheet/ccc?new"',
+            beautiful.play_sheets
           },
           {
-            "Awesome Quit",
-            awesome.quit,
-            beautiful.quit_icon
+            "Create document",
+            browser .. ' --new-tab "https://docs.google.com/document/create"',
+            beautiful.play_docs
+          },
+          {
+            "Create presentation",
+            browser .. ' --new-tab "https://docs.google.com/presentation/create"',
+            beautiful.play_slides
+          },
+          {
+            "Create draw",
+            browser .. ' --new-tab "https://docs.google.com/drawings/create?usp=drive_web"',
+            beautiful.play_drawings
+          },
+          {
+            "Create form",
+            browser .. ' --new-tab "https://docs.google.com/forms/create"',
+            beautiful.play_forms
+          },
+          { "", },
+          {
+            "Google Sheets",
+            browser .. ' --new-tab "https://docs.google.com/spreadsheets/u/0/"',
+            beautiful.play_sheets
+          },
+          {
+            "Google Docks",
+            browser .. ' --new-tab "https://docs.google.com/document/u/0/"',
+            beautiful.play_docs
+          },
+          {
+            "Google Disk",
+            browser .. ' --new-tab "https://drive.google.com/drive/u/0/"',
+            beautiful.play_drive
+          },
+          {
+            "Google Hangouts",
+            browser .. ' --new-tab "https://hangouts.google.com/"',
+            beautiful.play_hangouts
+          },
+          {
+            "Google Calendar",
+            browser .. ' --new-tab "https://calendar.google.com/calendar/"',
+            beautiful.play_calendar
+          },
+          {
+            "Google Contacts",
+            browser .. ' --new-tab "https://contacts.google.com/u/0/preview/all"',
+            beautiful.play_contacts
+          },
+          {
+            "Google Books",
+            browser .. ' --new-tab "https://play.google.com/books?source=gbs_lp_bookshelf_list"',
+            beautiful.play_books
+          },
+          {
+            "Google News",
+            browser .. ' --new-tab "https://news.google.com/nwshp?hl=ru"',
+            beautiful.play_news
+          },
+          {
+            "Google Inbox",
+            browser .. ' --new-tab "https://inbox.google.com/u/0/"',
+            beautiful.play_inbox
           }
-        }
+        },
+        beautiful.google_apps
       },
       { "", },
       {
            "LockScreen",
            "xlock -mode ant3d",
-           nil,
+           beautiful.lockscreen
+      },
+      {
+            "Restart",
+            'systemctl restart -i',
+            beautiful.restart
+      },
+      {
+            "Poweroff",
+            'systemctl poweroff -i',
+            beautiful.poweroff
       },
       { "" },
       {
         "Browser",
         "FireFox",
-        nil,
+        beautiful.browser,
       },
       {
         "Terminal",
         terminal,
-        nil,
+        beautiful.console,
       },
       {
         "FileManager",
         "urxvtc -name ranger -e ranger",
-        nil,
+        beautiful.filemanager,
       },
       {
         "E-mail",
         "urxvtc -name mutt -e mutt",
-        nil,
+        beautiful.email,
       },
-      { "" },
     }
   )
   return mymainmenu

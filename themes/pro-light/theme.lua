@@ -15,6 +15,38 @@ theme.wallpaper  = os.getenv("HOME") .. "/.config/awesome/themes/pro-light/wallp
 theme.panel      = "png:" .. theme.icons .. "/panel/panel.png"
 theme.font       = "Ohsnap 8"
 
+-- | AWESOME WM | --
+theme.awesomewm = theme.icons .. '/awesomewm.png'
+theme.lockscreen = theme.icons .. '/lockscreen.png'
+theme.browser = theme.icons .. '/browser.png'
+theme.console = theme.icons .. '/console.png'
+theme.filemanager = theme.icons .. '/filemanager.png'
+theme.email = theme.icons .. '/email.png'
+theme.awesomeManual = theme.icons .. '/awesomeManual.png'
+theme.sourceEdit = theme.icons .. '/sourceEdit.png'
+theme.file = theme.icons .. '/file.png'
+theme.updateAwesome = theme.icons .. '/updateAwesome.png'
+theme.themesAwesome = theme.icons .. '/themesAwesome.png'
+theme.poweroff = theme.icons .. '/poweroff.png'
+theme.restart = theme.icons .. '/restart.png'
+theme.applications = theme.icons .. '/applications.png'
+
+-- | GOOGLE APPS | --
+theme.google_apps = theme.icons .. '/google/google_apps.png'
+--
+theme.play_books = theme.icons .. '/google/play_book.png'
+theme.play_docs = theme.icons .. '/google/play_doc.png'
+theme.play_sheets = theme.icons .. '/google/play_sheet.png'
+theme.play_forms = theme.icons .. '/google/play_form.png'
+theme.play_slides = theme.icons .. '/google/play_slide.png'
+theme.play_drawings = theme.icons .. '/google/play_drawing.png'
+theme.play_drive = theme.icons .. '/google/play_drive.png'
+theme.play_hangouts = theme.icons .. '/google/play_hangouts.png'
+theme.play_calendar = theme.icons .. '/google/play_calendar.png'
+theme.play_news = theme.icons .. '/google/play_news.png'
+theme.play_contacts = theme.icons .. '/google/play_contacts.png'
+theme.play_inbox = theme.icons .. '/google/play_inbox.png'
+
 theme.fg_normal  = "#3D3D3D"
 theme.fg_focus   = "#333333"
 theme.fg_urgent  = "#CC9393"
