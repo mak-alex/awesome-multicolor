@@ -846,18 +846,14 @@ function awesompd:add_di_stream(channel)
    self:command("add '" .. di.form_stream_url(channel.link) .. "'")
    self.recreate_menu = true
    self.recreate_list = true
-   self:show_notification("Digitally Imported",
-                          format('Added channel "' .. channel.name .. '"'))
-   awful.util.spawn("echo '" .. channel.name .. "' > ~/canal")
+   self:show_notification("Digitally Imported", format('Added channel "' .. channel.name .. '"'))
 end
 
 function awesompd:add_Radio101_stream(channel)
    self:command("add '" .. Radio101.form_stream_url(channel.link) .. "'")
    self.recreate_menu = true
    self.recreate_list = true
-   self:show_notification("Digitally Imported",
-                          format('Added channel "' .. channel.name .. '"'))
-   awful.util.spawn("echo '" .. channel.name .. "' > ~/canal")
+   self:show_notification("Digitally Imported", format('Added channel "' .. channel.name .. '"'))
 end
 -- /// End of menu generation functions ///
 

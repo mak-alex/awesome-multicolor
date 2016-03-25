@@ -5,30 +5,25 @@
 ---- vim: retab 
 --
 local menugen = require("modules.menugen")
+local posix = require "posix"
 
 mythememenu = {}
 
 function removeOldTheme()
   local cfg_path = awful.util.getdir("config")
-  local cmd = "ls -1 " .. cfg_path .. "/themes/.usedTheme/"
-
-  local f = io.popen(cmd)
-
-  for l in f:lines() do
-    awful.util.spawn("rm " .. cfg_path .. "/themes/.usedTheme/"..l)
-  end
-  f:close()
+  local oldTheme = posix.dir(cfg_path.."/themes/.usedTheme/")[2]
+  posix.rmdir(cfg_path.."/themes/.usedTheme/"..oldTheme)
 end
 
 function theme_load(theme)
    local cfg_path = awful.util.getdir("config")
    local home_path = os.getenv('HOME')
 
-   -- Create a symlink from the given theme to /home/user/.config/awesome/current_theme
-   removeOldTheme()
-   awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. " " .. cfg_path ..  "/themes/.usedTheme/" .. theme)
-   awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. "/Xdefaults" .. " " .. home_path .. "/.Xdefaults")
-   awesome.restart()
+  -- Create a symlink from the given theme to /home/user/.config/awesome/current_theme
+  removeOldTheme()
+  local status, errstr = posix.link(cfg_path.."/themes/"..theme, cfg_path.."/themes/.usedTheme/"..theme, true)
+  local status, errstr = posix.link(cfg_path.."/themes/"..theme.."/Xdefaults", home_path .. "/.Xdefaults", true)
+  awesome.restart()
 end
 
 function theme_menu()
