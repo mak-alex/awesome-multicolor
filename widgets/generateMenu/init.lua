@@ -11,8 +11,13 @@ mythememenu = {}
 
 function removeOldTheme()
   local cfg_path = awful.util.getdir("config")
-  local oldTheme = posix.dir(cfg_path.."/themes/.usedTheme/")[2]
-  posix.rmdir(cfg_path.."/themes/.usedTheme/"..oldTheme)
+  local cmd = "ls -1 " .. cfg_path .. "/themes/.usedTheme/"
+
+  local f = io.popen(cmd)
+  for l in f:lines() do
+    awful.util.spawn("rm " .. cfg_path .. "/themes/.usedTheme/"..l)
+  end
+  f:close()
 end
 
 function theme_load(theme)
@@ -21,8 +26,10 @@ function theme_load(theme)
 
   -- Create a symlink from the given theme to /home/user/.config/awesome/current_theme
   removeOldTheme()
-  local status, errstr = posix.link(cfg_path.."/themes/"..theme, cfg_path.."/themes/.usedTheme/"..theme, true)
-  local status, errstr = posix.link(cfg_path.."/themes/"..theme.."/Xdefaults", home_path .. "/.Xdefaults", true)
+  --local status, errstr = posix.link(cfg_path.."/themes/"..theme, cfg_path.."/themes/.usedTheme/"..theme, true)
+  awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. " " .. cfg_path ..  "/themes/.usedTheme/" .. theme)
+  --local status, errstr = posix.link(cfg_path.."/themes/"..theme.."/Xdefaults", home_path .. "/.Xdefaults", true)
+  awful.util.spawn("ln -sfn " .. cfg_path.."/themes/"..theme.."/Xdefaults " .. home_path .. "/.Xdefaults")
   awesome.restart()
 end
 
@@ -289,6 +296,11 @@ function generateMenu()
                 browser .. ' --new-tab "http://www.lua.org/manual/5.3/index.html#index"'
               }
             },
+            beautiful.lualogo
+          },
+          {
+            "A curated list of quality Lua packages and resources",
+            browser .. ' --new-tab "https://github.com/LewisJEllis/awesome-lua"',
             beautiful.lualogo
           },
           {

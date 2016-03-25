@@ -122,7 +122,7 @@ local MULTICOLOR = {
 theme = {}
 
 theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
-theme.icons = os.getenv("HOME") .. "/.config/awesome/icons"
+theme.icons = os.getenv("HOME") .. "/.config/awesome/themes/multicolor/icons"
 theme.wallpaper = theme.confdir .. "/wall.png"
 
 -- | AWESOME WM | --
