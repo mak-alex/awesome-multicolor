@@ -1,11 +1,10 @@
---- Generator general menu
----- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
----- @release $Id: $
----- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
----- vim: retab 
+-- Generator general menu
+--- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
+--- @release $Id: $
+--- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
 --
 local menugen = require("modules.menugen")
-local posix = require "posix"
+--local posix = require "posix"
 
 mythememenu = {}
 
@@ -185,14 +184,147 @@ function generateMenu()
         beautiful.console,
       },
       {
+         "IM Client",
+         browser .. ' --new-tab "https://plus.im/"',
+         beautiful.im
+      },
+      {
         "FileManager",
         "urxvtc -name ranger -e ranger",
         beautiful.filemanager,
       },
       {
         "E-mail",
-        "urxvtc -name mutt -e mutt",
+        browser .. ' --new-tab "https://mail.yandex.kz"',
         beautiful.email,
+      }, 
+      {
+         "Photo Editor",
+         browser .. ' --new-tab "https://www.befunky.com/create/"',
+         beautiful.photoeditor
+      },
+      {},
+      {
+        "Music Online",
+        {
+          {
+            "Yandex.Radio",
+            {
+              {
+                "Main",
+                browser .. ' --new-tab "https://radio.yandex.kz"',
+                nil,
+              },
+              {
+                "Metal",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/metal"',
+                nil,
+              },
+              {
+                "Alternative",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/alternative"',
+                nil,
+              },
+              {
+                "Blues",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/blues"',
+                nil,
+              },
+              {
+                "SKA",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/ska"',
+                nil,
+              },
+              {
+                "Estrada",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/estrada"',
+                nil,
+              },
+              {
+                "Shanson",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/shanson"',
+                nil,
+              },
+              {
+                "Country",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/country"',
+                nil,
+              },
+              {
+                "Children",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/children"',
+                nil,
+              },
+              {
+                "Electronics",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/electronics"',
+                nil,
+              },
+              {
+                "Dubstep",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/dubstep"',
+                nil,
+              },
+              {
+                "Industrial",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/industrial"',
+                nil,
+              },
+              {
+                "Experimental",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/experimental"',
+                nil,
+              },
+              {
+                "Dance",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/dance"',
+                nil,
+              },
+              {
+                "House",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/house"',
+                nil,
+              },
+              {
+                "Techno",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/techno"',
+                nil,
+              },
+              {
+                "Trance",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/trance"',
+                nil,
+              },
+              {
+                "DNB",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/dnb"',
+                nil,
+              },
+              {
+                "Relax",
+                browser .. ' --new-tab "https://radio.yandex.kz/genre/relax"',
+                nil,
+              },
+            },
+            beautiful.radio_yandex
+          },
+          {
+            "Yandex.Music",
+            browser .. ' --new-tab "https://music.yandex.kz"',
+            beautiful.music_yandex,
+          },
+          {
+            "101",
+            browser .. ' --new-tab "https://101.ru"',
+            beautiful.ru101,
+          },
+          {
+            "DI",
+            browser .. ' --new-tab "https://di.fm"',
+            beautiful.di,
+          },
+        },
+        beautiful.music
       },
       { "", },
       {

@@ -48,6 +48,14 @@ theme.play_news = theme.icons .. '/google/play_news.png'
 theme.play_contacts = theme.icons .. '/google/play_contacts.png'
 theme.play_inbox = theme.icons .. '/google/play_inbox.png'
 
+theme.radio_yandex = theme.icons .. '/radio.yandex.png'
+theme.music_yandex = theme.icons .. '/music.yandex.png'
+theme.music = theme.icons .. '/music.png'
+theme.ru101 = theme.icons .. '/101.png'
+theme.di = theme.icons .. '/di.png'
+theme.photoeditor = theme.icons .. '/photoeditor.png'
+theme.im = theme.icons .. '/im.png'
+
 theme.fg_normal  = "#404040"
 theme.fg_focus   = "#111111"
 theme.fg_urgent  = "#CC9393"
