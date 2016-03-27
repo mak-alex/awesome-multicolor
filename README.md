@@ -1,3 +1,4 @@
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/awesomewm.png)
 ## Представляю Вашему вниманию MultiColor v. 2.0 (awesome 3.5.x)
 * Динамические теги
 	* Каждое приложение привязывается к своему тегу, если приложение не активно то и тег отсутствует
