@@ -2,7 +2,7 @@
 ---- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
 ---- @release $Id: $
 ---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
----- vim: retab 
+---- vim: retab
 --
 -------------------------------------------------------------------------
 ------------------------- SETTING FOR USER!!! ---------------------------
@@ -13,7 +13,7 @@
 Please change if something is not the same ...
 ]]--
 local app={
-  ["browser"]="firefox",
+  ["browser"] = "xdg-open",
   ["terminal"]="urxvt -geometry 110x40",
   ["graphic"]="gimp",
   ["develop"]="urxvt -e vim",
@@ -25,6 +25,7 @@ local dynamic_tagging = true
 -- Theme: defines colours, icons, and wallpapers
 themename =  "dark" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "pro-gotham" or "pro-medium-dark" or "pro-medium-light" or "simple"
 --- }}}
+
 -------------------------------------------------------------------------
 ----------------------- END SETTING FOR USER!!! -------------------------
 -------------------------------------------------------------------------
@@ -135,12 +136,12 @@ if themename == 'simple'
 then
   -- Separators
   spr = wibox.widget.textbox(' ')
-    
+
   -- left
-  spr_dl = separators.arrow_left(beautiful.bg_focus, "alpha") 
+  spr_dl = separators.arrow_left(beautiful.bg_focus, "alpha")
   spr_ld = separators.arrow_left("alpha", beautiful.bg_focus)
   -- right
-  spr_ld_r = separators.arrow_right(beautiful.bg_focus, "alpha") 
+  spr_ld_r = separators.arrow_right(beautiful.bg_focus, "alpha")
   spr_dl_r = separators.arrow_right("alpha", beautiful.bg_focus)
 end
 spr = wibox.widget.textbox(' ')
@@ -204,16 +205,16 @@ do local in_error = false
         text = "[BACKUP]: Restore Multicolor Configuration from Awesome 3.5\n" ..
         '\n[NAME]: MultiColor' ..
         '\n[VER.]: '.."2.0"..
-        '\n[URL]: '.. 'https://bitbucket.org/enlab/multicolor' .. 
+        '\n[URL]: '.. 'https://bitbucket.org/enlab/multicolor' ..
         '\n[PATH]: ' .. confdir.."/config/.awesome.defaults.lua"..
         '\n[ERROR]: ' .. err ..
         '\n\nPlease try to fix the error in the main configuration file and restart Awesome!' ..
         '\nIf you can not fix the error yourself, contact the developer!\n' ..
         "\n\nCoded by Alexandr Mikhailenko a.k.a. Alex M.A.K. "..'<alex-m.a.k@yandex.kz>'.."\n",
-        ontop = true, 
-        border_color = "#7788af", 
-        border_width = 3, 
-        timeout = 60, 
+        ontop = true,
+        border_color = "#7788af",
+        border_width = 3,
+        timeout = 60,
         position   = "top_right"
       }
       in_error = false
@@ -374,7 +375,7 @@ do
   then
     -- Create a taglist widget
     mytaglist[s] = simple.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-    -- Create a tasklist widget 
+    -- Create a tasklist widget
     mytasklist[s] = simple.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s, height = 18+tagsh })
@@ -385,7 +386,7 @@ do
     mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = 0, height = 22 })
   end
 
-  --- {{{ LEFT ALIGN WIDGET 
+  --- {{{ LEFT ALIGN WIDGET
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
   if themename == "pro-dark" or themename == "pro-gotham" or themename == "pro-light" or themename == "pro-medium-dark" or themename == "pro-medium-light"
@@ -409,7 +410,7 @@ do
   end
   --- }}}
 
-  --- {{{ RIGHT ALIGN WIDGET 
+  --- {{{ RIGHT ALIGN WIDGET
   local right_layout = wibox.layout.fixed.horizontal()
   if themename == "dark"
   then
@@ -417,16 +418,16 @@ do
     local right_layout_toggle = true
     local function right_layout_add (...)
       local arg = {...}
-      if right_layout_toggle 
+      if right_layout_toggle
       then
         right_layout:add(arrl_ld)
-        for i, n in pairs(arg) 
+        for i, n in pairs(arg)
         do
           right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
         end
       else
         right_layout:add(arrl_dl)
-        for i, n in pairs(arg) 
+        for i, n in pairs(arg)
         do
           right_layout:add(n)
         end
@@ -523,21 +524,21 @@ do
     -- Widgets that are aligned to the upper right
     if s == 1 then
         right_layout:add(wibox.widget.systray())
-    end 
+    end
     -- Widgets that are aligned to the upper right
     local right_layout_toggle = true
     local function right_layout_add (...)
       local arg = {...}
-      if right_layout_toggle 
+      if right_layout_toggle
       then
         right_layout:add(arrl_ld)
-        for i, n in pairs(arg) 
+        for i, n in pairs(arg)
         do
           right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
         end
       else
         right_layout:add(arrl_dl)
-        for i, n in pairs(arg) 
+        for i, n in pairs(arg)
         do
           right_layout:add(n)
         end
@@ -602,7 +603,7 @@ do
     layout:set_left(left_layout)
     --layout:set_middle(musicwidget.widget)
     layout:set_right(right_layout)
-    
+
     local layoutmargin = wibox.layout.margin(layout)
     layoutmargin:set_top(tagsh)
     mywibox[s]:set_widget(layoutmargin)
@@ -613,7 +614,7 @@ do
 
     -- Widgets that are aligned to the bottom right
     bottom_right_layout = wibox.layout.fixed.horizontal()
-    --bottom_right_layout:add(mpdicon) 
+    --bottom_right_layout:add(mpdicon)
     --bottom_right_layout:add(musicwidget)
     bottom_right_layout:add(musicwidget.widget)
     bottom_right_layout:add(mylayoutbox[s])

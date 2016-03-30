@@ -185,7 +185,7 @@ function generateMenu()
       },
       {
          "IM Client",
-         browser .. ' --new-tab "https://plus.im/"',
+         browser .. ' "https://plus.im/"',
          beautiful.im
       },
       {
@@ -195,12 +195,12 @@ function generateMenu()
       },
       {
         "E-mail",
-        browser .. ' --new-tab "https://mail.yandex.kz"',
+        browser .. ' "https://mail.yandex.kz"',
         beautiful.email,
-      }, 
+      },
       {
          "Photo Editor",
-         browser .. ' --new-tab "https://www.befunky.com/create/"',
+         browser .. ' "https://www.befunky.com/create/"',
          beautiful.photoeditor
       },
       {},
@@ -212,97 +212,97 @@ function generateMenu()
             {
               {
                 "Main",
-                browser .. ' --new-tab "https://radio.yandex.kz"',
+                browser .. ' "https://radio.yandex.kz"',
                 nil,
               },
               {
                 "Metal",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/metal"',
+                browser .. ' "https://radio.yandex.kz/genre/metal"',
                 nil,
               },
               {
                 "Alternative",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/alternative"',
+                browser .. ' "https://radio.yandex.kz/genre/alternative"',
                 nil,
               },
               {
                 "Blues",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/blues"',
+                browser .. ' "https://radio.yandex.kz/genre/blues"',
                 nil,
               },
               {
                 "SKA",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/ska"',
+                browser .. ' "https://radio.yandex.kz/genre/ska"',
                 nil,
               },
               {
                 "Estrada",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/estrada"',
+                browser .. ' "https://radio.yandex.kz/genre/estrada"',
                 nil,
               },
               {
                 "Shanson",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/shanson"',
+                browser .. ' "https://radio.yandex.kz/genre/shanson"',
                 nil,
               },
               {
                 "Country",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/country"',
+                browser .. ' "https://radio.yandex.kz/genre/country"',
                 nil,
               },
               {
                 "Children",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/children"',
+                browser .. ' "https://radio.yandex.kz/genre/children"',
                 nil,
               },
               {
                 "Electronics",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/electronics"',
+                browser .. ' "https://radio.yandex.kz/genre/electronics"',
                 nil,
               },
               {
                 "Dubstep",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/dubstep"',
+                browser .. ' "https://radio.yandex.kz/genre/dubstep"',
                 nil,
               },
               {
                 "Industrial",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/industrial"',
+                browser .. ' "https://radio.yandex.kz/genre/industrial"',
                 nil,
               },
               {
                 "Experimental",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/experimental"',
+                browser .. ' "https://radio.yandex.kz/genre/experimental"',
                 nil,
               },
               {
                 "Dance",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/dance"',
+                browser .. ' "https://radio.yandex.kz/genre/dance"',
                 nil,
               },
               {
                 "House",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/house"',
+                browser .. ' "https://radio.yandex.kz/genre/house"',
                 nil,
               },
               {
                 "Techno",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/techno"',
+                browser .. ' "https://radio.yandex.kz/genre/techno"',
                 nil,
               },
               {
                 "Trance",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/trance"',
+                browser .. ' "https://radio.yandex.kz/genre/trance"',
                 nil,
               },
               {
                 "DNB",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/dnb"',
+                browser .. ' "https://radio.yandex.kz/genre/dnb"',
                 nil,
               },
               {
                 "Relax",
-                browser .. ' --new-tab "https://radio.yandex.kz/genre/relax"',
+                browser .. ' "https://radio.yandex.kz/genre/relax"',
                 nil,
               },
             },
@@ -310,17 +310,17 @@ function generateMenu()
           },
           {
             "Yandex.Music",
-            browser .. ' --new-tab "https://music.yandex.kz"',
+            browser .. ' "https://music.yandex.kz"',
             beautiful.music_yandex,
           },
           {
             "101",
-            browser .. ' --new-tab "https://101.ru"',
+            browser .. ' "https://101.ru"',
             beautiful.ru101,
           },
           {
             "DI",
-            browser .. ' --new-tab "https://di.fm"',
+            browser .. ' "https://di.fm"',
             beautiful.di,
           },
         },
@@ -337,73 +337,73 @@ function generateMenu()
         {
           {
             "Create spreadsheet",
-            browser .. ' --new-tab "https://docs.google.com/spreadsheet/ccc?new"',
+            browser .. ' "https://docs.google.com/spreadsheet/ccc?new"',
             beautiful.play_sheets
           },
           {
             "Create document",
-            browser .. ' --new-tab "https://docs.google.com/document/create"',
+            browser .. ' "https://docs.google.com/document/create"',
             beautiful.play_docs
           },
           {
             "Create presentation",
-            browser .. ' --new-tab "https://docs.google.com/presentation/create"',
+            browser .. ' "https://docs.google.com/presentation/create"',
             beautiful.play_slides
           },
           {
             "Create draw",
-            browser .. ' --new-tab "https://docs.google.com/drawings/create?usp=drive_web"',
+            browser .. ' "https://docs.google.com/drawings/create?usp=drive_web"',
             beautiful.play_drawings
           },
           {
             "Create form",
-            browser .. ' --new-tab "https://docs.google.com/forms/create"',
+            browser .. ' "https://docs.google.com/forms/create"',
             beautiful.play_forms
           },
           { "", },
           {
             "Google Sheets",
-            browser .. ' --new-tab "https://docs.google.com/spreadsheets/u/0/"',
+            browser .. ' "https://docs.google.com/spreadsheets/u/0/"',
             beautiful.play_sheets
           },
           {
             "Google Docks",
-            browser .. ' --new-tab "https://docs.google.com/document/u/0/"',
+            browser .. ' "https://docs.google.com/document/u/0/"',
             beautiful.play_docs
           },
           {
             "Google Disk",
-            browser .. ' --new-tab "https://drive.google.com/drive/u/0/"',
+            browser .. ' "https://drive.google.com/drive/u/0/"',
             beautiful.play_drive
           },
           {
             "Google Hangouts",
-            browser .. ' --new-tab "https://hangouts.google.com/"',
+            browser .. ' "https://hangouts.google.com/"',
             beautiful.play_hangouts
           },
           {
             "Google Calendar",
-            browser .. ' --new-tab "https://calendar.google.com/calendar/"',
+            browser .. ' "https://calendar.google.com/calendar/"',
             beautiful.play_calendar
           },
           {
             "Google Contacts",
-            browser .. ' --new-tab "https://contacts.google.com/u/0/preview/all"',
+            browser .. ' "https://contacts.google.com/u/0/preview/all"',
             beautiful.play_contacts
           },
           {
             "Google Books",
-            browser .. ' --new-tab "https://play.google.com/books?source=gbs_lp_bookshelf_list"',
+            browser .. ' "https://play.google.com/books?source=gbs_lp_bookshelf_list"',
             beautiful.play_books
           },
           {
             "Google News",
-            browser .. ' --new-tab "https://news.google.com/nwshp?hl=ru"',
+            browser .. ' "https://news.google.com/nwshp?hl=ru"',
             beautiful.play_news
           },
           {
             "Google Inbox",
-            browser .. ' --new-tab "https://inbox.google.com/u/0/"',
+            browser .. ' "https://inbox.google.com/u/0/"',
             beautiful.play_inbox
           }
         },
@@ -417,27 +417,27 @@ function generateMenu()
             {
               {
                 "5.1",
-                browser .. ' --new-tab "http://www.lua.org/manual/5.1/index.html#index"'
+                browser .. ' "http://www.lua.org/manual/5.1/index.html#index"'
               },
               {
                 "5.2",
-                browser .. ' --new-tab "http://www.lua.org/manual/5.2/index.html#index"'
+                browser .. ' "http://www.lua.org/manual/5.2/index.html#index"'
               },
               {
                 "5.3",
-                browser .. ' --new-tab "http://www.lua.org/manual/5.3/index.html#index"'
+                browser .. ' "http://www.lua.org/manual/5.3/index.html#index"'
               }
             },
             beautiful.lualogo
           },
           {
             "A curated list of quality Lua packages and resources",
-            browser .. ' --new-tab "https://github.com/LewisJEllis/awesome-lua"',
+            browser .. ' "https://github.com/LewisJEllis/awesome-lua"',
             beautiful.lualogo
           },
           {
             "Cloud9",
-            browser .. ' --new-tab "https://ide.c9.io/"',
+            browser .. ' "https://ide.c9.io/"',
             beautiful.cloud9
           }
         },
