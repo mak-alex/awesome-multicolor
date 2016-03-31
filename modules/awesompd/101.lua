@@ -3,6 +3,9 @@
 ---- @release $Id: $
 ---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
 ---- vim: retab 
+-- TODO
+-- - add generator playlist from based url 101.ru
+--
 --
 local util = require('awful.util')
 local format = string.format

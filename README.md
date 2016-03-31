@@ -38,13 +38,6 @@
 	* В случае возникновения ошибки в основном конфигурационном файле awesome.lua, MultiColor автоматом восстановится из предыдущей, рабочей копии
 * Динамический справочник
 * И многое другое...
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-27-153857_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-27-153943_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-27-153926_1920x1080_scrot.png)
-
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-185402_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164408_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164428_1920x1080_scrot.png)
 
 ## Структура конфигурации MultiColor
 * Директория awesome (multicolor) содержит:
@@ -57,10 +50,7 @@
     * modules - содержит сторонние и не только модули
     * widgets - содержит основные виджеты
     * themes - содержит основные темы (8 штук)
-    * screenshots - без вариантов ;-)
-
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164445_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164502_1920x1080_scrot.png)
+        * .usedTheme - дириктория в которой будет ссылка на выбранную тему 
 
 ## Fix bug: при смене раскладки, не возможно по клику, переходить по вкладкам
 * откройте файл /usr/share/X11/xkb/compat/basic
@@ -69,9 +59,8 @@
 	    *  group 3 = AltGr;
 	    *  group 4 = AltGr;
 
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164516_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164532_1920x1080_scrot.png)
-![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-185033_1920x1080_scrot.png)
+## Установка:
+* git clone https://bitbucket.org/enlab/multicolor ~/.config/awesome
 
 ## Зависимости:
 * Awesome 3.5.x
@@ -82,8 +71,9 @@
 * mcabber (не обязательный)
 * Mutt (не обязательный)
 * Ranger
-* Xlock
+* xlockmore
 * Vicious
+* lua-filesystem (lfs)
 
 ## Основные хоткеи:
 	* Awesome
@@ -148,6 +138,16 @@
 		* ⊞ + l  -  Фокус окна справа
 	* Скриншот
 		* ⊞ + Сtrl + F12 - Сделать скриншот
-
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-27-153857_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-27-153943_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-27-153926_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-185402_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164408_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164428_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164445_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164502_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164516_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164532_1920x1080_scrot.png)
+![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-185033_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164543_1920x1080_scrot.png)
 ![ScreenShot](https://bitbucket.org/enlab/screenshots/raw/master/2016-03-18-164559_1920x1080_scrot.png)
