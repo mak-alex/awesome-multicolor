@@ -378,12 +378,12 @@ do
     -- Create a tasklist widget
     mytasklist[s] = simple.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 18+tagsh })
-    mytagwibox[s] = awful.wibox({position = "top", screen = s, height = tagsh })
+    mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = beautiful.border_width, height = 18+tagsh })
+    mytagwibox[s] = awful.wibox({position = "top", screen = s, border_width = beautiful.border_width, height = tagsh })
   else
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-    mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = 0, height = 22 })
+    mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = beautiful.border_width, height = 22 })
   end
 
   --- {{{ LEFT ALIGN WIDGET
@@ -608,7 +608,7 @@ do
     layoutmargin:set_top(tagsh)
     mywibox[s]:set_widget(layoutmargin)
   else
-    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = 1, height = 20 })
+    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = beautiful.border_width, height = 20 })
     -- Widgets that are aligned to the bottom left
     bottom_left_layout = wibox.layout.fixed.horizontal()
 
@@ -624,7 +624,7 @@ do
     bottom_layout:set_left(bottom_left_layout)
     bottom_layout:set_middle(mytasklist[s])
     bottom_layout:set_right(bottom_right_layout)
-    mybottomwibox[s]:set_bg(beautiful.panel)
+    mybottomwibox[s]:set_bg(beautiful.bg_normal)
     mybottomwibox[s]:set_widget(bottom_layout)
   end
 end
