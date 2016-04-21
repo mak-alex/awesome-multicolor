@@ -38,7 +38,7 @@ module("modules.menugen")
 menu_gen.all_menu_dirs = {
    '/usr/share/applications/',
    '/usr/local/share/applications/',
-   --'~/.local/share/applications'
+   '~/.local/share/applications'
 }
 --Expecting an wm_name of awesome omits too many applications and tools
 menu_utils.wm_name = ""

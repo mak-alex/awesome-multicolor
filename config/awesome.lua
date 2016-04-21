@@ -1,79 +1,65 @@
---- General configuration MultiColor from Awesome 3.5.x
----- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
----- @release $Id: $
----- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
----- vim: retab
---
--------------------------------------------------------------------------
-------------------------- SETTING FOR USER!!! ---------------------------
--------------------------------------------------------------------------
+-- General configuration MultiColor from Awesome 3.5.x
+--- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
+--- @release $Id: $
+--- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
+--- vim: retab
+
 --- {{{ USER CONFIGURATION
---[[
-  Your frequently used applications.
-Please change if something is not the same ...
-]]--
 local app={
   ["browser"] = "xdg-open",
   ["terminal"]="urxvt -geometry 110x40",
   ["graphic"]="gimp",
   ["develop"]="urxvt -e vim",
 }
-
 -- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
 local dynamic_tagging = true
-
--- Theme: defines colours, icons, and wallpapers
-themename =  "dark" -- "dark" or "multicolor" or "pro-light" or "pro-dark" or "pro-gotham" or "pro-medium-dark" or "pro-medium-light" or "simple"
+-- bind...
+terminal,editor,browser,editor_cmd, vksearch = app.terminal,app.develop,app.browser,app.develop, app.musicsearch
 --- }}}
 
--------------------------------------------------------------------------
------------------------ END SETTING FOR USER!!! -------------------------
--------------------------------------------------------------------------
-terminal,editor,browser,editor_cmd, vksearch = app.terminal,app.develop,app.browser,app.develop, app.musicsearch
 
--- Global key: Mod4 - Win / Mod1 - Alt
+-- {{{ Global key: Mod4 - Win / Mod1 - Alt
 modkey,altkey = "Mod4","Mod1"
+-- }}}
 
 -- {{{ Standard awesome library
 local awful = require('awful')
-awful.rules     = require("awful.rules")
-                  require("awful.autofocus")
+awful.rules = require("awful.rules")
+require("awful.autofocus")
 wibox = require("wibox")
 gears = require('gears')
 vicious = require("modules.vicious")
-
 -- Theme handling library
 beautiful = require("beautiful")
-
 -- Notification library
 local naughty = require("naughty")
 -- }}}
 
 -- {{{ User awesome library
 -- load the widget code
---alttab = require("modules.alttab")
 lain = require("modules.lain")
 local r = require("modules.runonce")
-local dyna = require("modules.dynawall")
+--local dyna = require("modules.dynawall")
 local simple = require("modules.simple")
-
   -- {{{ Dynamic tagging
-if dynamic_tagging
-then
-  require("config/tags")
-else
-  require("config/tags_fallback")
-end
+  if dynamic_tagging
+  then
+    require("config/tags")
+  else
+    require("config/tags_fallback")
+  end
   -- }}}
 require("config/bindings")
 -- }}}
 
+-- {{{ Themes manager
 function getUsedThemeName()
   local cfg_path = awful.util.getdir("config")
   local cmd = "ls -1 " .. cfg_path .. "/themes/.usedTheme/"
   local f = io.popen(cmd)
   local usedThemeName
-  for theme in f:lines() do
+  for theme in f:lines()
+  do
     if theme ~= nil and theme ~= ''
     then
       return theme
@@ -86,7 +72,6 @@ end
 themename = getUsedThemeName()
 
 local generateMenu = require("widgets.generateMenu")
-
 if themename ~= nil and themename ~= ''
 then
   beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/.usedTheme/"..themename.."/theme.lua")
@@ -94,15 +79,21 @@ else
   themename = "simple"
   beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
 end
+-- }}}
 
---beautiful.init(awful.util.getdir("config") .. "/current_theme/theme.lua")
-
-run_once("setxkbmap -layout us,ru -option grp:alt_shift_toggle")
-run_once("mpd")
-run_once("unclutter")
-run_once('cairo-compmgr')
-run_once('nm-applet')
-run_once('urxvtd')
+-- {{{ Autorun apps
+local flags = {}
+for k,v in pairs(require('autorun'))
+do
+  for i=1, #v
+  do
+    if not flags[v[i]]
+    then
+      run_once(tostring(v[i]))
+    end
+  end
+end
+-- }}}
 
 -- {{{ Java GUI's fix
 awful.util.spawn_with_shell("wmname LG3D")
@@ -168,7 +159,6 @@ space3 = markup.font("Hack 3", " ")
 space2 = markup.font("Hack 2", " ")
 vspace1 = '<span font="Hack 3"> </span>'
 vspace2 = '<span font="Hack 3">  </span>'
-clockgf = beautiful.clockgf
 
 require('widgets/mail')
 -- | Widgets | --
@@ -450,8 +440,9 @@ do
     right_layout_add(tempicon, tempwidget)
     right_layout_add(fsicon, fswidget)
     right_layout_add(baticon, batwidget)
-    right_layout_add(calendar_icon, calendarwidget)
-    right_layout_add(clock_icon, clockwidget)
+    --right_layout_add(calendar_icon, calendarwidget)
+    --right_layout_add(clock_icon, clockwidget)
+    right_layout_add(widget_clock,clockwidget)
     --right_layout_add(kbdcfg.widget)
   elseif themename == "pro-dark" or themename == "pro-gotham" or themename == "pro-light" or themename == "pro-medium-dark" or themename == "pro-medium-light"
   then
@@ -521,7 +512,7 @@ do
     right_layout:add(spr)
   elseif themename == 'simple'
   then
-    -- Widgets that are aligned to the upper right
+    -- Widgets that are aligned to the right
     if s == 1 then
         right_layout:add(wibox.widget.systray())
     end
@@ -551,18 +542,16 @@ do
     right_layout:add(volicon)
     right_layout:add(volumewidget)
     right_layout:add(decor_blue)
-    --right_layout:add(memicon)
-    --right_layout:add(memwidget)
-    --right_layout:add(decor_blue)
-    --right_layout:add(cpuicon)
-    --right_layout:add(cpuwidget)
-    --right_layout:add(decor_blue)
-    right_layout:add(calendar_icon)
-    right_layout:add(calendarwidget)
-    right_layout:add(clock_icon)
+    right_layout:add(batwidget)
+    right_layout:add(decor_blue)
+    right_layout:add(widget_clock)
     right_layout:add(clockwidget)
     right_layout:add(decor)
   else
+    if s == 1
+    then
+      right_layout:add(wibox.widget.systray())
+    end
     right_layout:add(spr)
     right_layout:add(arrl)
     right_layout:add(netdownicon)
@@ -581,11 +570,8 @@ do
     right_layout:add(fswidget)
     right_layout:add(baticon)
     right_layout:add(batwidget)
-    right_layout:add(calendar_icon)
-    right_layout:add(calendarwidget)
-    right_layout:add(clock_icon)
+    right_layout:add(widget_clock)
     right_layout:add(clockwidget)
-    --right_layout:add(kbdcfg.widget)
   end
   --- }}}
 

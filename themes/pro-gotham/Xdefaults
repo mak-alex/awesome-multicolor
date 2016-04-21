@@ -5,7 +5,7 @@
 !*foreground: #AB9C71
 
 *cursorColor: #BE5E1E
-
+URxvt*font: xft:ohsnap:size=9
 *color0:  #39474A
 *color1:  #986345
 *color2:  #788249
