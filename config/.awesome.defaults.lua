@@ -503,6 +503,15 @@ do
     right_layout:add(widget_netul)
 
     right_layout:add(spr)
+    right_layout:add(spr5px)
+
+    --right_layout:add(batlabel)
+    right_layout:add(widget_display_l)
+    right_layout:add(batwidget)
+    right_layout:add(widget_display_r)
+    
+    right_layout:add(spr5px)
+    right_layout:add(spr)
 
     right_layout:add(widget_clock)
     right_layout:add(widget_display_l)
@@ -514,7 +523,7 @@ do
   then
     -- Widgets that are aligned to the right
     if s == 1 then
-        right_layout:add(wibox.widget.systray())
+      right_layout:add(wibox.widget.systray())
     end
     -- Widgets that are aligned to the upper right
     local right_layout_toggle = true
