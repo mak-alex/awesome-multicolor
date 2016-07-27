@@ -5,81 +5,29 @@
 --- vim: retab
 
 --- {{{ USER CONFIGURATION
-local app={
-  ["browser"] = "xdg-open",
-  ["terminal"]="urxvt -geometry 110x40",
-  ["graphic"]="gimp",
-  ["develop"]="urxvt -e vim",
+userConfig={
+  browser = "xdg-open",
+  terminal = "urxvt -geometry 110x40",
+  graphic = "gimp",
+  editor = 'emacs',
+  editor_cmd = "urxvt -e vim",
+  dynamic_tagging = true,
+  modkey = "Mod4",
+  altkey = "Mod1"
 }
--- Status dynamic tags: true - on dynamic tags / false - off dynamic tags
-local dynamic_tagging = true
--- bind...
-terminal,editor,browser,editor_cmd, vksearch = app.terminal,app.develop,app.browser,app.develop, app.musicsearch
---- }}}
 
+require'lib'
+require'modules'
 
--- {{{ Global key: Mod4 - Win / Mod1 - Alt
-modkey,altkey = "Mod4","Mod1"
--- }}}
-
--- {{{ Standard awesome library
-local awful = require('awful')
-awful.rules = require("awful.rules")
-require("awful.autofocus")
-wibox = require("wibox")
-gears = require('gears')
-vicious = require("modules.vicious")
--- Theme handling library
-beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
--- }}}
-
--- {{{ User awesome library
--- load the widget code
-lain = require("modules.lain")
-local r = require("modules.runonce")
---local dyna = require("modules.dynawall")
-local simple = require("modules.simple")
-  -- {{{ Dynamic tagging
-  if dynamic_tagging
-  then
-    require("config/tags")
-  else
-    require("config/tags_fallback")
-  end
-  -- }}}
-require("config/bindings")
--- }}}
-
--- {{{ Themes manager
-function getUsedThemeName()
-  local cfg_path = awful.util.getdir("config")
-  local cmd = "ls -1 " .. cfg_path .. "/themes/.usedTheme/"
-  local f = io.popen(cmd)
-  local usedThemeName
-  for theme in f:lines()
-  do
-    if theme ~= nil and theme ~= ''
-    then
-      return theme
-    end
-    return false
-  end
-  f:close()
-end
-
-themename = getUsedThemeName()
-
-local generateMenu = require("widgets.generateMenu")
-if themename ~= nil and themename ~= ''
+if userConfig.dynamic_tagging
 then
-  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/.usedTheme/"..themename.."/theme.lua")
+  require("config/tags")
 else
-  themename = "simple"
-  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
+  require("config/tags_fallback")
 end
--- }}}
+
+require("config/bindings")
+require'themesManager'
 
 -- {{{ Autorun apps
 local flags = {}
@@ -95,26 +43,13 @@ do
 end
 -- }}}
 
--- {{{ Java GUI's fix
+-- Java GUI's fix
 awful.util.spawn_with_shell("wmname LG3D")
--- }}}
 
 local mymainmenu = generateMenu()
 
--- {{{ User awesome widgets
-local alsawidget = require('widgets/volume')
-require('widgets/date')
-local mailhover = require('widgets/mailhover')
---local weather = require('widgets/weather')
-require('widgets/filesystem')
-local cpu = require('widgets/cpuinfo')
-local coretemp = require('widgets/coretemp')
-local battery = require('widgets/battery')
-local network = require('widgets/network')
-local mem = require('widgets/memmory')
-require('widgets/mpd')
---require('widgets/keyboard')
--- }}}
+-- User awesome widgets
+require'widgets'
 
 -- {{{ Arch icon widget
 archicon = wibox.widget.imagebox()
@@ -283,7 +218,8 @@ mytasklist.buttons = awful.util.table.join(
 -- }}}
 
 -- {{{ Wibox initialisation
-mywibox,mybottomwibox,mypromptbox,mylayoutbox,mytaglist,mytagwibox = {},{},{},{},{},{}
+mywibox,mybottomwibox,mypromptbox,
+mylayoutbox,mytaglist,mytagwibox = {},{},{},{},{},{}
 
 mytaglist.buttons = awful.util.table.join(
   awful.button(
@@ -509,7 +445,7 @@ do
     right_layout:add(widget_display_l)
     right_layout:add(batwidget)
     right_layout:add(widget_display_r)
-    
+
     right_layout:add(spr5px)
     right_layout:add(spr)
 
@@ -546,7 +482,7 @@ do
       right_layout_toggle = not right_layout_toggle
     end
     right_layout:add(decor_blue)
-    right_layout:add(musicwidget.widget)
+    --right_layout:add(musicwidget.widget)
     right_layout:add(decor_blue)
     right_layout:add(volicon)
     right_layout:add(volumewidget)

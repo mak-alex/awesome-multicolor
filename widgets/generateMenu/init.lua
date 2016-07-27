@@ -77,7 +77,7 @@ local function genMenu(array, path, prefix, exe)
         then
           command = "sxiv " .. vv
         else
-          command = editor_cmd .. " " .. vv
+          command = userConfig.editor_cmd .. " " .. vv
         end
         table.insert(
           array,
@@ -89,7 +89,7 @@ local function genMenu(array, path, prefix, exe)
         )
       elseif prefix == nil and prefix == '' and exe ~= nil and exe ~= ''
       then
-        local command = editor_cmd .. " " .. vv .. '/init.lua'
+        local command = userConfig.editor_cmd .. " " .. vv .. '/init.lua'
 
         table.insert(
           array,
@@ -104,7 +104,7 @@ local function genMenu(array, path, prefix, exe)
         then
           command = "sxiv " .. vv
         else
-          command = editor_cmd .. " " .. vv
+          command = userConfig.editor_cmd .. " " .. vv
         end
         table.insert(
           array,
@@ -136,7 +136,7 @@ function generateMenu()
         {
           {
             "Manual from Awesome",
-            terminal .. " -e man awesome",
+            userConfig.terminal .. " -e man awesome",
             beautiful.awesomeManual
           },
           { "", },
@@ -180,12 +180,12 @@ function generateMenu()
       },
       {
         "Terminal",
-        terminal,
+        userConfig.terminal,
         beautiful.console,
       },
       {
          "IM Client",
-         browser .. ' "https://plus.im/"',
+         userConfig.browser .. ' "https://plus.im/"',
          beautiful.im
       },
       {
@@ -195,12 +195,12 @@ function generateMenu()
       },
       {
         "E-mail",
-        browser .. ' "https://mail.yandex.kz"',
+        userConfig.browser .. ' "https://mail.yandex.kz"',
         beautiful.email,
       },
       {
          "Photo Editor",
-         browser .. ' "https://www.befunky.com/create/"',
+         userConfig.browser .. ' "https://www.befunky.com/create/"',
          beautiful.photoeditor
       },
       {},
@@ -212,97 +212,97 @@ function generateMenu()
             {
               {
                 "Main",
-                browser .. ' "https://radio.yandex.kz"',
+                userConfig.browser .. ' "https://radio.yandex.kz"',
                 nil,
               },
               {
                 "Metal",
-                browser .. ' "https://radio.yandex.kz/genre/metal"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/metal"',
                 nil,
               },
               {
                 "Alternative",
-                browser .. ' "https://radio.yandex.kz/genre/alternative"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/alternative"',
                 nil,
               },
               {
                 "Blues",
-                browser .. ' "https://radio.yandex.kz/genre/blues"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/blues"',
                 nil,
               },
               {
                 "SKA",
-                browser .. ' "https://radio.yandex.kz/genre/ska"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/ska"',
                 nil,
               },
               {
                 "Estrada",
-                browser .. ' "https://radio.yandex.kz/genre/estrada"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/estrada"',
                 nil,
               },
               {
                 "Shanson",
-                browser .. ' "https://radio.yandex.kz/genre/shanson"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/shanson"',
                 nil,
               },
               {
                 "Country",
-                browser .. ' "https://radio.yandex.kz/genre/country"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/country"',
                 nil,
               },
               {
                 "Children",
-                browser .. ' "https://radio.yandex.kz/genre/children"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/children"',
                 nil,
               },
               {
                 "Electronics",
-                browser .. ' "https://radio.yandex.kz/genre/electronics"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/electronics"',
                 nil,
               },
               {
                 "Dubstep",
-                browser .. ' "https://radio.yandex.kz/genre/dubstep"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/dubstep"',
                 nil,
               },
               {
                 "Industrial",
-                browser .. ' "https://radio.yandex.kz/genre/industrial"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/industrial"',
                 nil,
               },
               {
                 "Experimental",
-                browser .. ' "https://radio.yandex.kz/genre/experimental"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/experimental"',
                 nil,
               },
               {
                 "Dance",
-                browser .. ' "https://radio.yandex.kz/genre/dance"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/dance"',
                 nil,
               },
               {
                 "House",
-                browser .. ' "https://radio.yandex.kz/genre/house"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/house"',
                 nil,
               },
               {
                 "Techno",
-                browser .. ' "https://radio.yandex.kz/genre/techno"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/techno"',
                 nil,
               },
               {
                 "Trance",
-                browser .. ' "https://radio.yandex.kz/genre/trance"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/trance"',
                 nil,
               },
               {
                 "DNB",
-                browser .. ' "https://radio.yandex.kz/genre/dnb"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/dnb"',
                 nil,
               },
               {
                 "Relax",
-                browser .. ' "https://radio.yandex.kz/genre/relax"',
+                userConfig.browser .. ' "https://radio.yandex.kz/genre/relax"',
                 nil,
               },
             },
@@ -310,17 +310,17 @@ function generateMenu()
           },
           {
             "Yandex.Music",
-            browser .. ' "https://music.yandex.kz"',
+            userConfig.browser .. ' "https://music.yandex.kz"',
             beautiful.music_yandex,
           },
           {
             "101",
-            browser .. ' "https://101.ru"',
+            userConfig.browser .. ' "https://101.ru"',
             beautiful.ru101,
           },
           {
             "DI",
-            browser .. ' "https://di.fm"',
+            userConfig.browser .. ' "https://di.fm"',
             beautiful.di,
           },
         },
@@ -337,73 +337,73 @@ function generateMenu()
         {
           {
             "Create spreadsheet",
-            browser .. ' "https://docs.google.com/spreadsheet/ccc?new"',
+            userConfig.browser .. ' "https://docs.google.com/spreadsheet/ccc?new"',
             beautiful.play_sheets
           },
           {
             "Create document",
-            browser .. ' "https://docs.google.com/document/create"',
+            userConfig.browser .. ' "https://docs.google.com/document/create"',
             beautiful.play_docs
           },
           {
             "Create presentation",
-            browser .. ' "https://docs.google.com/presentation/create"',
+            userConfig.browser .. ' "https://docs.google.com/presentation/create"',
             beautiful.play_slides
           },
           {
             "Create draw",
-            browser .. ' "https://docs.google.com/drawings/create?usp=drive_web"',
+            userConfig.browser .. ' "https://docs.google.com/drawings/create?usp=drive_web"',
             beautiful.play_drawings
           },
           {
             "Create form",
-            browser .. ' "https://docs.google.com/forms/create"',
+            userConfig.browser .. ' "https://docs.google.com/forms/create"',
             beautiful.play_forms
           },
           { "", },
           {
             "Google Sheets",
-            browser .. ' "https://docs.google.com/spreadsheets/u/0/"',
+            userConfig.browser .. ' "https://docs.google.com/spreadsheets/u/0/"',
             beautiful.play_sheets
           },
           {
             "Google Docks",
-            browser .. ' "https://docs.google.com/document/u/0/"',
+            userConfig.browser .. ' "https://docs.google.com/document/u/0/"',
             beautiful.play_docs
           },
           {
             "Google Disk",
-            browser .. ' "https://drive.google.com/drive/u/0/"',
+            userConfig.browser .. ' "https://drive.google.com/drive/u/0/"',
             beautiful.play_drive
           },
           {
             "Google Hangouts",
-            browser .. ' "https://hangouts.google.com/"',
+            userConfig.browser .. ' "https://hangouts.google.com/"',
             beautiful.play_hangouts
           },
           {
             "Google Calendar",
-            browser .. ' "https://calendar.google.com/calendar/"',
+            userConfig.browser .. ' "https://calendar.google.com/calendar/"',
             beautiful.play_calendar
           },
           {
             "Google Contacts",
-            browser .. ' "https://contacts.google.com/u/0/preview/all"',
+            userConfig.browser .. ' "https://contacts.google.com/u/0/preview/all"',
             beautiful.play_contacts
           },
           {
             "Google Books",
-            browser .. ' "https://play.google.com/books?source=gbs_lp_bookshelf_list"',
+            userConfig.browser .. ' "https://play.google.com/books?source=gbs_lp_bookshelf_list"',
             beautiful.play_books
           },
           {
             "Google News",
-            browser .. ' "https://news.google.com/nwshp?hl=ru"',
+            userConfig.browser .. ' "https://news.google.com/nwshp?hl=ru"',
             beautiful.play_news
           },
           {
             "Google Inbox",
-            browser .. ' "https://inbox.google.com/u/0/"',
+            userConfig.browser .. ' "https://inbox.google.com/u/0/"',
             beautiful.play_inbox
           }
         },
@@ -417,27 +417,27 @@ function generateMenu()
             {
               {
                 "5.1",
-                browser .. ' "http://www.lua.org/manual/5.1/index.html#index"'
+                userConfig.browser .. ' "http://www.lua.org/manual/5.1/index.html#index"'
               },
               {
                 "5.2",
-                browser .. ' "http://www.lua.org/manual/5.2/index.html#index"'
+                userConfig.browser .. ' "http://www.lua.org/manual/5.2/index.html#index"'
               },
               {
                 "5.3",
-                browser .. ' "http://www.lua.org/manual/5.3/index.html#index"'
+                userConfig.browser .. ' "http://www.lua.org/manual/5.3/index.html#index"'
               }
             },
             beautiful.lualogo
           },
           {
             "A curated list of quality Lua packages and resources",
-            browser .. ' "https://github.com/LewisJEllis/awesome-lua"',
+            userConfig.browser .. ' "https://github.com/LewisJEllis/awesome-lua"',
             beautiful.lualogo
           },
           {
             "Cloud9",
-            browser .. ' "https://ide.c9.io/"',
+            userConfig.browser .. ' "https://ide.c9.io/"',
             beautiful.cloud9
           }
         },

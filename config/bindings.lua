@@ -122,7 +122,7 @@ local glib = require("lgi").GLib
 local keydoc = require("modules.keydoc")
 
 quake_console = quake({
-    terminal = terminal,
+    terminal = userConfig.terminal,
     --argname = "-name %s -e tmux",
     name = "tilda",
     height = 300,
@@ -227,7 +227,7 @@ end
 
 local function term_in_current_tag()
   aw_util.spawn(
-    terminal,
+    userConfig.terminal,
     {
       intrusive=true,
       slave=true
@@ -237,7 +237,7 @@ end
 
 local function new_tag_with_term()
   aw_util.spawn(
-    terminal,
+    userConfig.terminal,
     {
       new_tag={
         volatile = true
@@ -323,7 +323,7 @@ local globalkeys = awful.util.table.join(
   -- Switch the current keyboard layout
   --[[awful.key(
     { 
-      altkey,           
+      userConfig.altkey,           
     }, 
     "Shift_L", 
     function () 
@@ -332,7 +332,7 @@ local globalkeys = awful.util.table.join(
   ),]]
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "F1",
     keydoc.display,
@@ -342,7 +342,7 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Теги"),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "Left",
     awful.tag.viewprev,
@@ -350,7 +350,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "Right",
     awful.tag.viewnext,
@@ -358,16 +358,16 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "Escape",
     awful.tag.history.restore,
     "Перейти на последний посещаемый тег"
   ),
-  --awful.key({ modkey,           }, "u",      awful.client.urgent.jumpto),
+  --awful.key({ userConfig.modkey,           }, "u",      awful.client.urgent.jumpto),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Shift"
     },
     "r",
@@ -378,7 +378,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "d",
     function ()
@@ -388,7 +388,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "n",
     function ()
@@ -398,7 +398,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Shift"
     },
     "n"     ,
@@ -407,11 +407,11 @@ local globalkeys = awful.util.table.join(
     end,
     "Добавить тег и перенести в него работающее приложение"
   ),
-  --awful.key({ modkey, altkey    }, "n"     , function () move_to_new_tag() end, "Перенести открытое приложение на новый тег"),
+  --awful.key({ userConfig.modkey, userConfig.altkey    }, "n"     , function () move_to_new_tag() end, "Перенести открытое приложение на новый тег"),
   awful.key(
     {
-      modkey,
-      altkey
+      userConfig.modkey,
+      userConfig.altkey
     },
     "r"     ,
     function ()
@@ -421,8 +421,8 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
-      altkey
+      userConfig.modkey,
+      userConfig.altkey
     },
     "Return",
     function ()
@@ -432,7 +432,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Control"
     },
     "Return",
@@ -443,7 +443,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Control"
     },
     "f"     ,
@@ -454,7 +454,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "a"     ,
     function ()
@@ -466,11 +466,11 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Панель"),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "b",
     function ()
-      widgetbox[mouse.screen].visible = not widgetbox[mouse.screen].visible
+      mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
       mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
     end,
     "Скрыть панели"
@@ -478,17 +478,7 @@ local globalkeys = awful.util.table.join(
   -- Widgets popups
   awful.key(
     {
-      altkey,
-    },
-    "c",
-    function ()
-      lain.widgets.calendar:show(7)
-    end,
-    "Показать календарь"
-  ),
-  awful.key(
-    {
-      altkey,
+      userConfig.altkey,
     },
     "h",
     function ()
@@ -498,7 +488,7 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Окна"),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "Tab",
     function ()
@@ -509,34 +499,11 @@ local globalkeys = awful.util.table.join(
     end,
     "Переключение между окнами"
   ),
-  --[[awful.key(
-    {
-      altkey,
-    },
-    "Tab",
-    function ()                                                                              
-      alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
-    end                                                                                      
-    ,
-    "Переключение между окнами"
-  ),
-  awful.key(
-    {
-      altkey,
-      "Shift_L"
-    },
-    "Tab",
-    function ()                                                                              
-      alttab.switch(1, "Alt_L", "Tab", "ISO_Left_Tab")                                             
-    end                                                                                      
-    ,
-    "Переключение между окнами"
-  ),]]
 
   keydoc.group("Поисковики"),
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "F12",
     function ()
@@ -559,23 +526,23 @@ local globalkeys = awful.util.table.join(
       )
     end,
     "Поиск в Google"
-  ), -- scrot '%Y-%m-%d_$wx$h_scrot.png' -e 'mv $f ~/Pictures/shots/'
+  ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Ctrl"
     },
     "F12",
     function ()
       awful.util.spawn("scrot -e 'mv $f ~/Pictures/shots/'", false)
     end,
-    "Поиск и запуск музыки с VK.COM в mplayer"
+    "Скриншот"
   ),
 
   keydoc.group("Калькуляторы"),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "F11",
     function ()
@@ -601,7 +568,7 @@ local globalkeys = awful.util.table.join(
   -- Default client focus
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "k",
     function ()
@@ -614,7 +581,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "j",
     function ()
@@ -630,7 +597,7 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Фокус окон"),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "j",
     function()
@@ -645,7 +612,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "k",
     function()
@@ -659,7 +626,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "h",
     function()
@@ -673,7 +640,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "l",
     function()
@@ -690,17 +657,17 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Терминалы"),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "Return",
     function ()
-      awful.util.spawn(terminal)
+      awful.util.spawn(userConfig.terminal)
     end,
     "Стандартный терминал"
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "z",
     function ()
@@ -713,7 +680,7 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Меню"),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "w",
     function ()
@@ -727,7 +694,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "r",
     function ()
@@ -737,8 +704,8 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
-      altkey
+      userConfig.modkey,
+      userConfig.altkey
     },
     "l",
     function ()
@@ -751,7 +718,7 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Дисплей"),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "Up",
     function ()
@@ -761,7 +728,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey
+      userConfig.modkey
     },
     "Down",
     function ()
@@ -771,7 +738,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Ctrl"
     },
     "Up",
@@ -782,7 +749,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Ctrl"
     },
     "Down",
@@ -796,7 +763,7 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Звук"),
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "Up",
     function ()
@@ -806,7 +773,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "Down",
     function ()
@@ -816,7 +783,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "F3",
     function ()
@@ -827,7 +794,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "F4",
     function ()
@@ -838,7 +805,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "F5",
     function ()
@@ -849,7 +816,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      altkey
+      userConfig.altkey
     },
     "m",
     function ()
@@ -859,7 +826,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      altkey,
+      userConfig.altkey,
       "Control"
     },
     "m",
@@ -873,7 +840,7 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Музыка"),
   awful.key(
     {
-      altkey,
+      userConfig.altkey,
       "Control"
     },
     "Up",
@@ -884,7 +851,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      altkey,
+      userConfig.altkey,
       "Control"
     },
     "Down",
@@ -893,13 +860,13 @@ local globalkeys = awful.util.table.join(
     end,
     "Остановить проигрывание"
   ),
-  awful.key({ altkey, "Control" }, "Left",
+  awful.key({ userConfig.altkey, "Control" }, "Left",
     function ()
       awful.util.spawn_with_shell("mpc prev || ncmpcpp prev || ncmpc prev || pms prev")
     end,
     "Предыдущий трек"
   ),
-  awful.key({ altkey, "Control" }, "Right",
+  awful.key({ userConfig.altkey, "Control" }, "Right",
     function ()
       awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")
     end,
@@ -911,7 +878,7 @@ local globalkeys = awful.util.table.join(
   keydoc.group("Awesome"),
   awful.key(
     {
-      modkey, 
+      userConfig.modkey, 
       "Control" 
     }, 
     "r", 
@@ -921,13 +888,11 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey, "Shift"   }, "q", awesome.quit, keydoc.display, "Выйти из Awesome"),
+      userConfig.modkey, "Shift"   }, "q", awesome.quit, keydoc.display, "Выйти из Awesome"),
   -- Layout manipulation
-  --awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-  --awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Shift"
     },
     "h",
@@ -937,7 +902,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Shift"
     },
     "l",
@@ -947,7 +912,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Control"
     },
     "h",
@@ -957,7 +922,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Control"
     },
     "l",
@@ -967,7 +932,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "space",
     function ()
@@ -976,7 +941,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Shift"
     },
     "space",
@@ -986,7 +951,7 @@ local globalkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Control"
     },
     "n",
@@ -1003,7 +968,7 @@ do
     globalkeys,
     awful.key(
       {
-        modkey
+        userConfig.modkey
       },
       "#" .. i + 9,
       function ()
@@ -1017,7 +982,7 @@ do
     ),
     awful.key(
       {
-        modkey,
+        userConfig.modkey,
         "Control"
       },
       "#" .. i + 9,
@@ -1032,7 +997,7 @@ do
     ),
     awful.key(
       {
-        modkey,
+        userConfig.modkey,
         "Shift"
       },
       "#" .. i + 9,
@@ -1046,7 +1011,7 @@ do
     ),
     awful.key(
       {
-        modkey,
+        userConfig.modkey,
         "Control",
         "Shift"
       },
@@ -1066,7 +1031,7 @@ local clientkeys = awful.util.table.join(
   clientkeys,
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "f",
     function (c)
@@ -1075,7 +1040,7 @@ local clientkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Shift"
     },
     "c",
@@ -1085,7 +1050,7 @@ local clientkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Control"
     },
     "space",
@@ -1093,7 +1058,7 @@ local clientkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Control"
     },
     "Return",
@@ -1103,7 +1068,7 @@ local clientkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
       "Shift"
     },
     "o",
@@ -1111,7 +1076,7 @@ local clientkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "t",
     function (c)
@@ -1120,7 +1085,7 @@ local clientkeys = awful.util.table.join(
   ),
   awful.key(
     {
-      modkey,
+      userConfig.modkey,
     },
     "m",
     function (c)
@@ -1141,14 +1106,14 @@ local clientbuttons = awful.util.table.join(
   ),
   awful.button(
     {
-      modkey
+      userConfig.modkey
     },
     1,
     awful.mouse.client.move
   ),
   awful.button(
     {
-      modkey
+      userConfig.modkey
     },
     3,
     awful.mouse.client.resize
