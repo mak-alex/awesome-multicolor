@@ -1,10 +1,6 @@
 -- Generator general menu
 --- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
---- @release $Id: $
---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
---
 local menugen = require("modules.menugen")
---local posix = require "posix"
 
 mythememenu = {}
 
@@ -25,21 +21,31 @@ function theme_load(theme)
 
   -- Create a symlink from the given theme to /home/user/.config/awesome/current_theme
   removeOldTheme()
-  --local status, errstr = posix.link(cfg_path.."/themes/"..theme, cfg_path.."/themes/.usedTheme/"..theme, true)
   awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. " " .. cfg_path ..  "/themes/.usedTheme/" .. theme)
-  --local status, errstr = posix.link(cfg_path.."/themes/"..theme.."/Xdefaults", home_path .. "/.Xdefaults", true)
   awful.util.spawn("ln -sfn " .. cfg_path.."/themes/"..theme.."/Xdefaults " .. home_path .. "/.Xdefaults")
   awesome.restart()
 end
 
 function theme_menu()
    -- List your theme files and feed the menu table
-   local cmd = "ls -1 " .. awful.util.getdir("config") .. "/themes/"
+   local cmd = "ls -1 "
+    .. awful.util.getdir("config")
+    .. "/themes/"
    local f = io.popen(cmd)
 
    for l in f:lines() do
-    local item = { l, function () theme_load(l) end }
-    table.insert(mythememenu, item)
+     if l ~= 'init.lua' and not string.find(l, 'Xdefaults')
+     then
+       table.insert(
+         mythememenu,
+         {
+           l,
+           function ()
+             theme_load(l)
+           end
+         }
+       )
+     end
    end
 
    f:close()
@@ -77,7 +83,7 @@ local function genMenu(array, path, prefix, exe)
         then
           command = "sxiv " .. vv
         else
-          command = userConfig.editor_cmd .. " " .. vv
+          command = userConfig.editor_cmd.command .. " " .. vv
         end
         table.insert(
           array,
@@ -89,7 +95,7 @@ local function genMenu(array, path, prefix, exe)
         )
       elseif prefix == nil and prefix == '' and exe ~= nil and exe ~= ''
       then
-        local command = userConfig.editor_cmd .. " " .. vv .. '/init.lua'
+        local command = userConfig.editor_cmd.command .. " " .. vv .. '/init.lua'
 
         table.insert(
           array,
@@ -104,7 +110,7 @@ local function genMenu(array, path, prefix, exe)
         then
           command = "sxiv " .. vv
         else
-          command = userConfig.editor_cmd .. " " .. vv
+          command = userConfig.editor_cmd.command .. " " .. vv
         end
         table.insert(
           array,
@@ -136,34 +142,66 @@ function generateMenu()
         {
           {
             "Manual from Awesome",
-            userConfig.terminal .. " -e man awesome",
+            userConfig.terminal.command
+              .. " -e man awesome",
             beautiful.awesomeManual
           },
           { "", },
           {
             "Edit Base Config",
-            genMenu(ConfigFiles, awful.util.getdir("config")..'/config'),
+            genMenu(
+              ConfigFiles,
+              awful.util.getdir("config")
+                ..'/config'
+            ),
             beautiful.sourceEdit
           },
           {
             "Edit Theme Config",
-            genMenu(ThemesFiles, awful.util.getdir("config")..'/themes/'..themename..'/', '.lua'),
+            genMenu(
+              ThemesFiles,
+              awful.util.getdir("config")
+                ..'/themes/'
+                ..themename
+                ..'/',
+              '.lua'
+            ),
             beautiful.sourceEdit
           },
           {
             "Edit User Widgets Config",
-            genMenu(UserWidgetsFiles, awful.util.getdir("config")..'/widgets/', nil, true),
+            genMenu(
+              UserWidgetsFiles,
+              awful.util.getdir("config")
+                ..'/widgets/',
+              nil,
+              true
+            ),
             beautiful.sourceEdit
           },
           {
             "Edit Global Widgets Config",
-            genMenu(GlobalWidgetsFiles, awful.util.getdir("config")..'/modules/lain/widgets/'),
+            genMenu(
+              GlobalWidgetsFiles,
+              awful.util.getdir("config")
+                ..'/modules/lain/widgets/'
+            ),
             beautiful.sourceEdit
           },
           { "", },
-          { "Update MultiColor", 'cd '..awful.util.getdir("config")..'; git pull;', beautiful.updateAwesome },
+          {
+            "Update MultiColor",
+            'cd '
+              .. awful.util.getdir("config")
+              .. '; git pull;',
+            beautiful.updateAwesome
+          },
           { "", },
-          { "Awesome Themes", mythememenu, beautiful.themesAwesome },
+          {
+            "Awesome Themes",
+            mythememenu,
+            beautiful.themesAwesome
+          },
           {
             "Awesome Restart",
             awesome.restart,
@@ -175,32 +213,33 @@ function generateMenu()
       { "" },
       {
         "Browser",
-        "FireFox",
+        userConfig.browser.command
+          .. ' https://duckduckgo.com/',
         beautiful.browser,
       },
       {
         "Terminal",
-        userConfig.terminal,
+        userConfig.terminal.command,
         beautiful.console,
       },
       {
          "IM Client",
-         userConfig.browser .. ' "https://plus.im/"',
+         userConfig.imclient.command,
          beautiful.im
       },
       {
         "FileManager",
-        "urxvtc -name ranger -e ranger",
+        userConfig.filemanager.command,
         beautiful.filemanager,
       },
       {
         "E-mail",
-        userConfig.browser .. ' "https://mail.yandex.kz"',
+        userConfig.email.command,
         beautiful.email,
       },
       {
          "Photo Editor",
-         userConfig.browser .. ' "https://www.befunky.com/create/"',
+         userConfig.graphic.command,
          beautiful.photoeditor
       },
       {},
@@ -212,97 +251,116 @@ function generateMenu()
             {
               {
                 "Main",
-                userConfig.browser .. ' "https://radio.yandex.kz"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz"',
                 nil,
               },
               {
                 "Metal",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/metal"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/metal"',
                 nil,
               },
               {
                 "Alternative",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/alternative"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/alternative"',
                 nil,
               },
               {
                 "Blues",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/blues"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/blues"',
                 nil,
               },
               {
                 "SKA",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/ska"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/ska"',
                 nil,
               },
               {
                 "Estrada",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/estrada"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/estrada"',
                 nil,
               },
               {
                 "Shanson",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/shanson"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/shanson"',
                 nil,
               },
               {
                 "Country",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/country"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/country"',
                 nil,
               },
               {
                 "Children",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/children"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/children"',
                 nil,
               },
               {
                 "Electronics",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/electronics"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/electronics"',
                 nil,
               },
               {
                 "Dubstep",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/dubstep"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/dubstep"',
                 nil,
               },
               {
                 "Industrial",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/industrial"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/industrial"',
                 nil,
               },
               {
                 "Experimental",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/experimental"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/experimental"',
                 nil,
               },
               {
                 "Dance",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/dance"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/dance"',
                 nil,
               },
               {
                 "House",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/house"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/house"',
                 nil,
               },
               {
                 "Techno",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/techno"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/techno"',
                 nil,
               },
               {
                 "Trance",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/trance"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/trance"',
                 nil,
               },
               {
                 "DNB",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/dnb"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/dnb"',
                 nil,
               },
               {
                 "Relax",
-                userConfig.browser .. ' "https://radio.yandex.kz/genre/relax"',
+                userConfig.browser.command
+                  .. ' "https://radio.yandex.kz/genre/relax"',
                 nil,
               },
             },
@@ -310,17 +368,20 @@ function generateMenu()
           },
           {
             "Yandex.Music",
-            userConfig.browser .. ' "https://music.yandex.kz"',
+            userConfig.browser.command
+              .. ' "https://music.yandex.kz"',
             beautiful.music_yandex,
           },
           {
             "101",
-            userConfig.browser .. ' "https://101.ru"',
+            userConfig.browser.command
+              .. ' "https://101.ru"',
             beautiful.ru101,
           },
           {
             "DI",
-            userConfig.browser .. ' "https://di.fm"',
+            userConfig.browser.command
+              .. ' "https://di.fm"',
             beautiful.di,
           },
         },
@@ -337,73 +398,87 @@ function generateMenu()
         {
           {
             "Create spreadsheet",
-            userConfig.browser .. ' "https://docs.google.com/spreadsheet/ccc?new"',
+            userConfig.browser.command
+              .. ' "https://docs.google.com/spreadsheet/ccc?new"',
             beautiful.play_sheets
           },
           {
             "Create document",
-            userConfig.browser .. ' "https://docs.google.com/document/create"',
+            userConfig.browser.command
+              .. ' "https://docs.google.com/document/create"',
             beautiful.play_docs
           },
           {
             "Create presentation",
-            userConfig.browser .. ' "https://docs.google.com/presentation/create"',
+            userConfig.browser.command
+              .. ' "https://docs.google.com/presentation/create"',
             beautiful.play_slides
           },
           {
             "Create draw",
-            userConfig.browser .. ' "https://docs.google.com/drawings/create?usp=drive_web"',
+            userConfig.browser.command
+              .. ' "https://docs.google.com/drawings/create?usp=drive_web"',
             beautiful.play_drawings
           },
           {
             "Create form",
-            userConfig.browser .. ' "https://docs.google.com/forms/create"',
+            userConfig.browser.command
+              .. ' "https://docs.google.com/forms/create"',
             beautiful.play_forms
           },
           { "", },
           {
             "Google Sheets",
-            userConfig.browser .. ' "https://docs.google.com/spreadsheets/u/0/"',
+            userConfig.browser.command
+              .. ' "https://docs.google.com/spreadsheets/u/0/"',
             beautiful.play_sheets
           },
           {
-            "Google Docks",
-            userConfig.browser .. ' "https://docs.google.com/document/u/0/"',
+            "Google Docs",
+            userConfig.browser.command
+              .. ' "https://docs.google.com/document/u/0/"',
             beautiful.play_docs
           },
           {
             "Google Disk",
-            userConfig.browser .. ' "https://drive.google.com/drive/u/0/"',
+            userConfig.browser.command
+              .. ' "https://drive.google.com/drive/u/0/"',
             beautiful.play_drive
           },
           {
             "Google Hangouts",
-            userConfig.browser .. ' "https://hangouts.google.com/"',
+            userConfig.browser.command
+              .. ' "https://hangouts.google.com/"',
             beautiful.play_hangouts
           },
           {
             "Google Calendar",
-            userConfig.browser .. ' "https://calendar.google.com/calendar/"',
+            userConfig.browser.command
+              .. ' "https://calendar.google.com/calendar/"',
             beautiful.play_calendar
           },
           {
             "Google Contacts",
-            userConfig.browser .. ' "https://contacts.google.com/u/0/preview/all"',
+            userConfig.browser.command
+              .. ' "https://contacts.google.com/u/0/preview/all"',
             beautiful.play_contacts
           },
           {
             "Google Books",
-            userConfig.browser .. ' "https://play.google.com/books?source=gbs_lp_bookshelf_list"',
+            userConfig.browser.command
+              .. ' "https://play.google.com/books?source=gbs_lp_bookshelf_list"',
             beautiful.play_books
           },
           {
             "Google News",
-            userConfig.browser .. ' "https://news.google.com/nwshp?hl=ru"',
+            userConfig.browser.command
+              .. ' "https://news.google.com/nwshp?hl=ru"',
             beautiful.play_news
           },
           {
             "Google Inbox",
-            userConfig.browser .. ' "https://inbox.google.com/u/0/"',
+            userConfig.browser.command
+              .. ' "https://inbox.google.com/u/0/"',
             beautiful.play_inbox
           }
         },
@@ -417,27 +492,32 @@ function generateMenu()
             {
               {
                 "5.1",
-                userConfig.browser .. ' "http://www.lua.org/manual/5.1/index.html#index"'
+                userConfig.browser.command
+                  .. ' "http://www.lua.org/manual/5.1/index.html#index"'
               },
               {
                 "5.2",
-                userConfig.browser .. ' "http://www.lua.org/manual/5.2/index.html#index"'
+                userConfig.browser.command
+                  .. ' "http://www.lua.org/manual/5.2/index.html#index"'
               },
               {
                 "5.3",
-                userConfig.browser .. ' "http://www.lua.org/manual/5.3/index.html#index"'
+                userConfig.browser.command
+                  .. ' "http://www.lua.org/manual/5.3/index.html#index"'
               }
             },
             beautiful.lualogo
           },
           {
             "A curated list of quality Lua packages and resources",
-            userConfig.browser .. ' "https://github.com/LewisJEllis/awesome-lua"',
+            userConfig.browser.command
+              .. ' "https://github.com/LewisJEllis/awesome-lua"',
             beautiful.lualogo
           },
           {
             "Cloud9",
-            userConfig.browser .. ' "https://ide.c9.io/"',
+            userConfig.browser.command
+              .. ' "https://ide.c9.io/"',
             beautiful.cloud9
           }
         },
@@ -446,7 +526,7 @@ function generateMenu()
       { "", },
       {
            "LockScreen",
-           "xlock -mode ant3d",
+           userConfig.locksreen,
            beautiful.lockscreen
       },
       {

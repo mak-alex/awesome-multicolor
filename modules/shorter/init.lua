@@ -17,7 +17,7 @@ local pango        = require( "lgi"           ).Pango
 local capi         = {root=root,screen=screen}
 
 local shorter = {__real = {}, __pretty={}}
-local font = nil
+local font = 'Sans Mono 9' or nil
 local other_sections,other_text_sections = {},{}
 
 local function limit_fit(l,w)
@@ -28,40 +28,62 @@ local function limit_fit(l,w)
     end
 end
 
-local function draw_rounded(cr,x,y,w,h,radius)
+local function draw_rounded(cr, x, y, w, h, radius)
     cr:save()
-    cr:translate(x,y)
-    cr:move_to(0,radius)
-    cr:arc(radius,radius,radius,math.pi,3*(math.pi/2))
-    cr:arc(w-radius,radius,radius,3*(math.pi/2),math.pi*2)
-    cr:arc(w-radius,h-radius,radius,math.pi*2,math.pi/2)
-    cr:arc(radius,h-radius,radius,math.pi/2,math.pi)
+    cr:translate(x, y)
+    cr:move_to(0, radius)
+    cr:arc(radius, radius, radius, math.pi, 3 * (math.pi / 2))
+    cr:arc(w-radius, radius, radius, 3*(math.pi/2), math.pi * 2)
+    cr:arc(w-radius, h-radius, radius, math.pi * 2, math.pi / 2)
+    cr:arc(radius, h-radius, radius, math.pi / 2,math.pi)
     cr:close_path()
     cr:restore()
 end
 
 local function create_wibox()
     local geo = capi.screen[1].geometry
-    local w = wibox {x=geo.x + 50,y=geo.y+50,width=geo.width-100,height=geo.height-100}
-    local left = geo.width-150
-    local opacity = beautiful.shorter_opacity or 0.5
+    local w = wibox {
+      x = geo.x + 50,
+      y = geo.y + 50,
+      width = geo.width - 100,
+      height = geo.height - 100,
+      ontop = true
+    }
+    local left = geo.width - 150
+    local opacity = beautiful.shorter_opacity or 0.9
     w.visible = true
-    w:set_fg(color(beautiful.shorter_fg or beautiful.fg_normal))
+    w:set_fg(
+      color( beautiful.shorter_fg or beautiful.fg_normal )
+    )
 
-    local img = cairo.ImageSurface.create(cairo.Format.ARGB32, geo.width, geo.height)
+    local img = cairo.ImageSurface.create(
+      cairo.Format.ARGB32, geo.width, geo.height
+    )
     local cr  = cairo.Context(img)
-    cr:set_source_rgba(0,0,0,0)
+    cr:set_source_rgba(0, 0, 0, 0)
     cr:paint()
-    cr:set_source_rgb(1,1,1)
-    draw_rounded(cr,0,0,geo.width-100,geo.height-100,15)
+    cr:set_source_rgb(1, 1, 1)
+    draw_rounded(cr, 0, 0, geo.width - 100, geo.height - 100, 15)
     cr:fill()
     w.shape_bounding = img._native
 
-    local bg = cairo.ImageSurface.create(cairo.Format.ARGB32, geo.width, geo.height)
+    local bg = cairo.ImageSurface.create(
+      cairo.Format.ARGB32, geo.width, geo.height
+    )
     local cr  = cairo.Context(bg)
-    cr:set_source(color(beautiful.shorter_border_color or beautiful.border_color or beautiful.fg_normal))
-    cr:paint_with_alpha(beautiful.shorter_border_opacity or opacity)
-    draw_rounded(cr,3,3,geo.width-100-6,geo.height-100-6,14)
+    cr:set_source(
+      color(
+        beautiful.shorter_border_color
+          or beautiful.border_color
+          or beautiful.fg_normal
+      )
+    )
+    cr:paint_with_alpha(
+      beautiful.shorter_border_opacity or opacity
+    )
+    draw_rounded(
+      cr, 3, 3, geo.width - 100 - 6, geo.height - 100 - 6, 14
+    )
     cr:clip_preserve ()
     cr:set_operator(cairo.Operator.CLEAR)
     cr:fill_preserve()
@@ -69,7 +91,11 @@ local function create_wibox()
     cr:set_source_rgba(1,1,1,opacity)
     cr:fill_preserve()
     cr:set_operator(cairo.Operator.IN)
-    cr:set_source(color(beautiful.shorter_bg or beautiful.bg_normal))
+    cr:set_source(
+      color(
+        beautiful.shorter_bg or beautiful.bg_normal
+      )
+    )
     cr:fill_preserve()
 
     w:set_bg(cairo.Pattern.create_for_surface(bg))
@@ -79,17 +105,19 @@ end
 
 local function gen_group(gr)
     local cat_keys,cat_desc="",""
-    for k,v in ipairs(gr) do
-        cat_keys = cat_keys .. "\n" .. v.key
-        cat_desc = cat_desc .. "\n -- " .. v.desc
+    for k,v in ipairs(gr)
+    do
+      cat_keys = [[<span font_weight="bold">]] .. cat_keys .. "</span>\n" .. v.key
+      cat_desc = cat_desc .. "\n -- " .. v.desc
     end
     return cat_keys,cat_desc
 end
 
 local function gen_group2(gr)
-    local cat_keys,cat_desc="",""
-    for k,v in pairs(gr) do
-        cat_keys = cat_keys .. "\n" .. k
+  local cat_keys,cat_desc="",""
+  for k,v in pairs(gr)
+  do
+    cat_keys =  cat_keys .. "\n" .. k
         cat_desc = cat_desc .. "\n -- " .. v
     end
     return cat_keys,cat_desc
@@ -97,20 +125,29 @@ end
 
 local function gen_groups()
     local ret = {}
-    for name,section in pairs(shorter.__pretty) do
-        local cat_keys,cat_desc= gen_group(section)
-        ret[name] = {cat_keys,cat_desc}
+    for name, section in pairs(shorter.__pretty)
+    do
+        local cat_keys, cat_desc = gen_group(section)
+        ret[name] = {
+          cat_keys,
+          cat_desc
+        }
     end
     return ret
 end
 
 local function gen_group_label(name)
-    local tb3 = wibox.widget.textbox("<tt>"..name:upper().."</tt>")
-    tb3:set_align("center")
-    tb3:set_valign("bottom")
-    local hw,hh = tb3:fit(99999,99999)
-    tb3.fit = function(self,w,h) return wibox.widget.textbox.fit(self,w,h),hh+20 end
-    return tb3,hh
+  local tb3 = wibox.widget.textbox(
+    "<tt><span font_weight='bold'>"..name:upper().."</span></tt>"
+  )
+  tb3:set_align("center")
+  tb3:set_valign("bottom")
+  local hw, hh = tb3:fit(99999,99999)
+  tb3.fit = function(self, w, h)
+    return wibox.widget.textbox.fit(self, w, h), hh+20
+  end
+
+  return tb3, hh
 end
 
 local function gen_groups_widget(name,content)
@@ -190,7 +227,7 @@ local function get_best(cols,width,height,group)
     return best
 end
 
-local function show()
+function show()
     local w,left,height = create_wibox()
 
     local margins = wibox.layout.margin()
@@ -259,26 +296,29 @@ local function show()
     w:set_widget(margins)
 end
 
-glib.idle_add(glib.PRIORITY_HIGH_IDLE, function()
+glib.idle_add(
+  glib.PRIORITY_HIGH_IDLE,
+  function()
     local real = shorter.__real
     capi.root.keys(real)
-    show()
-end)
+    --show()
+  end
+)
 
 function shorter.toMarkDown()
-    
+
 end
 
 function shorter.toManPage()
-    
+
 end
 
 function shorter.print()
-    
+
 end
 
 function shorter.register_section_widget(section,w)
-    
+
 end
 
 function shorter.register_section(section,content)
@@ -295,7 +335,15 @@ return setmetatable(shorter,{__newindex=function(self,key,value)
     for k,v in ipairs(value) do
         local key,desc,fct,key_name = v.key,v.desc,v.fct,""
         for k2,v2 in ipairs(key[1]) do
-            key_name=key_name..v2.."+"
+          if v2 == 'Mod4'
+          then
+            key_name = "Win + "
+          elseif v2 == 'Mod1'
+          then
+            key_name = "Alt + "
+          else
+            key_name = key_name .. v2 .. " + "
+          end
         end
 
         key_name=key_name..key[2]

@@ -1,18 +1,32 @@
 --- Backup and Restore general configuration from fail start
 ---- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
----- @release $Id: $
----- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
----- vim: retab
---
+
 awful           = require('awful')
 naughty         = require('naughty')
 confdir         = awful.util.getdir("config")
 local file      = require('modules.file')
 local rc, err   = loadfile(confdir .. "/config/awesome.lua");
-if rc then rc, err = pcall(rc); if rc then file.copy(confdir.."/config/awesome.lua",confdir.."/config/.awesome.defaults.lua") return end end
+
+if rc
+then
+  rc, err = pcall(rc);
+  if rc
+  then
+    file.copy(
+      confdir.."/config/awesome.lua",
+      confdir.."/config/.awesome.defaults.lua"
+    ) return
+  end
+end
+
 dofile(confdir .. "/config/.awesome.defaults.lua")
-print ("Awesome crashed during startup on " .. os.date("%d/%m/%Y %T:\n\n") .. err .. "\n\n\
-  Please send an error report to flashhacker1988@gmail.com")
+
+print (
+  "Awesome crashed during startup on "
+    .. os.date("%d/%m/%Y %T:\n\n")
+    .. err
+    .. "\n\n\ Please send an error report to flashhacker1988@gmail.com"
+)
 
 naughty.notify {
   text = "[BACKUP]: Restore Multicolor Configuration from Awesome 3.5\n" ..
@@ -30,4 +44,3 @@ naughty.notify {
   timeout = 60,
   position   = "top_right"
 }
-

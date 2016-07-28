@@ -1,23 +1,9 @@
 -- General configuration MultiColor from Awesome 3.5.x
 --- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
---- @release $Id: $
---- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
---- vim: retab
-
---- {{{ USER CONFIGURATION
-userConfig={
-  browser = "xdg-open",
-  terminal = "urxvt -geometry 110x40",
-  graphic = "gimp",
-  editor = 'emacs',
-  editor_cmd = "urxvt -e vim",
-  dynamic_tagging = true,
-  modkey = "Mod4",
-  altkey = "Mod1"
-}
-
-require'lib'
+require'config/userConfiguration'
+require'config/lib'
 require'modules'
+
 if userConfig.dynamic_tagging
 then
   require("config/tags")
@@ -25,31 +11,14 @@ else
   require("config/tags_fallback")
 end
 require("config/bindings")
-
-require'themesManager'
--- {{{ Autorun apps
-local flags = {}
-for k,v in pairs(require('autorun'))
-do
-  for i=1, #v
-  do
-    if not flags[v[i]]
-    then
-      run_once(tostring(v[i]))
-    end
-  end
-end
--- }}}
-
--- {{{ Java GUI's fix
-awful.util.spawn_with_shell("wmname LG3D")
--- }}}
-
-local mymainmenu = generateMenu()
-
--- User awesome widgets
+require'themes'
 require'widgets'
 
+local shorter = require'modules.shorter'
+local mymainmenu = generateMenu()
+
+-- Java GUI's fix
+awful.util.spawn_with_shell("wmname LG3D")
 -- {{{ Arch icon widget
 archicon = wibox.widget.imagebox()
 archicon:set_image(beautiful.widget_arch)
@@ -57,18 +26,6 @@ archicon:set_image(beautiful.widget_arch)
 
 -- {{{ Separators
 separators = lain.util.separators
-if themename == 'simple'
-then
-  -- Separators
-  spr = wibox.widget.textbox(' ')
-
-  -- left
-  spr_dl = separators.arrow_left(beautiful.bg_focus, "alpha")
-  spr_ld = separators.arrow_left("alpha", beautiful.bg_focus)
-  -- right
-  spr_ld_r = separators.arrow_right(beautiful.bg_focus, "alpha")
-  spr_dl_r = separators.arrow_right("alpha", beautiful.bg_focus)
-end
 spr = wibox.widget.textbox(' ')
 arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
@@ -94,7 +51,6 @@ space2 = markup.font("Hack 2", " ")
 vspace1 = '<span font="Hack 3"> </span>'
 vspace2 = '<span font="Hack 3">  </span>'
 
-require('widgets/mail')
 -- | Widgets | --
 spr = wibox.widget.imagebox()
 spr:set_image(beautiful.spr)
@@ -114,7 +70,8 @@ widget_display_c:set_image(beautiful.widget_display_c)
 -- }}}
 
 -- {{{ Handle runtime errors after startup
-do local in_error = false
+do
+  local in_error = false
   awesome.connect_signal(
     "debug::error",
     function (err)
@@ -147,77 +104,10 @@ do local in_error = false
 end
 -- }}}
 
--- {{{ Task list
-mytasklist = {}
-mytasklist.buttons = awful.util.table.join(
-  awful.button(
-    { },
-    1,
-    function (c)
-      if c == client.focus
-      then
-        c.minimized = true
-      else
-        -- Without this, the following
-        -- :isvisible() makes no sense
-        c.minimized = false
-        if not c:isvisible()
-        then
-          awful.tag.viewonly(c:tags()[1])
-        end
-        -- This will also un-minimize
-        -- the client, if needed
-        client.focus = c
-        c:raise()
-      end
-    end
-  ),
-  awful.button(
-    { },
-    3,
-    function ()
-      if instance
-      then
-        instance:hide()
-        instance = nil
-      else
-        instance = awful.menu.clients(
-          {
-            theme = {
-              width = 250
-            }
-          }
-        )
-      end
-    end
-  ),
-  awful.button(
-    { },
-    4,
-    function ()
-      awful.client.focus.byidx(1)
-      if client.focus
-      then
-        client.focus:raise()
-      end
-    end
-  ),
-  awful.button(
-    { },
-    5,
-    function ()
-      awful.client.focus.byidx(-1)
-      if client.focus
-      then
-        client.focus:raise()
-      end
-    end
-  )
-)
--- }}}
-
+require'config/tasklist'
 -- {{{ Wibox initialisation
-mywibox,mybottomwibox,mypromptbox,mylayoutbox,mytaglist,mytagwibox = {},{},{},{},{},{}
+mywibox,mybottomwibox,mypromptbox,
+mylayoutbox,mytaglist,mytagwibox = {},{},{},{},{},{}
 
 mytaglist.buttons = awful.util.table.join(
   awful.button(
@@ -295,36 +185,27 @@ do
   )
 
   local tagsh = theme.tagsh or 3
-  if themename == 'simple'
-  then
-    -- Create a taglist widget
-    mytaglist[s] = simple.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-    -- Create a tasklist widget
-    mytasklist[s] = simple.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-    -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = beautiful.border_width, height = 18+tagsh })
-    mytagwibox[s] = awful.wibox({position = "top", screen = s, border_width = beautiful.border_width, height = tagsh })
-  else
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-    mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = beautiful.border_width, height = 22 })
-  end
+  mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+  mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+  mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = beautiful.border_width, height = 22 })
 
   --- {{{ LEFT ALIGN WIDGET
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
-  if themename == "pro-dark" or themename == "pro-gotham" or themename == "pro-light" or themename == "pro-medium-dark" or themename == "pro-medium-light"
+  local function themes(string, themes)
+    for i=1, #themes
+    do
+      if string == themes[i]
+      then
+        return true
+      end
+      return false
+    end
+  end
+  if themes(themename, { "pro-dark", "pro-gotham", "pro-light", "pro-medium-dark", "pro-medium-light" })
   then
     left_layout:add(spr5px)
     left_layout:add(mytaglist[s])
-  elseif themename == 'simple'
-  then
-    left_layout:add(decor)
-    --left_layout:add(wibox.widget.background(mylayoutbox[s], beautiful.bg_focus))
-    left_layout:add(wibox.widget.background(mytasklist[s], beautiful.bg_focus))
-    left_layout:add(wibox.widget.background(mypromptbox[s], beautiful.bg_focus))
-    --left_layout:add(spr_ld_r)
-    --left_layout:add(spr)
   else
     left_layout:add(spr)
     left_layout:add(archicon)
@@ -378,7 +259,7 @@ do
     --right_layout_add(clock_icon, clockwidget)
     right_layout_add(widget_clock,clockwidget)
     --right_layout_add(kbdcfg.widget)
-  elseif themename == "pro-dark" or themename == "pro-gotham" or themename == "pro-light" or themename == "pro-medium-dark" or themename == "pro-medium-light"
+  elseif themes(themename, { "pro-dark", "pro-gotham", "pro-light", "pro-medium-dark", "pro-medium-light" })
   then
     if s == 1 then
       right_layout:add(spr)
@@ -453,43 +334,6 @@ do
     right_layout:add(widget_display_r)
     right_layout:add(spr5px)
     right_layout:add(spr)
-  elseif themename == 'simple'
-  then
-    -- Widgets that are aligned to the right
-    if s == 1 then
-      right_layout:add(wibox.widget.systray())
-    end
-    -- Widgets that are aligned to the upper right
-    local right_layout_toggle = true
-    local function right_layout_add (...)
-      local arg = {...}
-      if right_layout_toggle
-      then
-        right_layout:add(arrl_ld)
-        for i, n in pairs(arg)
-        do
-          right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
-        end
-      else
-        right_layout:add(arrl_dl)
-        for i, n in pairs(arg)
-        do
-          right_layout:add(n)
-        end
-      end
-      right_layout_toggle = not right_layout_toggle
-    end
-    right_layout:add(decor_blue)
-    --right_layout:add(musicwidget.widget)
-    right_layout:add(decor_blue)
-    right_layout:add(volicon)
-    right_layout:add(volumewidget)
-    right_layout:add(decor_blue)
-    right_layout:add(batwidget)
-    right_layout:add(decor_blue)
-    right_layout:add(widget_clock)
-    right_layout:add(clockwidget)
-    right_layout:add(decor)
   else
     if s == 1
     then
@@ -524,38 +368,24 @@ do
   layout:set_right(right_layout)
   mywibox[s]:set_widget(layout)
   -- Create the bottom wibox
-  if themename == 'simple'
-  then
-    -- Now bring it all together (with the tasklist in the middle)
-    mytagwibox[s]:set_widget(mytaglist[s])
-    local layout = wibox.layout.align.horizontal()
-    layout:set_left(left_layout)
-    --layout:set_middle(musicwidget.widget)
-    layout:set_right(right_layout)
+  mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = beautiful.border_width, height = 20 })
+  -- Widgets that are aligned to the bottom left
+  bottom_left_layout = wibox.layout.fixed.horizontal()
 
-    local layoutmargin = wibox.layout.margin(layout)
-    layoutmargin:set_top(tagsh)
-    mywibox[s]:set_widget(layoutmargin)
-  else
-    mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = beautiful.border_width, height = 20 })
-    -- Widgets that are aligned to the bottom left
-    bottom_left_layout = wibox.layout.fixed.horizontal()
+  -- Widgets that are aligned to the bottom right
+  bottom_right_layout = wibox.layout.fixed.horizontal()
+  --bottom_right_layout:add(mpdicon)
+  --bottom_right_layout:add(musicwidget)
+  bottom_right_layout:add(musicwidget.widget)
+  bottom_right_layout:add(mylayoutbox[s])
 
-    -- Widgets that are aligned to the bottom right
-    bottom_right_layout = wibox.layout.fixed.horizontal()
-    --bottom_right_layout:add(mpdicon)
-    --bottom_right_layout:add(musicwidget)
-    bottom_right_layout:add(musicwidget.widget)
-    bottom_right_layout:add(mylayoutbox[s])
-
-    -- Now bring it all together (with the tasklist in the middle)
-    bottom_layout = wibox.layout.align.horizontal()
-    bottom_layout:set_left(bottom_left_layout)
-    bottom_layout:set_middle(mytasklist[s])
-    bottom_layout:set_right(bottom_right_layout)
-    mybottomwibox[s]:set_bg(beautiful.bg_normal)
-    mybottomwibox[s]:set_widget(bottom_layout)
-  end
+  -- Now bring it all together (with the tasklist in the middle)
+  bottom_layout = wibox.layout.align.horizontal()
+  bottom_layout:set_left(bottom_left_layout)
+  bottom_layout:set_middle(mytasklist[s])
+  bottom_layout:set_right(bottom_right_layout)
+  mybottomwibox[s]:set_bg(beautiful.bg_normal)
+  mybottomwibox[s]:set_widget(bottom_layout)
 end
 -- }}}
 

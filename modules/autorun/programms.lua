@@ -1,0 +1,13 @@
+return {
+  -- просто добавьте в ковычках нужный софт
+  system = {
+    'setxkbmap -layout us,ru -option grp:alt_shift_toggle',
+    'unclutter',
+    'cairo-compmgr',
+    'urxvtd',
+    'nm-applet'
+  },
+  media = {
+    'mpd',
+  }
+}
