@@ -55,7 +55,6 @@ local beautiful = require("beautiful")
 quake = require("modules.scratchdrop")
 menugen = require("modules.menugen")
 tyrannical = require("modules.tyrannical")
---hotkeys = require("widgets/hotkeys")
 local capi = {root=root,client=client,tag=tag,mouse=mouse}
 local ipairs = ipairs
 local unpack = unpack
@@ -222,7 +221,7 @@ local function aero_tag()
   local t = aw_tag.add(
     "Aero",
     {
-      screen = c.screen ,layout=aw_layout.suit.tile,mwfact = 0.5
+      screen = c.screen, layout = aw_layout.suit.tile, mwfact = 0.5
     }
   )
 
@@ -250,6 +249,7 @@ shorter.Hardware = {
     end
   },
 }
+
 -- {{{ Mouse bindings
 root.buttons(
   awful.util.table.join(
@@ -276,16 +276,29 @@ root.buttons(
 shorter.Navigation = {
   {
     desc = "Move to the previous focussed client",
-    key = {{ userConfig.modkey, }, "j"},
+    key = {
+      {
+        userConfig.modkey,
+      },
+      "j"
+    },
     fct = function ()
         awful.client.focus.byidx( 1)
-        if client.focus then client.focus:raise() end
+        if client.focus
+        then
+          client.focus:raise()
+        end
     end
   },
 
   {
     desc = "Move to the next focussed client",
-    key  = {{ userConfig.modkey,           }, "k"},
+    key  = {
+      {
+        userConfig.modkey,
+      },
+      "k"
+    },
     fct  = function ()
         awful.client.focus.byidx(-1)
         if client.focus then client.focus:raise() end
@@ -302,6 +315,7 @@ shorter.Navigation = {
     },
     fct = awful.client.urgent.jumpto
   },
+
   {
     desc = "Go to the tag on the left",
     key = {
@@ -312,6 +326,7 @@ shorter.Navigation = {
     },
     fct = awful.tag.viewprev
   },
+
   {
     desc = "Go to the tag right",
     key = {
@@ -322,6 +337,7 @@ shorter.Navigation = {
     },
     fct = awful.tag.viewnext
   },
+
   {
     desc = "Go to last used tag",
     key = {
@@ -332,6 +348,7 @@ shorter.Navigation = {
     },
     fct = awful.tag.history.restore
   },
+
   {
     desc = "Hide panels",
     key = {
@@ -345,6 +362,7 @@ shorter.Navigation = {
       mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
     end
   },
+
   {
     desc = "Switching between windows",
     key = {
@@ -360,6 +378,7 @@ shorter.Navigation = {
       end
     end
   },
+
   {
     desc = "Select focus by index +1",
     key = {
@@ -376,6 +395,7 @@ shorter.Navigation = {
       end
     end
   },
+
   {
     desc = "Select focus by index -1",
     key = {
@@ -392,6 +412,7 @@ shorter.Navigation = {
       end
     end
   },
+
   {
     desc = "Select focus by direction down",
     key = {
@@ -408,6 +429,7 @@ shorter.Navigation = {
       end
     end
   },
+
   {
     desc = "Select focus by direction up",
     key = {
@@ -424,6 +446,7 @@ shorter.Navigation = {
       end
     end
   },
+
   {
     desc = "Select focus by direction left",
     key = {
@@ -440,6 +463,7 @@ shorter.Navigation = {
       end
     end
   },
+
   {
     desc = "Select focus by direction right",
     key = {
@@ -471,6 +495,7 @@ shorter.Layout = {
       awful.layout.inc(awful.layout.layouts, 1)
     end
   },
+
   {
     desc = "Select layout by index -1",
     key = {
@@ -502,6 +527,7 @@ shorter.Music = {
       )
     end
   },
+
   {
     desc = "Previous track",
     key = {
@@ -517,6 +543,7 @@ shorter.Music = {
       )
     end
   },
+
   {
     desc = "Play/Pause playback",
     key = {
@@ -532,6 +559,7 @@ shorter.Music = {
       )
     end
   },
+
   {
     desc = "Stop playing",
     key = {
@@ -547,6 +575,7 @@ shorter.Music = {
       )
     end
   },
+
   {
     desc = "Turn up the volume",
     key = {
@@ -559,6 +588,7 @@ shorter.Music = {
       awful.util.spawn("amixer -q set Master 1%+")
     end
   },
+
   {
     desc = "To turn down the volume",
     key = {
@@ -571,6 +601,7 @@ shorter.Music = {
       awful.util.spawn("amixer -q set Master 1%-")
     end
   },
+
   {
     desc = "To turn off the sound",
     key = {
@@ -583,6 +614,7 @@ shorter.Music = {
       awful.util.spawn("amixer -q set Master playback toggle")
     end
   },
+
   {
     desc = "Turn up the volume to 100%",
     key = {
@@ -612,6 +644,7 @@ shorter.Launch = {
       show()
     end
   },
+
   {
     desc = "Launch a terminal",
     key = {
@@ -620,7 +653,8 @@ shorter.Launch = {
       }, userConfig.terminal.hotkey
     },
     fct = function ()
-      awful.util.spawn(userConfig.terminal.command)                   end
+      awful.util.spawn(userConfig.terminal.command)
+    end
   },
 
   {
@@ -635,6 +669,7 @@ shorter.Launch = {
       quake_console:toggle()
     end
   },
+
   {
     desc = "Launch FileManager",
     key = {
@@ -670,7 +705,11 @@ shorter.Launch = {
       "F11"
     },
     fct = function ()
-      awful.prompt.run({ prompt = '<span weight="bold"> | Calculate: </span>' }, mypromptbox[mouse.screen].widget,
+      awful.prompt.run(
+        {
+          prompt = '<span weight="bold"> | Calculate: </span>'
+        },
+        mypromptbox[mouse.screen].widget,
         function (expr)
           if expr ~= nil and expr ~= ''
           then
@@ -740,6 +779,7 @@ shorter.Launch = {
       )
     end
   },
+
   {
     desc = "Launch Im Client",
     key = {
@@ -901,6 +941,7 @@ shorter.Display = {
       awful.util.spawn("xbacklight -inc 10%")
     end
   },
+
   {
     desc = "To lower the brightness",
     key = {
@@ -913,6 +954,7 @@ shorter.Display = {
       awful.util.spawn("xbacklight -dec 10%")
     end
   },
+
   {
     desc = "Lowering the brightness to 100%",
     key = {
@@ -926,6 +968,7 @@ shorter.Display = {
       awful.util.spawn("xbacklight -dec 100%")
     end
   },
+
   {
     desc = "To increase the brightness to 100%",
     key = {
@@ -954,6 +997,7 @@ shorter.Tag = {
       new_tag()
     end
   },
+
   {
     desc = "Delete selected tag",
     key = {
@@ -966,6 +1010,7 @@ shorter.Tag = {
       delete_tag()
     end
   },
+
   {
     desc = "Rename selected tag",
     key = {
@@ -979,6 +1024,7 @@ shorter.Tag = {
       rename_tag()
     end
   },
+
   {
     desc = "To rename the tag name of the open application",
     key = {
@@ -992,6 +1038,7 @@ shorter.Tag = {
       rename_tag()
     end
   },
+
   {
     desc = "Create aero tag",
     key = {
@@ -1004,6 +1051,7 @@ shorter.Tag = {
       aero_tag()
     end
   },
+
   {
     desc = "Fork tag",
     key = {
@@ -1031,6 +1079,7 @@ shorter.Tag = {
       rename_tag_to_focussed()
     end
   },
+
   {
     desc = "To open terminal in current tag",
     key = {
@@ -1044,6 +1093,7 @@ shorter.Tag = {
       term_in_current_tag()
     end
   },
+
   {
     desc = "Add a tag and open it in a terminal",
     key = {
@@ -1057,6 +1107,7 @@ shorter.Tag = {
       new_tag_with_term()
     end
   },
+
   {
     desc = "Add a tag and transfer the selected application",
     key = {
@@ -1097,7 +1148,7 @@ shorter.Session = {
     fct = awesome.quit
   },
 }
--- {{{ Key bindings
+
 local globalkeys = awful.util.table.join(
   globalkeys,
   awful.key(
@@ -1148,7 +1199,7 @@ local globalkeys = awful.util.table.join(
     "n",
     awful.client.restore
   )
-) --end globalkeys
+)
 
 local clientkeys = awful.util.table.join(
   clientkeys,
@@ -1247,52 +1298,84 @@ local clientbuttons = awful.util.table.join(
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 local tagSelect = {}
-for i = 1, 10 do
-    tagSelect[#tagSelect+1] = {key={{ userConfig.modkey }, i},
-        desc= "Switch to tag "..i,
-        fct = function ()
-            local screen = mouse.screen
-            local tag = awful.tag.gettags(screen)[i]
-            if tag then
-                awful.tag.viewonly(tag)
-            end
+for i = 1, 10
+do
+  tagSelect[#tagSelect+1] = {
+    key = {
+      {
+        userConfig.modkey
+      },
+      i
+    },
+    desc= "Switch to tag "..i,
+    fct = function ()
+        local screen = mouse.screen
+        local tag = awful.tag.gettags(screen)[i]
+        if tag
+        then
+            awful.tag.viewonly(tag)
         end
-    }
-    tagSelect[#tagSelect+1] = {key={{ userConfig.modkey, "Control" }, i },
-        desc= "Toggle tag "..i,
-        fct = function ()
-            local screen = mouse.screen
-            local tag = awful.tag.gettags(screen)[i]
-            if tag then
-                awful.tag.viewtoggle(tag)
-            end
+    end
+  }
+  tagSelect[#tagSelect+1] = {
+    key = {
+      {
+        userConfig.modkey,
+        "Control"
+      },
+      i
+    },
+    desc= "Toggle tag "..i,
+    fct = function ()
+        local screen = mouse.screen
+        local tag = awful.tag.gettags(screen)[i]
+        if tag
+        then
+            awful.tag.viewtoggle(tag)
         end
-    }
-    tagSelect[#tagSelect+1] = {key={{ userConfig.modkey, "Shift" }, i },
-        desc= "Move cofussed to tag "..i,
-        fct = function ()
-            local tag = awful.tag.gettags(client.focus.screen)[i]
-            if client.focus and tag then
-                awful.client.movetotag(tag)
-            end
+    end
+  }
+  tagSelect[#tagSelect+1] = {
+    key = {
+      {
+        userConfig.modkey,
+        "Shift"
+      },
+      i
+    },
+    desc= "Move cofussed to tag "..i,
+    fct = function ()
+        local tag = awful.tag.gettags(client.focus.screen)[i]
+        if client.focus and tag
+        then
+            awful.client.movetotag(tag)
         end
-    }
-    tagSelect[#tagSelect+1] = {key={{ userConfig.modkey, "Control", "Shift" }, i },
-        desc= "Toggle tag "..i,
-        fct = function ()
-            local tag = awful.tag.gettags(client.focus.screen)[i]
-            if client.focus and tag then
-                awful.client.toggletag(tag)
-            end
+    end
+  }
+  tagSelect[#tagSelect+1] = {
+    key = {
+      {
+        userConfig.modkey,
+        "Control",
+        "Shift"
+      },
+      i
+    },
+    desc= "Toggle tag "..i,
+    fct = function ()
+        local tag = awful.tag.gettags(client.focus.screen)[i]
+        if client.focus and tag
+        then
+            awful.client.toggletag(tag)
         end
-    }
+    end
+  }
 end
 shorter.Navigation = tagSelect
 
 -- Register keys
 root.keys(globalkeys)
 
--- {{{ Rules
 awful.rules.rules = {
   -- All clients will match this rule.
   {

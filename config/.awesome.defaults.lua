@@ -14,11 +14,11 @@ require("config/bindings")
 require'themes'
 require'widgets'
 
-local shorter = require'modules.shorter'
 local mymainmenu = generateMenu()
 
 -- Java GUI's fix
 awful.util.spawn_with_shell("wmname LG3D")
+
 -- {{{ Arch icon widget
 archicon = wibox.widget.imagebox()
 archicon:set_image(beautiful.widget_arch)
@@ -45,13 +45,11 @@ separator:set_image(beautiful.widget_sep)
 
 -- {{{ Markup
 markup = lain.util.markup
-
 space3 = markup.font("Hack 3", " ")
 space2 = markup.font("Hack 2", " ")
 vspace1 = '<span font="Hack 3"> </span>'
 vspace2 = '<span font="Hack 3">  </span>'
 
--- | Widgets | --
 spr = wibox.widget.imagebox()
 spr:set_image(beautiful.spr)
 spr4px = wibox.widget.imagebox()
@@ -105,6 +103,7 @@ end
 -- }}}
 
 require'config/tasklist'
+
 -- {{{ Wibox initialisation
 mywibox,mybottomwibox,mypromptbox,
 mylayoutbox,mytaglist,mytagwibox = {},{},{},{},{},{}
@@ -185,13 +184,28 @@ do
   )
 
   local tagsh = theme.tagsh or 3
-  mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-  mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-  mywibox[s] = awful.wibox({ position = "top", screen = s, border_width = beautiful.border_width, height = 22 })
+  mytaglist[s] = awful.widget.taglist(
+    s,
+    awful.widget.taglist.filter.all,
+    mytaglist.buttons
+  )
+  mytasklist[s] = awful.widget.tasklist(
+    s,
+    awful.widget.tasklist.filter.currenttags,
+    mytasklist.buttons
+  )
+  mywibox[s] = awful.wibox(
+    {
+      position = "top",
+      screen = s,
+      border_width = beautiful.border_width,
+      height = 22
+    }
+  )
 
-  --- {{{ LEFT ALIGN WIDGET
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
+
   local function themes(string, themes)
     for i=1, #themes
     do
@@ -202,7 +216,13 @@ do
       return false
     end
   end
-  if themes(themename, { "pro-dark", "pro-gotham", "pro-light", "pro-medium-dark", "pro-medium-light" })
+
+  if themes(
+    themename,
+    {
+      "pro-dark", "pro-gotham", "pro-light", "pro-medium-dark", "pro-medium-light"
+    }
+  )
   then
     left_layout:add(spr5px)
     left_layout:add(mytaglist[s])
@@ -215,53 +235,16 @@ do
   end
   --- }}}
 
-  --- {{{ RIGHT ALIGN WIDGET
   local right_layout = wibox.layout.fixed.horizontal()
-  if themename == "dark"
+  if themes(
+    themename,
+    {
+      "pro-dark", "pro-gotham", "pro-light", "pro-medium-dark", "pro-medium-light"
+    }
+  )
   then
-    -- Widgets that are aligned to the upper right
-    local right_layout_toggle = true
-    local function right_layout_add (...)
-      local arg = {...}
-      if right_layout_toggle
-      then
-        right_layout:add(arrl_ld)
-        for i, n in pairs(arg)
-        do
-          right_layout:add(wibox.widget.background(n ,beautiful.bg_focus))
-        end
-      else
-        right_layout:add(arrl_dl)
-        for i, n in pairs(arg)
-        do
-          right_layout:add(n)
-        end
-      end
-      right_layout_toggle = not right_layout_toggle
-    end
-
-    -- Widgets that are aligned to the right
     if s == 1
     then
-      right_layout:add(wibox.widget.systray())
-    end
-    right_layout:add(spr)
-    right_layout:add(arrl)
-    right_layout_add(netdownicon, netdowninfo)
-    right_layout_add(netupicon, netupinfo)
-    right_layout_add(volicon, volumewidget)
-    right_layout_add(memicon, memwidget)
-    right_layout_add(cpuicon, cpuwidget)
-    right_layout_add(tempicon, tempwidget)
-    right_layout_add(fsicon, fswidget)
-    right_layout_add(baticon, batwidget)
-    --right_layout_add(calendar_icon, calendarwidget)
-    --right_layout_add(clock_icon, clockwidget)
-    right_layout_add(widget_clock,clockwidget)
-    --right_layout_add(kbdcfg.widget)
-  elseif themes(themename, { "pro-dark", "pro-gotham", "pro-light", "pro-medium-dark", "pro-medium-light" })
-  then
-    if s == 1 then
       right_layout:add(spr)
       right_layout:add(spr5px)
       right_layout:add(mypromptbox[s])
@@ -368,7 +351,14 @@ do
   layout:set_right(right_layout)
   mywibox[s]:set_widget(layout)
   -- Create the bottom wibox
-  mybottomwibox[s] = awful.wibox({ position = "bottom", screen = s, border_width = beautiful.border_width, height = 20 })
+  mybottomwibox[s] = awful.wibox(
+    {
+      position = "bottom",
+      screen = s,
+      border_width = beautiful.border_width,
+      height = 20
+    }
+  )
   -- Widgets that are aligned to the bottom left
   bottom_left_layout = wibox.layout.fixed.horizontal()
 

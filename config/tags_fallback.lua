@@ -1,4 +1,17 @@
----- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
+awful.layout.layouts = {
+  awful.layout.suit.floating,
+  awful.layout.suit.tile,
+  awful.layout.suit.tile.left,
+  awful.layout.suit.tile.bottom,
+  awful.layout.suit.tile.top,
+  awful.layout.suit.fair,
+  awful.layout.suit.fair.horizontal,
+  awful.layout.suit.spiral,
+  awful.layout.suit.spiral.dwindle,
+  awful.layout.suit.max,
+  awful.layout.suit.max.fullscreen,
+  awful.layout.suit.magnifier
+}
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
@@ -32,7 +45,7 @@ do
     -- View tag only.
     awful.key(
       {
-        modkey
+        userConfig.modkey
       },
       "#" .. i + 9,
       function ()
@@ -48,7 +61,7 @@ do
     -- Toggle tag.
     awful.key(
       {
-        modkey,
+        userConfig.modkey,
         "Control"
       },
       "#" .. i + 9,
@@ -65,7 +78,7 @@ do
     -- Move client to tag.
     awful.key(
       {
-        modkey,
+        userConfig.modkey,
         "Shift"
       },
       "#" .. i + 9,
@@ -84,7 +97,7 @@ do
     -- Toggle tag.
     awful.key(
       {
-        modkey,
+        userConfig.modkey,
         "Control",
         "Shift"
       },
