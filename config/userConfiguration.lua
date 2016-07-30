@@ -1,7 +1,7 @@
 userConfig={
   browser = {
     command = "xdg-open",
-    hotkey = 'w', -- win + shift + w
+    hotkey = 'w', -- win + ctrl + w
   },
   email = {
     --command = 'urxvt -name mutt -e mutt',
@@ -15,7 +15,7 @@ userConfig={
   graphic = {
     --command = 'gimp',
     command = 'xdg-open https://befunky.com/create/',
-    hotkey = ''
+    hotkey = 'g'
   },
   editor = {
     command = 'emacs',
@@ -39,6 +39,6 @@ userConfig={
   dynamic_tagging = true,
   modkey = "Mod4",
   altkey = "Mod1",
-  theme = 'pro-dark',
+  theme = 'solarized-dark',
   lockscreen = 'xlock -mode ant3d',
 }

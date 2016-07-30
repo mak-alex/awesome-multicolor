@@ -677,7 +677,7 @@ shorter.Launch = {
         userConfig.modkey,
         "Shift"
       },
-      userConfig.terminal.hotkey
+      userConfig.filemanager.hotkey
     },
     fct = function ()
       awful.util.spawn(
@@ -846,6 +846,19 @@ shorter.Launch = {
     end
   },
 
+  {
+    desc = "Launch Graphic Editor",
+    key = {
+      {
+        userConfig.modkey,
+        "Shift"
+      },
+      userConfig.graphic.hotkey
+    },
+    fct = function ()
+      awful.util.spawn(userConfig.graphic.command)
+    end
+  },
   {
     desc = "Launch Browser",
     key = {

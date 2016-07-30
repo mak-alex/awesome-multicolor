@@ -206,23 +206,7 @@ do
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
 
-  local function themes(string, themes)
-    for i=1, #themes
-    do
-      if string == themes[i]
-      then
-        return true
-      end
-      return false
-    end
-  end
-
-  if themes(
-    themename,
-    {
-      "pro-dark", "pro-gotham", "pro-light", "pro-medium-dark", "pro-medium-light"
-    }
-  )
+  if string.find(themename, "pro-")
   then
     left_layout:add(spr5px)
     left_layout:add(mytaglist[s])
@@ -236,12 +220,7 @@ do
   --- }}}
 
   local right_layout = wibox.layout.fixed.horizontal()
-  if themes(
-    themename,
-    {
-      "pro-dark", "pro-gotham", "pro-light", "pro-medium-dark", "pro-medium-light"
-    }
-  )
+  if string.find(themename, "pro-")
   then
     if s == 1
     then

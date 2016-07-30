@@ -1,3 +1,4 @@
+require'widgets/generateMenu'
 -- {{{ Themes manager
 function getUsedThemeName()
   local cfg_path = awful.util.getdir("config")
@@ -18,11 +19,9 @@ end
 themename = getUsedThemeName()
 
 local generateMenu = require("widgets.generateMenu")
-if themename ~= nil and themename ~= ''
+if themename == nil and themename == ''
 then
-  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/.usedTheme/"..themename.."/theme.lua")
-else
-  themename = userConfig.theme
-  beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/"..themename.."/theme.lua")
+  theme_load(userConfig.theme)
 end
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/.usedTheme/"..themename.."/theme.lua")
 -- }}}
