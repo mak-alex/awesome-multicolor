@@ -2,10 +2,14 @@
 ---- @author  Alexandr Mikhailenko a.k.a. Alex M.A.K. <alex-m.a.k@yandex.kz>
 
 awful           = require('awful')
+awful.util 	= require'awful.util'
 naughty         = require('naughty')
 confdir         = awful.util.getdir("config")
 local file      = require('modules.file')
+
+awful.util.mkdir(confdir.."/themes/.usedTheme")
 local rc, err   = loadfile(confdir .. "/config/awesome.lua");
+
 
 if rc
 then

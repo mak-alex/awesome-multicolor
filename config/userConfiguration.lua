@@ -39,6 +39,6 @@ userConfig={
   dynamic_tagging = true,
   modkey = "Mod4",
   altkey = "Mod1",
-  theme = 'solarized-dark',
+  theme = 'pro-dark',
   lockscreen = 'xlock -mode ant3d',
 }
