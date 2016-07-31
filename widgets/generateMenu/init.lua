@@ -488,6 +488,11 @@ function generateMenu()
         "Develop",
         {
           {
+            "AwesomeWM ApiDoc",
+            userConfig.browser.command
+              .. "http://new.awesomewm.org/apidoc/"
+          },
+          {
             "Lua Functions",
             {
               {
@@ -541,7 +546,13 @@ function generateMenu()
       },
     }
   )
-  return mymainmenu
+  mylauncher = awful.widget.launcher(
+    {
+      icon = beautiful.awesome_icon,
+      menu = mymainmenu
+    }
+  )
+  return mymainmenu, mylauncher
 end
 -- }}}
 

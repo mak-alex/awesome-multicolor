@@ -72,7 +72,7 @@ theme.icons = os.getenv("HOME") .. "/.config/awesome/themes/solarized-dark/icons
 theme.wallpaper = theme.confdir .. "/wall.png"
 
 -- | AWESOME WM | --
-theme.awesomewm = theme.icons .. '/awesomewm.png'
+theme.awesome_icon = theme.icons .. '/awesome_icon.png'
 theme.lockscreen = theme.icons .. '/lockscreen.png'
 theme.browser = theme.icons .. '/browser.png'
 theme.console = theme.icons .. '/console.png'

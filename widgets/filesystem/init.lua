@@ -2,11 +2,12 @@
 vspace1 = '<span font="Hack 3"> </span>'
 vspace2 = '<span font="Hack 3">  </span>'
 
-if themename ~= "pro-dark" and themename ~= "pro-gotham" and themename ~= "pro-light" and themename ~= "pro-medium-dark" and themename ~= "pro-medium-light"
+if not string.find(themename, "pro-")
 then
 	-- / fs
 	fsicon = wibox.widget.imagebox(beautiful.widget_fs)
 	fswidget = lain.widgets.fs({
+      partition = "/home",
 	    settings  = function()
 	        widget:set_markup(markup("#80d9d8", fs_now.available .. "% "))
 	    end

@@ -14,15 +14,16 @@ require("config/bindings")
 require'themes'
 require'widgets'
 
-local mymainmenu = generateMenu()
-
--- Java GUI's fix
-awful.util.spawn_with_shell("wmname LG3D")
+local mymainmenu, mylauncher = generateMenu()
 
 -- {{{ Arch icon widget
 archicon = wibox.widget.imagebox()
 archicon:set_image(beautiful.widget_arch)
--- }}}
+-- }}
+
+-- Java GUI's fix
+awful.util.spawn_with_shell("wmname LG3D")
+
 
 -- {{{ Separators
 separators = lain.util.separators
@@ -212,7 +213,6 @@ do
     left_layout:add(mytaglist[s])
   else
     left_layout:add(spr)
-    left_layout:add(archicon)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
     left_layout:add(spr)
@@ -346,6 +346,7 @@ do
   --bottom_right_layout:add(mpdicon)
   --bottom_right_layout:add(musicwidget)
   bottom_right_layout:add(musicwidget.widget)
+  bottom_right_layout:add(wibox.widget.imagebox(beautiful.awesome_icon))
   bottom_right_layout:add(mylayoutbox[s])
 
   -- Now bring it all together (with the tasklist in the middle)

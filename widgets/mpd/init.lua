@@ -11,7 +11,7 @@
    musicwidget.update_interval = 10 -- Set the update interval in seconds
 
    -- Set the folder where icons are located (change username to your login name)
-   musicwidget.path_to_icons = "/home/flashhacker/.config/awesome/icons"
+   musicwidget.path_to_icons = "~/.config/awesome/icons"
 
    -- Set the path to the icon to be displayed on the widget itself
    -- musicwidget.widget_icon = "/path/to/icon"
@@ -35,7 +35,7 @@
 
    -- This option is necessary if you want the album covers to be shown
    -- for your local tracks.
-   musicwidget.mpd_config = "/home/flashhacker/.mpdconf"
+   musicwidget.mpd_config = "~/.mpd/mpd.conf"
 
    -- Specify decorators on the left and the right side of the
    -- widget. Or just leave empty strings if you decorate the widget
