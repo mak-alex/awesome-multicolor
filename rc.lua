@@ -29,7 +29,7 @@ print (
   "Awesome crashed during startup on "
     .. os.date("%d/%m/%Y %T:\n\n")
     .. err
-    .. "\n\n\ Please send an error report to flashhacker1988@gmail.com"
+    .. '\n\n Please send an error report to flashhacker1988@gmail.com'
 )
 
 naughty.notify {
