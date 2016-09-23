@@ -67,8 +67,8 @@ local MULTICOLOR = {
 
 theme = {}
 
-theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/solarized-dark"
-theme.icons = os.getenv("HOME") .. "/.config/awesome/themes/solarized-dark/icons"
+theme.confdir = _Awesome.path.themes .. '/solarized-dark' --os.getenv("HOME") .. "/.config/awesome/themes/solarized-dark"
+theme.icons = _Awesome.path.themes .. '/solarized-dark/icons' --os.getenv("HOME") .. "/.config/awesome/themes/solarized-dark/icons"
 theme.wallpaper = theme.confdir .. "/wall.png"
 
 -- | AWESOME WM | --
@@ -182,7 +182,6 @@ theme.widget_batt = theme.confdir .. "/icons/bat.png"
 theme.widget_clock = theme.confdir .. "/icons/clock.png"
 theme.widget_vol = theme.confdir .. "/icons/spkr.png"
 
-theme.widget_arch = theme.icons .. "/blue/arch.png"
 
 theme.mpd = theme.confdir .. "/icons/mpd.png"
 theme.mpd_on = theme.confdir .. "/icons/mpd_on.png"

@@ -1,128 +1,7 @@
----- vim: ts=2 tabstop=2 shiftwidth=2 expandtab
-local MULTICOLOR = {
-  _NAME = "FH-MultiColor",
-  _VERSION = 'MULTICOLOR v0.1.0-rc1',
-  _URL = 'https://bitbucket.org/enlab/multicolor',
-  _MAIL = 'flashhacker1988@gmail.com',
-  _LICENSE = [[
-    MIT LICENSE
-    Copyright (c) 2015 Mikhailenko Alexandr Konstantinovich (a.k.a) Alex M.A.K
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the
-    "Software"), to deal in the Software without restriction, including
-    without limitation the rights to use, copy, modify, merge, publish,
-    distribute, sublicense, and/or sell copies of the Software, and to
-    permit persons to whom the Software is furnished to do so, subject to
-    the following conditions:
-    The above copyright notice and this permission notice shall be included
-    in all copies or substantial portions of the Software.
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    ]],
-  _DESCRIPTION = [[
-  Multicolor Configuration for the awesome window manager (3.5)
-    If you're disappointed by fonts, check your `~/.fonts.conf`.
-    It is presumed that you configure your autostart in `~/.xinitrc`.
+local theme = {}
 
-    ##Capabilities
-      * Themes
-      * Dynamic wallpaper
-      * Test script for hacking
-      * Dynamic desktop tagging (via tyrannical)
-      * ALSA control (by Rman)
-      * Freedesktop menu
-      * Multiple desktop support
-      * Beautiful notifications (via naughty)
-
-    ##Dependencies
-      * beautiful
-      * vicious
-      * naughty
-      * tyrannical (optional)
-      * Dynamic generate menu (via Alex M.A.K)
-      * Dropdown terminal (via Alex M.A.K)
-
-    ##Widgets
-      * alsawidget
-      * datewidget
-      * menulauncher
-      * weather
-      * filesystem
-      * imap
-      * gmail
-      * cpu
-      * coretemp
-      * battery
-      * network
-      * mem
-      * mpd
-      * dyna
-
-    HOTKEYS:
-    (If you want to change old bindings, open please bindings.lua file and edit...):
-                     --------------------------------------
-    Operations with MPD servers:
-      mpc|ncmpc|pms next:     alt_shift_(arrow_right)
-      mpc|ncmpc|pms prev:     alt_shift_(arrow_left)
-      mpc|ncmpc|pms toggle:   alt_shift_(arrow_up)
-      mpc|ncmpc|pms stop:     alt_shift_(arrow_down)
-                     --------------------------------------
-    Operations with audio:
-      volume up:              alt_(arrow_up)
-      volume down:            alt_(arrow_down)
-      volume mute:            alt_m
-      volumn 100%:            alt_ctrl_m
-                     --------------------------------------
-    Dynamic tags:
-      delete_tag:             win_d
-      new tag:                win_n
-      new tag with focussed:  win_shift_n
-      move to new tag:        win_alt_n
-      rename tag to focussed: win_alt_r
-      rename tag:             win_shift_r
-      term in current  tag:   win_alt_enter
-      new tag with term:      win_ctrl_enter
-      fork tag:               win_ctrl_f
-      aero tag:               win_a
-      tag view prev:          win_(arrow_left)
-      tag view next:          win_(arrow_right)
-      tag history restore:    win_Escape
-                     --------------------------------------
-    Terminal:
-      new terminal:           win_enter
-      dropdown terminal:      win_z
-                     --------------------------------------
-    Window:
-      open window fullscreen: win_f
-      maximized hor and vert: win_m
-      kill window:            win_shift_c
-      floating window:        win_ctrl_space
-      move left:              win_h
-      move right:             win_l
-      move up:                win_k
-      move down:              win_j
-                     --------------------------------------
-    Panel:
-      hide panels:            win_b
-                     --------------------------------------
-    Menu:
-      open dynamic menu:      win_w
-                     --------------------------------------
-    Awesome:
-      restart wm:             win_ctrl_enter
-      quit wm:                win_shift_q
-  ]]
-}
-
-theme = {}
-
-theme.confdir = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
-theme.icons = os.getenv("HOME") .. "/.config/awesome/themes/multicolor/icons"
+theme.confdir = '~/.config/awesome/themes/multicolor'
+theme.icons = '~/.config/awesome/themes/multicolor/icons'
 theme.wallpaper = theme.confdir .. "/wall.png"
 
 -- | AWESOME WM | --
@@ -211,6 +90,7 @@ theme.widget_cpu = theme.confdir .. "/icons/cpu.png"
 theme.widget_weather = theme.confdir .. "/icons/dish.png"
 theme.widget_fs = theme.confdir .. "/icons/fs.png"
 theme.widget_mem = theme.confdir .. "/icons/mem.png"
+theme.memicon = theme.confdir .. "/icons/mem.png"
 theme.widget_fs = theme.confdir .. "/icons/fs.png"
 theme.widget_note = theme.confdir .. "/icons/note.png"
 theme.widget_note_on = theme.confdir .. "/icons/note_on.png"
@@ -253,5 +133,4 @@ theme.layout_max = theme.confdir .. "/icons/max.png"
 theme.layout_fullscreen = theme.confdir .. "/icons/fullscreen.png"
 theme.layout_magnifier = theme.confdir .. "/icons/magnifier.png"
 theme.layout_floating = theme.confdir .. "/icons/floating.png"
-
 return theme
