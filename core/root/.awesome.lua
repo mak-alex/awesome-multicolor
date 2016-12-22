@@ -53,6 +53,7 @@ local wibox = {}
 wibox.top = {}
 wibox.bottom = {}
 wibox.tag = {}
+-- ни в коем разе никак не локальная переменная
 mypromptbox = {}
 local mylayoutbox = {}
 local _tagList = {}

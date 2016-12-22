@@ -88,15 +88,15 @@ function Awesome:new(_settings)
       -- сетевой виджет rx/tx
       network = true,
       -- виджет отображающий текущего уровня громкости
-      volume = false,
+      volume = true,
       -- виджет отображающий текущее потребление ОЗУ
       memmory = true,
       -- виджет отображающий текущую нагрузку на ЦПУ
-      cpuinfo = false,
+      cpuinfo = true,
       -- виджет отображающий текущую температуру ЦПУ
-      temperature_cpu = false,
+      temperature_cpu = true,
       -- виджет отображающий краткую информацию о разделах и наличии памяти
-      filesysteminfo = false,
+      filesysteminfo = true,
       -- виджет отображающий текущий уровень заряда батареи
       battery = true,
       -- виджет отображающий время, по клику меняет на дату
