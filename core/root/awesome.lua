@@ -49,10 +49,9 @@ _Awesome.awful.util.spawn_with_shell("wmname LG3D")
 
 
 -- {{{ Wibox initialisation
-local wibox = {}
-wibox.top = {}
-wibox.bottom = {}
-wibox.tag = {}
+_Awesome._wibox.top = {}
+_Awesome._wibox.bottom = {}
+_Awesome._wibox.tag = {}
 -- ни в коем разе никак не локальная переменная
 mypromptbox = {}
 local mylayoutbox = {}
@@ -145,7 +144,7 @@ do
   )
   if _Awesome.switches.panels.top
   then
-    wibox.top[s] = _Awesome.awful.wibox(
+    _Awesome._wibox.top[s] = _Awesome.awful.wibox(
       {
         position = "top",
         screen = s,
@@ -245,14 +244,14 @@ do
       layout:set_middle(mytasklist[s])
     end
     layout:set_right(right_layout)
-    wibox.top[s]:set_widget(layout)
+    _Awesome._wibox.top[s]:set_widget(layout)
   end
 
   -- если нижняя панель включена
   if _Awesome.switches.panels.bottom
   then
     -- Create the bottom wibox
-    wibox.bottom[s] = _Awesome.awful.wibox(
+    _Awesome._wibox.bottom[s] = _Awesome.awful.wibox(
       {
         position = "bottom",
         screen = s,
@@ -285,8 +284,8 @@ do
     bottom_layout:set_middle(mytasklist[s])
     bottom_layout:set_right(bottom_right_layout)
 
-    wibox.bottom[s]:set_bg(_Awesome.beautiful.bg_normal)
-    wibox.bottom[s]:set_widget(bottom_layout)
+    _Awesome._wibox.bottom[s]:set_bg(_Awesome.beautiful.bg_normal)
+    _Awesome._wibox.bottom[s]:set_widget(bottom_layout)
   end
 end
 -- }}}

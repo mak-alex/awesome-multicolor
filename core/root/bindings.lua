@@ -299,7 +299,7 @@ shorter.Navigation = {
     fct = function ()
       if _Awesome.switches.panels.top
       then
-        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+        _Awesome._wibox.top[mouse.screen].visible = not _Awesome._wibox.top[mouse.screen].visible
       end
     end
   },
@@ -316,7 +316,7 @@ shorter.Navigation = {
     fct = function ()
       if _Awesome.switches.panels.bottom
       then
-        mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
+        _Awesome._wibox.bottom[mouse.screen].visible = not _Awesome._wibox.bottom[mouse.screen].visible
       end
     end
   },
@@ -332,11 +332,11 @@ shorter.Navigation = {
     fct = function ()
       if _Awesome.switches.panels.top
       then
-        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+        _Awesome._wibox.top[mouse.screen].visible = not _Awesome._wibox.top[mouse.screen].visible
       end
       if _Awesome.switches.panels.bottom
       then
-        mybottomwibox[mouse.screen].visible = not mybottomwibox[mouse.screen].visible
+        _Awesome._wibox.bottom[mouse.screen].visible = not _Awesome._wibox.bottom[mouse.screen].visible
       end
     end
   },

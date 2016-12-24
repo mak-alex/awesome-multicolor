@@ -41,7 +41,6 @@ local Awesome = {
   ]]
 }
 local mt = { __index = Awesome }
-
 -- Метод инициализации инстанса,
 -- другими словами это очень большая конфигурация
 -- @params _settings - table
@@ -69,6 +68,7 @@ function Awesome:new(_settings)
   -- модуль для работы с динамическими тегами
   instance.lain = require'core/modules/lain'
   -- ==========================================================
+  instance._wibox = {}
 
   -- Получаем полный путь до директории awesome
   instance.config = instance.awful.util.getdir'config'
