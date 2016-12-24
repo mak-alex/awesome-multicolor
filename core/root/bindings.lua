@@ -215,6 +215,7 @@ shorter.Navigation = {
     key = {
       {
         _Awesome.modkey,
+        "Control"
       },
       "j"
     },
@@ -232,6 +233,7 @@ shorter.Navigation = {
     key  = {
       {
         _Awesome.modkey,
+        "Control"
       },
       "k"
     },
@@ -422,7 +424,7 @@ shorter.Navigation = {
       end
     end
   },
-
+-- By direction client focus
   {
     desc = "Select focus by direction left",
     key = {
@@ -450,6 +452,38 @@ shorter.Navigation = {
     },
     fct = function ()
       awful.client.focus.bydirection("right")
+      if client.focus
+      then
+        client.focus:raise()
+      end
+    end
+  },
+  {
+    desc = "Select focus by direction down",
+    key = {
+      {
+        _Awesome.modkey,
+      },
+      "j"
+    },
+    fct = function ()
+      awful.client.focus.bydirection("down")
+      if client.focus
+      then
+        client.focus:raise()
+      end
+    end
+  },
+  {
+    desc = "Select focus by direction up",
+    key = {
+      {
+        _Awesome.modkey,
+      },
+      "k"
+    },
+    fct = function ()
+      awful.client.focus.bydirection("up")
       if client.focus
       then
         client.focus:raise()
