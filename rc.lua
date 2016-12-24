@@ -121,7 +121,7 @@ function Awesome:new(_settings)
       -- модуль для формирования динамических тегов
       dynamic_tags = true,
       -- модуль для работы с MPD сервером
-      mpd = false,
+      mpd = true,
       widgets = true
     }
   }
@@ -224,11 +224,11 @@ function Awesome:new(_settings)
     mpd = {
       settings = {
         -- ip адрес по-умолчанию
-        hostname = "192.168.88.77",
+        hostname = "localhost",
         -- порт по-умолчанию
         port = 6600,
         -- описание по-умолчанию
-        desc = "192.168.88.77",
+        desc = "localhost",
         -- пароль по-умолчанию
         password = nil,
         -- таймоут по-умолчанию
@@ -489,6 +489,17 @@ function Awesome:InitMPD()
   )
   local mpdStatus = self.mpd:status()
   local mpdStats = self.mpd:stats()
+  if mpdStats == nil or mpdStats == "" 
+  then 
+    self.switches.system.mpd = false 
+    self.notify.message(
+      'Initialization module:',
+      'Initialization MPD module, status: false'
+        .. '\n\nTry, service mpd start',
+      20
+    )
+    return nil
+  end
   local currentSong = self.mpd:currentsong()
   _Awesome.variables.mpd.status.state = mpdStatus.state
   _Awesome.variables.mpd.status.track = currentSong.file

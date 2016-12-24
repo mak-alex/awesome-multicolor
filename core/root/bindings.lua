@@ -636,13 +636,13 @@ shorter.Music = {
     desc = "Turn up the volume to 100%",
     key = {
       {
-        _Awesome.altkey,
-        "Control"
+        _Awesome.modkey,
+	"Control"
       },
       "m"
     },
     fct = function ()
-      awful.util.spawn("amixer -q set Master playback toggle")
+      awful.util.spawn("amixer -q set Master 100%+")
     end
   },
 }

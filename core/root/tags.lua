@@ -83,7 +83,7 @@ tyrannical.tags = {
       "Psi", "psi", "skype", "xchat", "choqok", "hotot", "qwit",
     },
     instance = {
-      "weechat", "mcabber", "irssi"
+      "weechat", "mcabber", "irssi", "profanity"
     }
   },
   {

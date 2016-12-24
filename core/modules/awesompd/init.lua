@@ -24,7 +24,7 @@ function MPD.new(settings)
     local client = {}
     if settings == nil then settings = {} end
 
-    client.hostname = settings.hostname or "192.168.88.77"
+    client.hostname = settings.hostname or "localhost"
     client.port     = settings.port or 6600
     client.desc     = settings.desc or client.hostname
     client.password = settings.password
@@ -32,7 +32,7 @@ function MPD.new(settings)
     client.retry    = settings.retry or 60
 
     setmetatable(client, MPD_mt)
-
+    
     return client
 end
 
@@ -88,7 +88,7 @@ function MPD:send(action)
             end
         else
             local retry_sec = self.retry - (now - self.last_try)
-            return { errormsg = string.format("%s (retrying in %d sec)", self.last_error, retry_sec) }
+            return nil --{ errormsg = string.format("%s (retrying in %d sec)", self.last_error, retry_sec) }
         end
     end
 
