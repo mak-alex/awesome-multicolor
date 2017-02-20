@@ -40,6 +40,8 @@ local Awesome = {
       * Beautiful notifications (via naughty)
   ]]
 }
+json = require'core.lib.json'
+
 local mt = { __index = Awesome }
 -- Метод инициализации инстанса,
 -- другими словами это очень большая конфигурация
@@ -73,62 +75,58 @@ function Awesome:new(_settings)
   -- Получаем полный путь до директории awesome
   instance.config = instance.awful.util.getdir'config'
 
-  -- оформление по-умолчанию
-  instance.themename = 'solarized-dark'
+
+  function isempty(s)
+    return s == nil or (type(s) == "table" and next(s)==nil) or s == ''
+  end
+
+  instance.String2File = function(filename, data, verbose)
+    if filename and data ~= nil
+    then
+      local path = filename
+      file = assert(io.open(path, "w"))
+      io.output(file)
+      io.write(json:encode_pretty(data), "\n")
+      io.close(file)
+      print('done write config')
+      return 0
+    else
+      print('fack don\'t write config')
+      --log.warning("not open file to write", verbose)
+      return 1
+    end
+  end
+
+  instance.File2String = function(filename, verbose)
+    if not isempty(filename)
+    then
+      local jsonConfigFile = assert(io.open(filename, "r"))
+      local stringFile = jsonConfigFile:read "*a"
+      jsonConfigFile:close()
+      --log.info("Convert file "..filename.." to string - done", verbose)
+      return stringFile
+    else
+      --log.warning("not open file", self.verbose)
+      return 1
+    end
+  end
+
+  instance._settings = json:decode(instance.File2String(instance.config .. '/config.json'))
+
 
   -- после каждого изменения и удачного старта
   -- делать копию конфигурации на случае неудачных попыток
   -- в дальнейшем
-  instance.backupFile = true
-
+  instance.backupFile = instance._settings.switches.system.backup
+  -- оформление по-умолчанию
+  instance.themename = instance._settings.themes
   -- ==========================================================
   -- Управлением панелями, модулями и виджетами
-  instance.switches = {
-    widgets = {
-      -- сетевой виджет rx/tx
-      network = true,
-      -- виджет отображающий текущего уровня громкости
-      volume = true,
-      -- виджет отображающий текущее потребление ОЗУ
-      memmory = true,
-      -- виджет отображающий текущую нагрузку на ЦПУ
-      cpuinfo = true,
-      -- виджет отображающий текущую температуру ЦПУ
-      temperature_cpu = true,
-      -- виджет отображающий краткую информацию о разделах и наличии памяти
-      filesysteminfo = true,
-      -- виджет отображающий текущий уровень заряда батареи
-      battery = true,
-      -- виджет отображающий время, по клику меняет на дату
-      clock = true
-    },
-    -- настройка отображения панелей
-    -- есть несколько вариантов отображения:
-    -- 1) только верхняя панель (отображается только минимум виджетов!)
-    -- 2) только нижняя панель (отображается только минимум виджетов!)
-    -- 3) обе панели
-    -- 4) вообще без панелей (кому то нравится),
-    -- также хороший вариант если используется docky или какой другой...
-    panels = {
-      -- нижняя панель
-      bottom = true,
-      -- верхняя панель
-      top = true
-    },
-    -- основные системные настройки,
-    -- такие как подгрузка модулей и инициализация
-    system = {
-      -- модуль для формирования динамических тегов
-      dynamic_tags = true,
-      -- модуль для работы с MPD сервером
-      mpd = true,
-      widgets = true
-    }
-  }
+  instance.switches = instance._settings.switches
   -- ==========================================================
 
   -- Если в true,
-  if instance.switches.system.dynamic_tags
+  if instance.switches.system.tags
   then
     -- подгружаем модуль для динамического формирования тегов
     instance.tyrannical = require'core.modules.tyrannical'
@@ -150,7 +148,7 @@ function Awesome:new(_settings)
     -- путь до директории с оформлениями
     themes = instance.config .. '/themes/',
     -- путь до директории с выбранным оформлением
-    usedThemes = instance.config .. '/themes/.usedThemes',
+    usedThemes = instance.config .. '/themes/',
     -- путь до системной директории
     core = instance.config .. '/core',
     -- путь до системных файлов
@@ -180,75 +178,18 @@ function Awesome:new(_settings)
   }
   -- ==========================================================
 
-  instance.modkey = 'Mod4' -- Win key
-  instance.altkey = 'Mod1' -- Alt key
+  instance.modkey = instance._settings.keys.modkey
+  instance.altkey = instance._settings.keys.altkey
 
   -- ==========================================================
   -- список приложений по-умолчанию,
   -- опционально меняется при инициализации инстанса
-  instance.terminal = 'urxvt' -- терминал по-умолчанию
-  instance.applications = {
-    -- терминал по-умолчанию
-    terminal = instance.terminal,
-    -- файловый менеджер по-умолчанию
-    filemanager = instance.terminal .. ' -e ranger',
-    -- броузер по-умолчанию
-    browser = 'xdg-open',
-    -- редактор по-умолчанию
-    editor = 'emacs',
-    -- аудио-плеер по-умолчанию
-    audio = instance.terminal .. 'urxvt -e ncmpcpp',
-    -- видео-плеер по-умолчанию
-    video = 'mplayer',
-    -- e-mail клиент по-умолчанию
-    email = instance.terminal .. ' -e mutt',
-    -- IM клиент по-умолчанию
-    im = instance.terminal .. ' -e profanity',
-    -- Торрент клиент по-умолчанию
-    torrent = 'rtorrent',
-  }
+  instance.applications = instance._settings.applications
   -- ==========================================================
 
   -- ==========================================================
   -- внутре-системные переменные для различных проверок
-  instance.variables = {
-    -- если в true проверяем при инициализации класса,
-    -- существования системных файлов и скачиваем
-    -- их при отсутствии
-    checkConfigurations = true,
-    -- если в true проверяем при инициализации класса,
-    -- существования системных директорий и создаем
-    -- их при отсутствии
-    checkDirConfigurations = true,
-    -- настройки для подключения к серверу MPD
-    mpd = {
-      settings = {
-        -- ip адрес по-умолчанию
-        hostname = "localhost",
-        -- порт по-умолчанию
-        port = 6600,
-        -- описание по-умолчанию
-        desc = "localhost",
-        -- пароль по-умолчанию
-        password = nil,
-        -- таймоут по-умолчанию
-        timeout = 1,
-        -- повторное соединение
-        -- в случае потери связи (сек.)
-        retry = 60
-      },
-      -- глобальные переменные
-      status = {
-        -- для хранения статуса сервера
-        -- (доступен/недоступен/проигрывает и т.д.)
-        state = nil,
-        -- для хранения текущей композиции
-        track = nil,
-        -- для хранения уровня громкости на сервере
-        volume = nil
-      }
-    }
-  }
+  instance.variables = instance._settings.variables
   -- ==========================================================
 
   -- ==========================================================

@@ -11,7 +11,7 @@ require'core/widgets'
 require'core/behavior/separators'
 
 -- по-умолчанию используем обычный вариант тегов
-if not _Awesome.switches.system.dynamic_tags
+if not _Awesome.switches.system.tags
 then
   require("core.root.tags_fallback")
 end

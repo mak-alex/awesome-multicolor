@@ -1023,7 +1023,7 @@ shorter.Display = {
   },
 }
 
-if _Awesome.switches.system.dynamic_tags
+if _Awesome.switches.system.tags
 then
   shorter.Tag = {
     {

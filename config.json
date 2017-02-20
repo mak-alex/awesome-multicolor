@@ -1,0 +1,56 @@
+{
+  "applications": {
+    "audio": "urxvt -e ncmpcpp",
+    "browser": "xdg-open",
+    "editor": "emacs",
+    "email": "urxvt -e mutt",
+    "filemanager": "urxvt -e ranger",
+    "im": "urxvt -e profanity",
+    "terminal": "urxvt",
+    "torrent": "rtorrent",
+    "video": "mplayer"
+  },
+  "keys": {
+    "altkey": "Mod1",
+    "modkey": "Mod4"
+  },
+  "modules": {
+    "mpd": true
+  },
+  "switches": {
+    "panels": {
+      "bottom": true,
+      "top": true
+    },
+    "system": {
+      "backup": true,
+      "tags": true,
+      "widgets": true
+    },
+    "widgets": {
+      "battery": true,
+      "clock": true,
+      "cpuinfo": true,
+      "filesysteminfo": true,
+      "memmory": true,
+      "network": true,
+      "temperature_cpu": true,
+      "volume": true
+    }
+  },
+  "themes": "solarized-light",
+  "variables": {
+    "checkConfigurations": true,
+    "checkDirConfigurations": false,
+    "mpd": {
+      "settings": {
+        "desc": "localhost",
+        "hostname": "localhost",
+        "port": 6600,
+        "retry": 60,
+        "timeout": 1
+      },
+      "status": []
+    }
+  }
+}

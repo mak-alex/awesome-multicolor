@@ -15,13 +15,9 @@ function removeOldTheme()
 end
 
 function theme_load(theme)
-   local cfg_path = _Awesome.config
-   local home_path = os.getenv('HOME')
-
-  -- Create a symlink from the given theme to /home/user/.config/awesome/current_theme
-  removeOldTheme()
-  _Awesome.awful.util.spawn("ln -sfn " .. cfg_path .. "/themes/" .. theme .. " " .. cfg_path ..  "/themes/.usedTheme/" .. theme)
-  _Awesome.awful.util.spawn("ln -sfn " .. cfg_path.."/themes/"..theme.."/Xdefaults " .. home_path .. "/.Xdefaults")
+  _Awesome._settings.themes = theme
+  _Awesome.String2File(_Awesome.config .. '/config.json', _Awesome._settings)
+  _Awesome.awful.util.spawn("xrdb -load " .. _Awesome.config .. "/themes/"..theme..'/Xdefaults')
   awesome.restart()
 end
 
@@ -33,7 +29,7 @@ function theme_menu()
    local f = io.popen(cmd)
 
    for l in f:lines() do
-     if l ~= 'init.lua' and not string.find(l, 'Xdefaults')
+     if l ~= 'icons' and l ~= 'init.lua' and not string.find(l, 'Xdefaults')
      then
        table.insert(
          mythememenu,
