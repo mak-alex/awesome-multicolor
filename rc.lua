@@ -147,8 +147,6 @@ function Awesome:new(_settings)
   instance.path = {
     -- путь до директории с оформлениями
     themes = instance.config .. '/themes/',
-    -- путь до директории с выбранным оформлением
-    usedThemes = instance.config .. '/themes/',
     -- путь до системной директории
     core = instance.config .. '/core',
     -- путь до системных файлов

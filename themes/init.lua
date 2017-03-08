@@ -26,5 +26,6 @@ require'core.widgets.generateMenu'
 --  themename = _Awesome.themename or 'solarized-dark'
 --  theme_load(themename)
 --end
-_Awesome.beautiful.init(_Awesome.path.themes .._Awesome.themename.."/theme.lua")
+_Awesome.beautiful.init(_Awesome.path.themes .. _Awesome.themename .. "/theme.lua")
+_Awesome.awful.util.spawn("xrdb -load " .. _Awesome.path.themes .. _Awesome.themename .. '/Xdefaults')
 -- }}}

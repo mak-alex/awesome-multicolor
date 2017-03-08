@@ -38,7 +38,7 @@
       "volume": true
     }
   },
-  "themes": "solarized-light",
+  "themes": "solarized-dark",
   "variables": {
     "checkConfigurations": true,
     "checkDirConfigurations": false,
