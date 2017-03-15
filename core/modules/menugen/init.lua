@@ -50,27 +50,32 @@ function build_menu()
   for k,v in pairs(menu_gen.all_categories) do
     table.insert(result, {k, {}, v["icon"] } )
   end
-  for k, v in ipairs(menulist) do
-    for _, cat in ipairs(result) do
-      if cat[1] == v["category"] and v["name"] ~= '' then
-        table.insert( cat[2] , { v["name"], v["cmdline"], v["icon"] } )
-        break
+  if menulist then
+    for k, v in ipairs(menulist) do
+      for _, cat in ipairs(result) do
+        if cat[1] == v["category"] and v["name"] ~= '' then
+          table.insert( cat[2] , { v["name"], v["cmdline"], v["icon"] } )
+          break
+        end
       end
     end
-  end
-  -- Cleanup Things a Bit
-  for k,v in ipairs(result) do
-    -- Remove Unused Categories
-    if not next(v[2]) then
-      table.remove(result, k)
-    else
-      --Sort entries Alphabetically (by Name)
-      table.sort(v[2], function (a,b) return string.byte(a[1]) < string.byte(b[1]) end)
-      -- Replace Category Name with nice name
-      v[1] = menu_gen.all_categories[v[1]].name
+    -- Cleanup Things a Bit
+    for k,v in ipairs(result) do
+      -- Remove Unused Categories
+      if not next(v[2]) then
+        table.remove(result, k)
+      else
+        --Sort entries Alphabetically (by Name)
+        table.sort(v[2], function (a,b) return string.byte(a[1]) < string.byte(b[1]) end)
+        -- Replace Category Name with nice name
+        v[1] = menu_gen.all_categories[v[1]].name
+      end
     end
+    --Sort Categories Alphabetically Also
+    table.sort(result, function(a,b) return string.byte(a[1]) < string.byte(b[1]) end)
+  else
+    result=nil
   end
-  --Sort Categories Alphabetically Also
-  table.sort(result, function(a,b) return string.byte(a[1]) < string.byte(b[1]) end)
+
   return result
 end
